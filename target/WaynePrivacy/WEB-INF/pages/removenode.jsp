@@ -23,37 +23,7 @@
 
 <body>
 <mytags:navbar/>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Modify Network</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-pills">
-                    <li class="">
-                        <a href="/import">Import Data Set</a>
-                    </li>
-                    <li class="active">
-                        <a href="/addperson">Add / Remove Nodes</a>
-                    </li>
-                    <li class="">
-                        <a href="/addedge">Add / Remove Edges</a>
-                    </li>
-                    <li>
-                        <a href="/modifynode">Modify Node</a>
-                    </li>
-                    <li>
-                        <a href="/modifyedge">Modify Edge</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<mytags:modifybar/>
 <div class="section">
     <div class="container">
         <div class="row">
