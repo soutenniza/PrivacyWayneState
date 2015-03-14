@@ -21,7 +21,7 @@
 </head>
 
 <body>
-<div class="navbar navbar-default navbar-static-top navbar-inverse">
+<div class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="navbar-header">
             <a type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
@@ -45,7 +45,7 @@
                     <a href="/reporting">Reporting</a>
                 </li>
                 <li>
-                    <a href="#">Help</a>
+                    <a href="/help">Help</a>
                 </li>
             </ul>
         </div>
@@ -71,10 +71,10 @@
                         <a href="/addedge">Add / Remove Edges</a>
                     </li>
                     <li>
-                        <a href="#">Modify Node</a>
+                        <a href="/modifynode">Modify Node</a>
                     </li>
                     <li>
-                        <a href="#">Modify Edge</a>
+                        <a href="/modifyedge">Modify Edge</a>
                     </li>
                 </ul>
             </div>
@@ -99,7 +99,7 @@
                         <a href="#">Add Comment Node</a>
                     </li>
                     <li>
-                        <a href="#">Remove Node</a>
+                        <a href="/removenode">Remove Node</a>
                     </li>
                 </ul>
             </div>

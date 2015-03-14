@@ -30,22 +30,22 @@
         <div class="collapse navbar-collapse" id="#navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li class="active">
-                    <a href="#">Modify Network</a>
+                    <a href="/import">Modify Network</a>
                 </li>
                 <li>
-                    <a href="#">View Network</a>
+                    <a href="/network">View Network</a>
                 </li>
                 <li>
-                    <a href="#">Analysis</a>
+                    <a href="/analysis">Analysis</a>
                 </li>
                 <li>
-                    <a href="#">Reporting</a>
+                    <a href="/reporting">Reporting</a>
                 </li>
                 <li>
-                    <a href="#">Help</a>
+                    <a href="/help">Help</a>
                 </li>
             </ul>
         </div>
@@ -62,19 +62,19 @@
             <div class="col-md-12">
                 <ul class="nav nav-pills">
                     <li class="">
-                        <a href="#">Import Data Set</a>
+                        <a href="/import">Import Data Set</a>
                     </li>
                     <li class="">
-                        <a href="#">Add / Remove Nodes</a>
+                        <a href="/addperson">Add / Remove Nodes</a>
                     </li>
                     <li class="active">
-                        <a href="#">Add / Remove Edges</a>
+                        <a href="/addedge">Add / Remove Edges</a>
                     </li>
                     <li>
-                        <a href="#">Modify Node</a>
+                        <a href="/modifynode">Modify Node</a>
                     </li>
                     <li>
-                        <a href="#">Modify Edge</a>
+                        <a href="/modifyedge">Modify Edge</a>
                     </li>
                 </ul>
             </div>
@@ -87,10 +87,10 @@
             <div class="col-md-12">
                 <ul class="nav nav-pills">
                     <li class="">
-                        <a href="#">Add</a>
+                        <a href="/addedge">Add</a>
                     </li>
                     <li class="active">
-                        <a href="#">Remove</a>
+                        <a href="/removeedge">Remove</a>
                     </li>
                 </ul>
             </div>
