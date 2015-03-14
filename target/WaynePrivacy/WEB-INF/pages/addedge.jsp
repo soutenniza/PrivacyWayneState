@@ -5,6 +5,7 @@
   Time: 2:09 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -21,36 +22,7 @@
 </head>
 
 <body>
-<div class="navbar navbar-default navbar-static-top navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <a type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
-            <a class="navbar-brand" href="/"><span>PrivacyWayne</span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="#navbar-ex-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="/">Home</a>
-                </li>
-                <li class="active">
-                    <a href="/import">Modify Network</a>
-                </li>
-                <li>
-                    <a href="/network">View Network</a>
-                </li>
-                <li>
-                    <a href="/analysis">Analysis</a>
-                </li>
-                <li>
-                    <a href="/reporting">Reporting</a>
-                </li>
-                <li>
-                    <a href="/help">Help</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<mytags:navbar/>
 <div class="section">
     <div class="container">
         <div class="row">
@@ -71,10 +43,10 @@
                         <a href="/addedge">Add / Remove Edges</a>
                     </li>
                     <li>
-                        <a href="#">Modify Node</a>
+                        <a href="/modifynode">Modify Node</a>
                     </li>
                     <li>
-                        <a href="#">Modify Edge</a>
+                        <a href="/modifyedge">Modify Edge</a>
                     </li>
                 </ul>
             </div>
@@ -87,10 +59,10 @@
             <div class="col-md-12">
                 <ul class="nav nav-pills">
                     <li class="active">
-                        <a href="#">Add</a>
+                        <a href="/addedge">Add</a>
                     </li>
                     <li>
-                        <a href="#">Remove</a>
+                        <a href="/removeedge">Remove</a>
                     </li>
                 </ul>
             </div>
@@ -221,6 +193,9 @@
 <div class="section">
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-block btn-lg btn-primary">Run "What-If" Analysis</a>
+            </div>
             <div class="col-md-12">
                 <a class="btn btn-block btn-lg btn-primary">Submit</a>
             </div>

@@ -5,6 +5,7 @@
   Time: 12:02 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -19,38 +20,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 </head>
-
+<mytags:navbar/>
 <body>
-<div class="navbar navbar-default navbar-static-top navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <a type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
-            <a class="navbar-brand" href="/"><span>PrivacyWayne</span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="#navbar-ex-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/import">Modify Network</a>
-                </li>
-                <li>
-                    <a href="/network">View Network</a>
-                </li>
-                <li>
-                    <a href="/analysis">Analysis</a>
-                </li>
-                <li>
-                    <a href="/reporting">Reporting</a>
-                </li>
-                <li>
-                    <a href="/help">Help</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
 <div class="section">
     <div class="container">
         <div class="row">
