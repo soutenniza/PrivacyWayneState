@@ -94,6 +94,9 @@
                 </ul>
             </div>
         </div>
+        <div class="col-md-12">
+            <a class="btn btn-block btn-lg btn-primary">DELETE EXISTING USER SET</a>
+        </div>
     </div>
 </div>
 </body>

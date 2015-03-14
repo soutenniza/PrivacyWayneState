@@ -33,7 +33,7 @@
                     <a href="/">Home</a>
                 </li>
                 <li class="">
-                    <a href="/import">Modify Network</a>
+                    <a href="/removeedge">Modify Network</a>
                 </li>
                 <li class="">
                     <a href="/network">View Network</a>
