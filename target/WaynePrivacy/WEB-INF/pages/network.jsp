@@ -39,8 +39,8 @@
     </div>
 </div>
 <center>
-    <object data="http://console.neo4j.org/" width="900" height="400">
-        <embed src="http://console.neo4j.org/" width="900" height="400">
+    <object data="http://privacywayne.sb02.stations.graphenedb.com:24789/" width="1280" height="720">
+        <embed src="http://privacywayne.sb02.stations.graphenedb.com:24789/" width="1280" height="020">
     </object>
 </center>
 </body>
