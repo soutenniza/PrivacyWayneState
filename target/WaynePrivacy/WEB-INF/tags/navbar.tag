@@ -6,22 +6,22 @@
         </div>
         <div class="collapse navbar-collapse" id="#navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/home.jsp' ? 'active' : ''}">
                     <a href="/">Home</a>
                 </li>
-                <li class="active">
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/import.jsp' ? 'active' : ''}">
                     <a href="/import">Modify Network</a>
                 </li>
-                <li>
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/network.jsp' ? 'active' : ''}">
                     <a href="/network">View Network</a>
                 </li>
-                <li>
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/analysis.jsp' ? 'active' : ''}">
                     <a href="/analysis">Analysis</a>
                 </li>
-                <li>
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/reporting.jsp' ? 'active' : ''}">
                     <a href="/reporting">Reporting</a>
                 </li>
-                <li>
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/help.jsp' ? 'active' : ''}">
                     <a href="/help">Help</a>
                 </li>
             </ul>
