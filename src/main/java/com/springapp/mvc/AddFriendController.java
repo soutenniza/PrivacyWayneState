@@ -14,4 +14,5 @@ public class AddFriendController {
         ModelAndView mav = new ModelAndView("addfriend");
         return mav;
     }
+
 }

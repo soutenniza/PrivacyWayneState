@@ -13,4 +13,8 @@ public class Person {
 
     public Person() {}
     public Person(String N) { this.name = name;}
+
+    public String getName(){
+        return this.name;
+    }
 }
