@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Zachary
   Date: 3/16/2015
-  Time: 8:55 PM
+  Time: 8:58 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,12 +27,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Data set imported!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a data set!</b>
-                </div>
+                <ul class="nav nav-justified nav-pills">
+                    <li class="active">
+                        <a href="#">New Comment</a>
+                    </li>
+                    <li>
+                        <a href="/likecomment">Like Comment</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -41,8 +43,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-danger text-left">Warning: Importing a data set will delete any changes made to the existing
-                    data set!&nbsp;</p>
+                <div class="alert alert-dismissable alert-success">
+                    <b>[SUCCESS] Comment created!</b>
+                </div>
+                <div class="alert alert-danger alert-dismissable">
+                    <b>[ERROR] You must fill in all fields!</b>
+                </div>
+                <div class="alert alert-danger alert-dismissable">
+                    <b>[WARN] This is a PRIVACY warning!</b>
+                </div>
             </div>
         </div>
     </div>
@@ -54,16 +63,26 @@
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Data set:</label>
+                            <label class="control-label">User:</label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
-                                <option>class_42_people.json</option>
+                                <option>Tommy Bucks</option>
+                                <option>2</option>
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label">Comment:</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
                 </form>
-                <a class="btn btn-success">Import</a>
+                <a class="btn btn-success">Add Comment</a>
+                <a class="btn btn-warning">Run "What-If" Analysis</a>
             </div>
         </div>
     </div>

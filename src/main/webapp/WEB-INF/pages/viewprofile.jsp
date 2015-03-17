@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Zachary
   Date: 3/16/2015
-  Time: 8:55 PM
+  Time: 8:52 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,22 +27,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Data set imported!</b>
-                </div>
                 <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a data set!</b>
+                    <b>[ERROR] You must select a user!</b>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="text-danger text-left">Warning: Importing a data set will delete any changes made to the existing
-                    data set!&nbsp;</p>
             </div>
         </div>
     </div>
@@ -54,16 +41,38 @@
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Data set:</label>
+                            <label class="control-label">User:</label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
-                                <option>class_42_people.json</option>
+                                <option>Tommy Bucks</option>
+                                <option>2</option>
                             </select>
                         </div>
                     </div>
                 </form>
-                <a class="btn btn-success">Import</a>
+                <a class="btn btn-success">View Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>User Name</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>About:</p>
+                <ul class="list-group">
+                    <li class="list-group-item">Attribute</li>
+                    <li class="list-group-item">Attribute</li>
+                    <li class="list-group-item">Attribute</li>
+                    <li class="list-group-item">Attribute</li>
+                    <li class="list-group-item">Attribute</li>
+                </ul>
             </div>
         </div>
     </div>

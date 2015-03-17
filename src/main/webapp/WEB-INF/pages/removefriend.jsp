@@ -1,12 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: Zachary
-  Date: 3/11/2015
-  Time: 11:06 PM
+  Date: 3/16/2015
+  Time: 9:03 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -20,29 +21,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 </head>
-
-<body>
 <mytags:navbar/>
 <mytags:modifybar/>
 <div class="section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills">
+                <ul class="nav nav-justified nav-pills">
                     <li class="">
-                        <a href="/addperson">Add Person Node</a>
-                    </li>
-                    <li>
-                        <a href="#">Add Group Node</a>
-                    </li>
-                    <li>
-                        <a href="#">Add Attribute Node</a>
-                    </li>
-                    <li>
-                        <a href="#">Add Comment Node</a>
+                        <a href="/addfriend">Add Friend</a>
                     </li>
                     <li class="active">
-                        <a href="/removenode">Remove Node</a>
+                        <a href="#">Remove Friend</a>
                     </li>
                 </ul>
             </div>
@@ -54,7 +44,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] The Person node John Smith was removed.</b>
+                    <b>[SUCCESS] &nbsp;Removed friend!</b>
+                </div>
+                <div class="alert alert-danger alert-dismissable">
+                    <b>[ERROR] You must select two valid friends!</b>
                 </div>
             </div>
         </div>
@@ -64,38 +57,45 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p>Select a node to remove from the database. All associated edges will be
-                    removed as well.</p>
+                <p>1. Select a root user as User 1
+                    <br>2. Click "Get Friends List" to retrieve root user's friends list
+                    <br>3. Select a friend to remove as User 2
+                    <br>4. Click Remove Friend</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Node</label>
+                            <label class="control-label">User 1:</label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
-                                <option>[Person] John Smith</option>
-                                <option>2</option>
+                                <option>Jon Hopkins</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label">User 2:</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select class="form-control">
+                                <option>-- Get Friends --</option>
                             </select>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-block btn-lg btn-primary">Submit</a>
+            <div class="col-md-6">
+                <a class="btn btn-primary">Get Friends List</a>
+                <br>
+                <br>
+                <a class="btn btn-danger">Remove Friend</a>
             </div>
         </div>
     </div>
 </div>
 </body>
-
 </html>

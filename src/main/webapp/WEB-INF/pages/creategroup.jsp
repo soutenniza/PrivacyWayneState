@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Zachary
-  Date: 3/11/2015
-  Time: 11:24 PM
+  Date: 3/16/2015
+  Time: 8:56 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<!DOCTYPE html>
 <html>
-
 <head>
     <title>PrivacyWayne</title>
     <meta charset="utf-8">
@@ -20,7 +20,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 </head>
-
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
@@ -28,9 +27,27 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <ul class="nav nav-justified nav-pills">
+                    <li class="active">
+                        <a href="#">Create Group</a>
+                    </li>
+                    <li class="">
+                        <a href="/deletegroup">Delete Group</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] Node modified. Attribute with property "Interest" changed from
-                        Sports to Outdoor Sports</b>
+                    <b>[SUCCESS] &nbsp;Created group!</b>
+                </div>
+                <div class="alert alert-danger alert-dismissable">
+                    <b>[ERROR] Group already exists!</b>
                 </div>
             </div>
         </div>
@@ -40,41 +57,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p>Select a node to modify from the database.</p>
+                <p>Enter a name for the new group!</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Node</label>
+                            <label class="control-label">Name:</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>[Attribute] - Interest: Sports</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">New Value</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Outdoor Sports">
+                            <input type="text" class="form-control" placeholder="Panda Fan Club">
                         </div>
                     </div>
                 </form>
             </div>
+            <div class="col-md-6">
+                <br>
+                <br>
+            </div>
         </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-block btn-lg btn-primary">Submit</a>
+                <a class="btn btn-success">Create Group</a>
             </div>
         </div>
     </div>
