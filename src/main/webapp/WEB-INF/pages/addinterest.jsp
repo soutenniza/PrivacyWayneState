@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Zachary
-  Date: 3/11/2015
-  Time: 11:32 PM
+  Date: 3/16/2015
+  Time: 9:03 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<!DOCTYPE html>
 <html>
-
 <head>
     <title>PrivacyWayne</title>
     <meta charset="utf-8">
@@ -20,7 +20,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 </head>
-
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
@@ -28,11 +27,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <ul class="nav nav-justified nav-pills">
+                    <li class="active">
+                        <a href="#">Add Interest</a>
+                    </li>
+                    <li class="">
+                        <a href="/removeinterest">Remove Interest</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Edge modified. Values updated.</b>
+                    <b>[SUCCESS] &nbsp;Interest added!</b>
                 </div>
                 <div class="alert alert-danger alert-dismissable">
-                    <b>[FAIL] Nodes do not share HAS edge.</b>
+                    <b>[ERROR] You must fill in all fields!</b>
+                </div>
+                <div class="alert alert-danger alert-dismissable">
+                    <b>[ERROR] User is already has entered interest!</b>
                 </div>
             </div>
         </div>
@@ -42,48 +60,31 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p>Select an HAS edge to modify:</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Person Node</label>
+                            <label class="control-label">User:
+                                <br>
+                            </label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
-                                <option>[Person] - Tom Parker</option>
+                                <option>George James</option>
                                 <option>2</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Attribute Node</label>
+                            <label class="control-label">Interest:</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>[Age] - 26</option>
-                                <option>2</option>
-                            </select>
+                            <input type="text" class="form-control" placeholder="Sports">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">New Privacy Value</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">New Sensitivity Value</label>
+                            <label class="control-label">Privacy Value:</label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
@@ -94,7 +95,18 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label" contenteditable="true">New Visibility Value</label>
+                            <label class="control-label">Visibility Value:</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label">Sensitivity Value:</label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
@@ -104,19 +116,13 @@
                         </div>
                     </div>
                 </form>
+                <div class="col-md-6">
+                    <a class="btn btn-success">Add Interest</a>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-block btn-lg btn-primary">Submit</a>
-            </div>
-        </div>
+        <div class="row"></div>
     </div>
 </div>
 </body>
-
 </html>

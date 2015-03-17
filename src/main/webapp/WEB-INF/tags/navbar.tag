@@ -10,7 +10,7 @@
                     <a href="/">Home</a>
                 </li>
                 <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/import.jsp' ? 'active' : ''}">
-                    <a href="/import">Modify Network</a>
+                    <a href="/import">Social Network</a>
                 </li>
                 <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/network.jsp' ? 'active' : ''}">
                     <a href="/network">View Network</a>

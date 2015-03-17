@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by vannguyen on 3/11/15.
+ * Created by Zachary on 3/16/2015.
  */
 @Controller
-public class AddEdgeController {
-    @RequestMapping(value = "/addedge")
+public class ViewProfileController {
+    @RequestMapping(value = "/viewprofile")
     public ModelAndView index() {
-        ModelAndView mav = new ModelAndView("addedge");
+        ModelAndView mav = new ModelAndView("viewprofile");
         return mav;
     }
 }

@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Zachary
   Date: 3/16/2015
-  Time: 8:55 PM
+  Time: 8:56 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,11 +27,27 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <ul class="nav nav-justified nav-pills">
+                    <li class="">
+                        <a href="/creategroup">Create Group</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Delete Group</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Data set imported!</b>
+                    <b>[SUCCESS] &nbsp;Group deleted!</b>
                 </div>
                 <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a data set!</b>
+                    <b>[ERROR] You must select a group!</b>
                 </div>
             </div>
         </div>
@@ -41,29 +57,33 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-danger text-left">Warning: Importing a data set will delete any changes made to the existing
-                    data set!&nbsp;</p>
+                <p>Select a group to delete!</p>
             </div>
         </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
-                            <label class="control-label">Data set:</label>
+                            <label class="control-label">Group:</label>
                         </div>
                         <div class="col-sm-10">
                             <select class="form-control">
-                                <option>class_42_people.json</option>
+                                <option>Detroit Watertower Fans</option>
+                                <option>2</option>
                             </select>
                         </div>
                     </div>
                 </form>
-                <a class="btn btn-success">Import</a>
+            </div>
+            <div class="col-md-6">
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-danger">Create Group</a>
             </div>
         </div>
     </div>

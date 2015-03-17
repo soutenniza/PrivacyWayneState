@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
-  User: vannguyen
-  Date: 3/11/15
-  Time: 1:46 PM
+  User: Zachary
+  Date: 3/16/2015
+  Time: 9:01 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>PrivacyWayne</title>
     <meta charset="utf-8">
@@ -20,41 +20,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 </head>
-
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
+<ul class="nav nav-justified nav-pills">
+    <li class="active">
+        <a href="#">Create User</a>
+    </li>
+    <li class="">
+        <a href="/removeuser">Delete User</a>
+    </li>
+</ul>
 <div class="section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills">
-                    <li class="active">
-                        <a href="/addperson">Add Person Node</a>
-                    </li>
-                    <li>
-                        <a href="#">Add Group Node</a>
-                    </li>
-                    <li>
-                        <a href="#">Add Attribute Node</a>
-                    </li>
-                    <li>
-                        <a href="#">Add Comment Node</a>
-                    </li>
-                    <li>
-                        <a href="/removenode">Remove Node</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+                <div class="alert alert-dismissable alert-success">
+                    <b>[SUCCESS] &nbsp;User created!</b>
+                </div>
                 <div class="alert alert-danger alert-dismissable">
-                    <b>You must fill in all fields. Please try again.</b>
+                    <b>[ERROR] You must fill in all required fields!</b>
                 </div>
             </div>
         </div>
@@ -547,59 +532,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Interests</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox">Sports</td>
-                                    <td>
-                                        <input type="checkbox">Dance</td>
-                                    <td>
-                                        <input type="checkbox">Art</td>
-                                    <td>
-                                        <input type="checkbox">Politics</td>
-                                    <td>
-                                        <input type="checkbox">Education</td>
-                                    <td>
-                                        <input type="checkbox">Music</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox">Cars</td>
-                                    <td>
-                                        <input type="checkbox">Woodworking</td>
-                                    <td>
-                                        <input type="checkbox">Food</td>
-                                    <td>
-                                        <input type="checkbox">Animals</td>
-                                    <td>
-                                        <input type="checkbox">Soccer</td>
-                                    <td>
-                                        <input type="checkbox">Football</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox">Technology</td>
-                                    <td>
-                                        <input type="checkbox">Outdoors</td>
-                                    <td>
-                                        <input type="checkbox">Fitness</td>
-                                    <td>
-                                        <input type="checkbox">Culture</td>
-                                    <td>
-                                        <input type="checkbox">Space</td>
-                                    <td>
-                                        <input type="checkbox">Language</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    <div class="form-group has-success">
+                        <div class="col-sm-2">
+                            <label class="control-label">Interest 1</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Sports">
                         </div>
                     </div>
                     <div class="form-group has-success">
@@ -661,5 +599,4 @@
     </div>
 </div>
 </body>
-
 </html>
