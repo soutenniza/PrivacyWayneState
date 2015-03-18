@@ -11,25 +11,25 @@
                     <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/import.jsp' ? 'active' : ''}">
                         <a href="/import">Import Data Set</a>
                     </li>
-                    <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/createuser.jsp' ? 'active' : ''}">
+                    <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/createuser.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/removeuser.jsp') ? 'active' : ''}">
                         <a href="/createuser">Create / Delete User</a>
                     </li>
-                    <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/addfriend.jsp' ? 'active' : ''}">
+                    <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/addfriend.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/removefriend.jsp') ? 'active' : ''}">
                         <a href="/addfriend">Add / Remove Friend</a>
                     </li>
-                    <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/creategroup.jsp' ? 'active' : ''}">
+                    <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/creategroup.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/deletegroup.jsp') ? 'active' : ''}">
                         <a href="/creategroup">Create / Delete Group</a>
                     </li>
-                    <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/joingroup.jsp' ? 'active' : ''}">
+                    <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/joingroup.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/leavegroup.jsp') ? 'active' : ''}">
                         <a href="/joingroup">Join / Leave Group</a>
                     </li>
-                    <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/addinterest.jsp' ? 'active' : ''}">
+                    <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/addinterest.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/removeinterest.jsp') ? 'active' : ''}">
                         <a href="/addinterest">Add / Remove Interest</a>
                     </li>
                     <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/changeplevels.jsp' ? 'active' : ''}">
                         <a href="/changeplevels">Change Privacy Levels</a>
                     </li>
-                    <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/addcomment.jsp' ? 'active' : ''}">
+                    <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/addcomment.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/likecomment.jsp') ? 'active' : ''}">
                         <a href="/addcomment">New Comment / Like Comment</a>
                     </li>
                     <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/viewprofile.jsp' ? 'active' : ''}">
