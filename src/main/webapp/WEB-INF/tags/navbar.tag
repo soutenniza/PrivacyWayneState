@@ -6,7 +6,7 @@
         </div>
         <div class="collapse navbar-collapse" id="#navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/home.jsp' ? 'active' : ''}">
+                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/home.jsp' ? 'active' : ''} ">
                     <a href="/">Home</a>
                 </li>
                 <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/import.jsp' ? 'active' : ''}">
