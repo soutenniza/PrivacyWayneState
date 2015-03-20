@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  */
 @NodeEntity
 public class Person {
-    @GraphId long nodeID;
+    @GraphId Long nodeID;
     public String name;
 
     public Person() {}

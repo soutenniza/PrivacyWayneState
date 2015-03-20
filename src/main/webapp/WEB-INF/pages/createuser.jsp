@@ -588,12 +588,8 @@
                             </select>
                         </div>
                     </div>
+                    <input type="submit" value="Submit" class="btn btn-block btn-lg btn-primary"/>
                 </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a type="submit" class="btn btn-block btn-lg btn-primary">Submit</a>
             </div>
         </div>
     </div>
