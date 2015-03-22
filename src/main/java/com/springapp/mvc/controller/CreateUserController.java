@@ -28,17 +28,6 @@ public class CreateUserController {
         return mav;
     }
 
-
-//    @RequestMapping(value = "/submitcreateuser", method = RequestMethod.POST)
-//    @Transactional
-//    public String createUser(@ModelAttribute("SpringWeb")Person person, ModelMap model) {
-//
-//        model.addAttribute("name", person.getName());
-//        personRepository.save(person);
-//
-//        return "redirect:/";
-//    }
-
     @RequestMapping(value = "/submitcreateuser", method = RequestMethod.POST)
     @Transactional
     public String createUser(
