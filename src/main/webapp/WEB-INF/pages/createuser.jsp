@@ -55,25 +55,81 @@
                             <label path="name" class="control-label">First Name</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="John">
+                            <input class="form-control" name="inputFirstName" placeholder="John">
                         </div>
                     </div>
                     <div class="form-group has-error">
                         <div class="col-sm-2">
-                            <label for="inputEmail3" class="control-label">Last Name</label>
+                            <label class="control-label">Last Name</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Smith">
-                        </div>ß
+                            <input class="form-control" name="inputLastName" placeholder="Smith">
+                        </div>
                     </div>
                     <div class="form-group has-success">
                         <div class="col-sm-2">
                             <label class="control-label">Age</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
+                            <select name="inputAge" class="form-control">
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+                                <option>27</option>
+                                <option>28</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+                                <option>32</option>
+                                <option>33</option>
+                                <option>34</option>
+                                <option>35</option>
+                                <option>36</option>
+                                <option>37</option>
+                                <option>38</option>
+                                <option>39</option>
+                                <option>40</option>
+                                <option>41</option>
+                                <option>42</option>
+                                <option>43</option>
+                                <option>44</option>
+                                <option>45</option>
+                                <option>46</option>
+                                <option>47</option>
+                                <option>48</option>
+                                <option>49</option>
+                                <option>50</option>
+                                <option>51</option>
+                                <option>52</option>
+                                <option>53</option>
+                                <option>54</option>
+                                <option>55</option>
+                                <option>56</option>
+                                <option>57</option>
+                                <option>58</option>
+                                <option>59</option>
+                                <option>50</option>
+                                <option>61</option>
+                                <option>62</option>
+                                <option>63</option>
+                                <option>64</option>
+                                <option>65</option>
+                                <option>66</option>
+                                <option>67</option>
+                                <option>68</option>
+                                <option>69</option>
                             </select>
                         </div>
                     </div>
@@ -84,7 +140,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name = inputAgeP class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -100,7 +156,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name = inputAgeV class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -116,7 +172,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name = inputAgeS class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -130,9 +186,10 @@
                             <label class="control-label">Gender</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
+                            <select name = "inputGender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Not Specified</option>
                             </select>
                         </div>
                     </div>
@@ -143,7 +200,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name = "inputGenderP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -159,7 +216,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name = "inputGenderV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -175,7 +232,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name = "inputGenderS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -189,10 +246,7 @@
                             <label class="control-label">Location</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
+                            <input class="form-control" name="inputLocation" placeholder="Enter City">
                         </div>
                     </div>
                     <div class="form-group has-success">
@@ -202,7 +256,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputLocationP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -218,7 +272,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputLocationV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -234,7 +288,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputLocationS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -248,9 +302,16 @@
                             <label class="control-label">Political View</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
+                            <select name="inputPolitical" class="form-control">
+                                <option>Extreme Right</option>
+                                <option>Far Right</option>
+                                <option>Right</option>
+                                <option>Center Right</option>
+                                <option>Center</option>
+                                <option>Center Left</option>
+                                <option>Left</option>
+                                <option>Far Left</option>
+                                <option>Extreme Left</option>
                             </select>
                         </div>
                     </div>
@@ -261,7 +322,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputPoliticalP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -277,7 +338,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputPoliticalV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -293,7 +354,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputPoliticalS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -307,9 +368,32 @@
                             <label class="control-label">Work</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
+                            <select name="inputWork" class="form-control">
+                                <option>Unemployed</option>
+                                <option>Accountancy, Banking and Finance</option>
+                                <option>Charity and Voluntary</option>
+                                <option>Energy and Utilities</option>
+                                <option>Environment and Agriculture</option>
+                                <option>Hospitality</option>
+                                <option>Law</option>
+                                <option>Leisure, Sport and Tourism</option>
+                                <option>Media and Internet</option>
+                                <option>Public Services and Admin</option>
+                                <option>Retail</option>
+                                <option>Science and Pharmaceuticals</option>
+                                <option>Teaching and Education</option>
+                                <option>Business, Consulting and Management</option>
+                                <option>Creative Arts and Design</option>
+                                <option>Engineering and Manufacturing</option>
+                                <option>Healthcare</option>
+                                <option>Information Technology</option>
+                                <option>Law Enforcement and Security</option>
+                                <option>Marketing, Advertising and PR</option>
+                                <option>Property and Construction</option>
+                                <option>Recruitment and HR</option>
+                                <option>Sales</option>
+                                <option>Social Care</option>
+                                <option>Transport and Logistics</option>
                             </select>
                         </div>
                     </div>
@@ -320,7 +404,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputWorkP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -336,7 +420,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputWorkV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -352,7 +436,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputWorkS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -366,9 +450,13 @@
                             <label class="control-label">Education</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
+                            <select name="inputEducation" class="form-control">
+                                <option>None</option>
+                                <option>GED</option>
+                                <option>Associates</option>
+                                <option>4-Year Degree</option>
+                                <option>Masters</option>
+                                <option>PHD</option>
                             </select>
                         </div>
                     </div>
@@ -379,7 +467,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputEducationP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -395,7 +483,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputEducationV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -411,7 +499,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputEducationS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -425,7 +513,7 @@
                             <label class="control-label">Birthday</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="MM/DD/YYYY">
+                            <input name="inputBday" type="text" class="form-control" placeholder="MM/DD/YYYY">
                         </div>
                     </div>
                     <div class="form-group has-success">
@@ -435,7 +523,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputBdayP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -451,7 +539,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputBdayV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -467,7 +555,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputBdayS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -481,7 +569,7 @@
                             <label class="control-label">Phone</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="XXX-XXX-XXXX">
+                            <input name="inputPhone" type="text" class="form-control" placeholder="XXX-XXX-XXXX">
                         </div>
                     </div>
                     <div class="form-group has-warning">
@@ -491,7 +579,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputPhoneP" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -507,7 +595,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputPhoneV" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -523,7 +611,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputPhoneS" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -537,7 +625,7 @@
                             <label class="control-label">Interest 1</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Sports">
+                            <input name="inputInterest1" type="text" class="form-control" placeholder="Sports">
                         </div>
                     </div>
                     <div class="form-group has-success">
@@ -547,7 +635,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputInterest1P" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -563,7 +651,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputInterest1V" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -579,7 +667,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
+                            <select name="inputInterest1S" class="form-control">
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -588,8 +676,9 @@
                             </select>
                         </div>
                     </div>
-                    <input type="submit" value="Submit" class="btn btn-block btn-lg btn-primary"/>
+                    <input type="submit" value="submit" class="btn btn-block btn-lg btn-primary"/>
                 </form>
+                <br><br>
             </div>
         </div>
     </div>
