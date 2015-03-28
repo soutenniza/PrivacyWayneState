@@ -62,13 +62,18 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <form class="form-horizontal" role="form">
+                <form  method="POST" action="/submitcreategroup" class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label class="control-label">Name:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Panda Fan Club">
+                            <input name="inputGroupName" type="text" class="form-control" placeholder="Panda Fan Club">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" value="create group" class="btn btn-block btn-lg btn-primary"/>
                         </div>
                     </div>
                 </form>
@@ -78,11 +83,7 @@
                 <br>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-success">Create Group</a>
-            </div>
-        </div>
+
     </div>
 </div>
 </body>

@@ -6,10 +6,10 @@ import org.springframework.data.neo4j.annotation.RelationshipEntity;
 import org.springframework.data.neo4j.annotation.StartNode;
 
 /**
- * Created by vannguyen on 3/25/15.
+ * Created by Zack on 3/28/15.
  */
-@RelationshipEntity(type = "FRIENDS")
-public class FriendRelationship {
+@RelationshipEntity(type = "MEMBER")
+public class MemberRelationship {
 
     @GraphId
     Long id;
@@ -18,14 +18,14 @@ public class FriendRelationship {
     Person user;
 
     @EndNode
-    Person friend;
+    Group group;
 
-    public FriendRelationship(){
-        // null
+    public MemberRelationship(){
+        //null
     }
 
-    public FriendRelationship(Person user, Person friend){
+    public MemberRelationship(Group group, Person user){
         this.user = user;
-        this.friend = friend;
+        this.group = group;
     }
 }
