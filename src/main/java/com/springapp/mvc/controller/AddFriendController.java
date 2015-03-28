@@ -3,16 +3,20 @@ package com.springapp.mvc.controller;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by Zachary on 3/16/2015.
@@ -22,11 +26,24 @@ public class AddFriendController {
     @Autowired
     PersonService personRepository;
 
-    @RequestMapping(value = "/addfriend")
-    public ModelAndView index() {
-        ModelAndView mav = new ModelAndView("addfriend");
-        ArrayList<Person> people = personRepository.getAllPersons();
-        return mav;
+    @Autowired
+    @Qualifier("personValidator")
+    private Validator validator;
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder){
+        binder.setValidator(validator);
+    }
+
+
+    @RequestMapping(value = "/addfriend", method = RequestMethod.GET)
+    public String displayAddFriend(Model model){
+        Person person1 = new Person();
+        model.addAttribute("inputPerson1", person1);
+        Person person2 = new Person();
+        model.addAttribute("inputPerson2", person2);
+        initDropDown(model);
+        return "addfriend";
     }
 
     @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST)
@@ -45,9 +62,13 @@ public class AddFriendController {
         return "redirect:/addfriend";
     }
 
-    public void populateUserLists(){
-
-
+    protected void initDropDown(Model model){
+        Map<Long, String> peoples = new LinkedHashMap<Long, String>();
+        ArrayList<Person> people = personRepository.getAllPersons();
+        for(int i = 0; i < people.size(); i++){
+            peoples.put(people.get(i).getNodeID(), people.get(i).getName());
+        }
+        model.addAttribute("peopleList", peoples);
     }
 
 

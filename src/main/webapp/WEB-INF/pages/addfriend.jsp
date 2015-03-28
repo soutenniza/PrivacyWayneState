@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,19 +42,6 @@
 </div>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Added friend!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] These users are already friends!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[WARN] This is a PRIVACY warning!</b>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="section">
@@ -71,9 +59,10 @@
                             <label class="control-label">User 1:</label>
                         </div>
                         <div class="col-sm-10">
-                            <select name="inputPerson1" class="form-control">
-                                <option>Jon Hopkins</option>
-                            </select>
+                            <form:select path="inputPerson1" class="form-control">
+                                <form:options items="${peopleList}"/>
+                            </form:select>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,9 +70,9 @@
                             <label class="control-label">User 2:</label>
                         </div>
                         <div class="col-sm-10">
-                            <select name="inputPerson2" class="form-control">
-                                <option>Corn Manning</option>
-                            </select>
+                            <form:select path="inputPerson2" class="form-control">
+                                <form:options items="${peopleList}"/>
+                            </form:select>
                         </div>
                     </div>
                     <div class="row">

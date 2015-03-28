@@ -35,6 +35,10 @@ public class Person {
         //System.out.println("CLASS_PERSON: Name set to "+ sname);
     }
 
+    public Long getNodeID(){
+        return nodeID;
+    }
+
     // Takes a string (given from the web page) and stores an integer
     public void setAge(String sage){
         int intAge = Integer.parseInt(sage);
