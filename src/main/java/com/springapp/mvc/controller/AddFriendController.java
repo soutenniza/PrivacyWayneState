@@ -1,7 +1,8 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Person;
-import com.springapp.mvc.repository.PersonRepositoryImpl;
+import com.springapp.mvc.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -11,21 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Created by Zachary on 3/16/2015.
  */
 @Controller
 public class AddFriendController {
-    PersonRepositoryImpl personRepository;
+    @Autowired
+    PersonService personRepository;
 
     @RequestMapping(value = "/addfriend")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("addfriend");
-
-
+        ArrayList<Person> people = personRepository.getAllPersons();
         return mav;
     }
 
