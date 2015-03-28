@@ -59,7 +59,7 @@
                             <label class="control-label">User 1:</label>
                         </div>
                         <div class="col-sm-10">
-                            <form:select path="inputPerson1" class="form-control">
+                            <form:select path="inputPerson1" class="form-control" name="inputPerson1">
                                 <form:options items="${peopleList}"/>
                             </form:select>
 
@@ -70,7 +70,7 @@
                             <label class="control-label">User 2:</label>
                         </div>
                         <div class="col-sm-10">
-                            <form:select path="inputPerson2" class="form-control">
+                            <form:select path="inputPerson2" class="form-control" name="inputPerson2">
                                 <form:options items="${peopleList}"/>
                             </form:select>
                         </div>

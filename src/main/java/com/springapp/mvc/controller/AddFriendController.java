@@ -48,16 +48,11 @@ public class AddFriendController {
 
     @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST)
     @Transactional
-    public String createUser(
-            @ModelAttribute("SpringWeb")Person person1,
-            @ModelAttribute("SpringWeb")Person person2,
-            ModelMap model,
-            @RequestParam(value = "inputPerson1") String p1,
-            @RequestParam(value = "inputPerson2") String p2 ){
+    public String createUser(@RequestParam(value = "inputPerson1") Long p1,
+            @RequestParam(value = "inputPerson2") Long p2 ){
 
-        personRepository.addFriend(person1, person2);
-
-        //person1.friends(person2);
+        personRepository.addFriend(personRepository.getPerson(p1), personRepository.getPerson(p2));
+        personRepository.addFriend(personRepository.getPerson(p2), personRepository.getPerson(p1));
 
         return "redirect:/addfriend";
     }

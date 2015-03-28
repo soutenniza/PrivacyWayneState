@@ -43,6 +43,10 @@ public class PersonService {
         return people;
     }
 
+    public Person getPerson(Long id){
+        return  personRepository.findOne(id);
+    }
+
     public ArrayList<Group> getAllGroups(){
         ArrayList<Group> groups = new ArrayList<Group>();
         groups.addAll(groupRepository.findAll().as(ArrayList.class));
