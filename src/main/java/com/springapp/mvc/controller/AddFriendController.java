@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,11 +50,12 @@ public class AddFriendController {
     @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST)
     @Transactional
     public String createUser(@RequestParam(value = "inputPerson1") Long p1,
-            @RequestParam(value = "inputPerson2") Long p2 ){
+            @RequestParam(value = "inputPerson2") Long p2, Model model, final RedirectAttributes redirectAttributes){
 
         personRepository.addFriend(personRepository.getPerson(p1), personRepository.getPerson(p2));
         personRepository.addFriend(personRepository.getPerson(p2), personRepository.getPerson(p1));
-
+        String msg = "Friends Added!";
+        redirectAttributes.addFlashAttribute("message", msg);
         return "redirect:/addfriend";
     }
 

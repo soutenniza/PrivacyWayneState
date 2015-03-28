@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +56,11 @@
         <div class="row">
             <div class="col-md-6">
                 <form  method="POST" action="/submitaddfriend" class="form-horizontal" role="form">
+                    <c:if test="${message != null}">
+                        <div id="message" class="alert alert-success">
+                            <b>[SUCCESS] Friends Added!</b>
+                        </div>
+                    </c:if>
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label class="control-label">User 1:</label>
