@@ -55,9 +55,9 @@ public class AddFriendController {
             @RequestParam(value = "inputPerson1") String p1,
             @RequestParam(value = "inputPerson2") String p2 ){
 
-        personRepository.addFriend(person1, person2);
+        //personRepository.addFriend(person1, person2);
 
-        //person1.friends(person2);
+        System.out.println(p2);
 
         return "redirect:/addfriend";
     }

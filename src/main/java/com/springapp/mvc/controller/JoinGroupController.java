@@ -58,7 +58,7 @@ public class JoinGroupController {
     @Transactional
     public String joinGroup(
             @ModelAttribute("SpringWeb")Person person,
-            @ModelAttribute("SpringWeb")Group group,
+            @ModelAttribute("SpringGroup")Group group,
             ModelMap model,
             @RequestParam(value = "inputPerson") String p,
             @RequestParam(value = "inputGroup") String g ){
