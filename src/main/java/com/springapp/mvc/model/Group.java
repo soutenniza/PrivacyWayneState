@@ -27,7 +27,7 @@ public class Group {
         this.name = name;
     }
 
-    public Long getId(){
+    public Long getNodeID(){
         return this.nodeID;
     }
 
