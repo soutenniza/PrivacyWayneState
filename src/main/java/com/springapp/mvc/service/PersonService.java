@@ -1,7 +1,9 @@
 package com.springapp.mvc.service;
 
+import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
+import com.springapp.mvc.repository.AttributeRepository;
 import com.springapp.mvc.repository.GroupRepository;
 import com.springapp.mvc.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,10 @@ public class PersonService {
     private PersonRepository personRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private AttributeRepository attributeRepository;
 
 
-    //@Override
     public void addFriend(Person friend, Person user){
         user.friends(friend);
         template.save(user);
@@ -35,6 +38,11 @@ public class PersonService {
     public void addMember(Group group, Person user){
         group.member(user);
         template.save(group);
+    }
+
+    public void addAttribute(Attribute attribute, Person user){
+        attribute.has(user);
+        template.save(attribute);
     }
 
     public ArrayList<Person> getAllPersons(){
@@ -52,5 +60,12 @@ public class PersonService {
         groups.addAll(groupRepository.findAll().as(ArrayList.class));
         return groups;
     }
+
+    public ArrayList<Attribute> getAllAttributes(){
+        ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+        attributes.addAll(attributeRepository.findAll().as(ArrayList.class));
+        return attributes;
+    }
+
 
 }

@@ -77,7 +77,7 @@
                             <label class="control-label">User 2:</label>
                         </div>
                         <div class="col-sm-10">
-                            <form:select path="inputPerson2" class="form-control" name="inputPerson2">
+                            <form:select name="inputPerson2" path="inputPerson2" class="form-control">
                                 <form:options items="${peopleList}"/>
                             </form:select>
                         </div>

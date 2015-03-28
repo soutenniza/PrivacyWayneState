@@ -15,16 +15,14 @@ public class Person {
     @GraphId
     Long nodeID;
     public String name;
-    public int age;
 
     @RelatedToVia
     Collection<FriendRelationship> friendRelationships;
 
     public Person() {}
 
-    public Person(String N) {
+    public Person(String name) {
         this.name = name;
-        this.age = age;
     }
 
     public String getName(){
@@ -36,16 +34,6 @@ public class Person {
 
     public Long getNodeID(){
         return nodeID;
-    }
-
-    // Takes a string (given from the web page) and stores an integer
-    public void setAge(String sage){
-        int intAge = Integer.parseInt(sage);
-        this.age = intAge;
-    }
-
-    public int getAge(){
-        return this.age;
     }
 
     public FriendRelationship friends(Person friend){

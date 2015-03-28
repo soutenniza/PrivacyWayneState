@@ -49,7 +49,7 @@ public class AddFriendController {
 
     @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST)
     @Transactional
-    public String createUser(@RequestParam(value = "inputPerson1") Long p1,
+    public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
             @RequestParam(value = "inputPerson2") Long p2, Model model, final RedirectAttributes redirectAttributes){
 
         personRepository.addFriend(personRepository.getPerson(p1), personRepository.getPerson(p2));
