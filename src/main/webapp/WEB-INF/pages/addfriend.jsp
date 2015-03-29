@@ -55,9 +55,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <form  method="POST" action="/submitaddfriend" class="form-horizontal" role="form">
-                        <c:if test="${message != null}">
+                        <c:if test="${added != null}">
                             <div id="message" class="alert alert-success">
-                                <b>[SUCCESS] Friends Added!</b>
+                                <b>[SUCCESS] ${added}</b>
+                            </div>
+                        </c:if>
+                        <c:if test="${exists != null}">
+                            <div id="message" class="alert alert-danger">
+                                <b>[FAIL] ${exists}</b>
+                            </div>
+                        </c:if>
+                        <c:if test="${same != null}">
+                            <div id="message" class="alert alert-danger">
+                                <b>[FAIL] ${same}</b>
                             </div>
                         </c:if>
                         <div class="form-group">
