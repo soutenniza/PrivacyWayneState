@@ -68,7 +68,6 @@
                                 <form:select path="inputPerson1" class="form-control" name="inputPerson1">
                                     <form:options items="${peopleList}"/>
                                 </form:select>
-
                             </div>
                         </div>
                         <div class="form-group">

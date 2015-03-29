@@ -4,6 +4,7 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,6 +19,8 @@ public class Person {
 
     @RelatedToVia
     Collection<FriendRelationship> friendRelationships;
+
+    ArrayList<Person> friends;
 
     public Person() {}
 
@@ -38,8 +41,13 @@ public class Person {
 
     public FriendRelationship friends(Person friend){
         final FriendRelationship friendRelationship = new FriendRelationship(this, friend);
+        friends.add(friend);
         friendRelationships.add(friendRelationship);
         return friendRelationship;
+    }
+
+    public ArrayList<Person> getFriends(){
+        return friends;
     }
 
 }

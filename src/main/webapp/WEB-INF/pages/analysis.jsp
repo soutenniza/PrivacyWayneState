@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 
@@ -41,20 +42,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <form class="form-horizontal" role="form">
+                <form method="POST" action="/submitanalysis" class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label class="control-label">User</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>John Smith</option>
-                                <option>Betty James</option>
-                            </select>
+                            <form:select path="inputPerson1" class="form-control" name="inputPerson1">
+                                <form:options items="${peopleList}"/>
+                            </form:select>
                         </div>
                     </div>
+                    <input type="submit" value="Run Analysis" class="btn btn-block btn-lg btn-primary"/>
                 </form>
-                <a class="btn btn-lg btn-primary">Run Analysis</a>
             </div>
         </div>
     </div>
