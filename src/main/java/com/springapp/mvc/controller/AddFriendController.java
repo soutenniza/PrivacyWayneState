@@ -25,7 +25,7 @@ import java.util.Map;
 @Controller
 public class AddFriendController {
     @Autowired
-    PersonService personRepository;
+    PersonService service;
 
     @Autowired
     @Qualifier("personValidator")
@@ -52,16 +52,28 @@ public class AddFriendController {
     public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
             @RequestParam(value = "inputPerson2") Long p2, Model model, final RedirectAttributes redirectAttributes){
 
-        personRepository.addFriend(personRepository.getPerson(p1), personRepository.getPerson(p2));
-        personRepository.addFriend(personRepository.getPerson(p2), personRepository.getPerson(p1));
-        String msg = "Friends Added!";
-        redirectAttributes.addFlashAttribute("message", msg);
+        if(p1==p2){
+            String msg = "A person cannot be friends with themselves!";
+            redirectAttributes.addFlashAttribute("exists", msg);
+        }
+        else if((service.areFriends(service.getPerson(p1),service.getPerson(p2)))&&(p1!=p2)) {
+            String msg = service.getPerson(p1).getName() + " and " + service.getPerson(p1).getName() + " are already friends!";
+            redirectAttributes.addFlashAttribute("exists", msg);
+        }
+        else
+        {
+            service.addFriend(service.getPerson(p1), service.getPerson(p2));
+            service.addFriend(service.getPerson(p2), service.getPerson(p1));
+            String msg = "Friends Added!";
+            redirectAttributes.addFlashAttribute("added", msg);
+        }
+
         return "redirect:/addfriend";
     }
 
     protected void initDropDown(Model model){
         Map<Long, String> peoples = new LinkedHashMap<Long, String>();
-        ArrayList<Person> people = personRepository.getAllPersons();
+        ArrayList<Person> people = service.getAllPersons();
         for(int i = 0; i < people.size(); i++){
             peoples.put(people.get(i).getNodeID(), people.get(i).getName());
         }
