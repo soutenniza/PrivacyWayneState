@@ -23,7 +23,7 @@ public class AnalysisService {
 
     public void fullAnalysis(){
         RelationshipAnalysisHandler relationshipAnalysisHandler = new RelationshipAnalysisHandler(root);
-        relationshipAnalysisHandler.calculateRelationshipStrength();
+        //relationshipAnalysisHandler.calculateRelationshipStrength();
     }
 
 

@@ -57,7 +57,7 @@ public class AddFriendController {
             redirectAttributes.addFlashAttribute("exists", msg);
         }
         else if((service.areFriends(service.getPerson(p1),service.getPerson(p2)))&&(p1!=p2)) {
-            String msg = service.getPerson(p1).getName() + " and " + service.getPerson(p1).getName() + " are already friends!";
+            String msg = service.getPerson(p1).getName() + " and " + service.getPerson(p2).getName() + " are already friends!";
             redirectAttributes.addFlashAttribute("exists", msg);
         }
         else

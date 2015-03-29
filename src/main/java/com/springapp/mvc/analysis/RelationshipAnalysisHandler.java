@@ -17,6 +17,7 @@ public class RelationshipAnalysisHandler {
 
     public RelationshipAnalysisHandler(Person root){
         this.root = root;
+        people = new ArrayList<Person>();
         people.addAll(root.getFriends());
     }
 

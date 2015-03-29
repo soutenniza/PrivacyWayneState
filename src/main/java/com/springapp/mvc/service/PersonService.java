@@ -78,7 +78,7 @@ public class PersonService {
         if(persons.isEmpty())
             return false;
         for (Person p : persons) {
-            if (p.getName().equals(p2.getName())) {
+            if (p.getNodeID().equals(p2.getNodeID())) {
                 found = true;
                 break;
             }
