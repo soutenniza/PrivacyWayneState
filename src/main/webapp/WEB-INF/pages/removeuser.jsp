@@ -7,6 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +34,7 @@
                 <a href="/createuser">Create User</a>
             </li>
             <li class="active">
-                <a href="#">Delete User</a>
+                <a href="/removeuser">Delete User</a>
             </li>
         </ul>
     </div>
@@ -48,6 +52,11 @@
                 </div>
             </div>
         </div>--%>
+        <c:if test="${message != null}">
+            <div id = "message" class="alert alert-success">
+                <b>[SUCCESS] ${message}</b>
+            </div>
+        </c:if>
     </div>
 </div>
 <div class="section">
@@ -55,19 +64,22 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron">
-                    <form class="form-horizontal" role="form">
+                    <form method="POST" action ="/submitremoveuser" class = "form-horizontal" role ="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">User</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Don Jones</option>
-                                    <option>Camp Tucker</option>
-                                </select>
+                                <form:select name="inputUser" path="inputUser" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
                             </div>
                         </div>
-                        <a class="btn btn-danger">Submit</a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="btn btn-block btn-lg btn-primary" type="submit" value="Delete User">
+                            </div>
+                            </div>
                     </form>
                 </div>
             </div>
