@@ -362,7 +362,7 @@
                                             <label class="control-label">Location</label>
                                         </div>
                                         <div class="col-sm-10">
-                                            <input type="text" name="inputLocation" width="100" required>
+                                            <input type="text" name="inputLocation" required>
                                         </div>
                                     </div>
                                 </th>
@@ -1239,31 +1239,31 @@
                                             <div class="col-lg-10">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestP" id="optionRadioIP0" value="0" checked="">
+                                                        <input type="radio" name="inputInterest1P" id="optionRadioIP0" value="0" checked="">
                                                         0
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestP" id="optionRadioIP1" value="1">
+                                                        <input type="radio" name="inputInterest1P" id="optionRadioIP1" value="1">
                                                         1
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestP" id="optionRadioIP2" value="2">
+                                                        <input type="radio" name="inputInterest1P" id="optionRadioIP2" value="2">
                                                         2
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestP" id="optionRadioIP3" value="3">
+                                                        <input type="radio" name="inputInterest1P" id="optionRadioIP3" value="3">
                                                         3
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestP" id="optionRadioIP4" value="4">
+                                                        <input type="radio" name="inputInterest1P" id="optionRadioIP4" value="4">
                                                         4
                                                     </label>
                                                 </div>
@@ -1278,31 +1278,31 @@
                                             <div class="col-lg-10">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestV" id="optionRadioIV0" value="0" checked="">
+                                                        <input type="radio" name="inputInterest1V" id="optionRadioIV0" value="0" checked="">
                                                         0
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestV" id="optionRadioIV1" value="1">
+                                                        <input type="radio" name="inputInterest1V" id="optionRadioIV1" value="1">
                                                         1
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestV" id="optionRadioIV2" value="2">
+                                                        <input type="radio" name="inputInterest1V" id="optionRadioIV2" value="2">
                                                         2
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestV" id="optionRadioIV3" value="3">
+                                                        <input type="radio" name="inputInterest1V" id="optionRadioIV3" value="3">
                                                         3
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestV" id="optionRadioIV4" value="4">
+                                                        <input type="radio" name="inputInterest1V" id="optionRadioIV4" value="4">
                                                         4
                                                     </label>
                                                 </div>
@@ -1317,31 +1317,31 @@
                                             <div class="col-lg-10">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestS" id="optionRadioIS0" value="0" checked="">
+                                                        <input type="radio" name="inputInterest1S" id="optionRadioIS0" value="0" checked="">
                                                         0
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestS" id="optionRadioIS1" value="1">
+                                                        <input type="radio" name="inputInterest1S" id="optionRadioIS1" value="1">
                                                         1
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestS" id="optionRadioIS2" value="2">
+                                                        <input type="radio" name="inputInterest1S" id="optionRadioIS2" value="2">
                                                         2
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestS" id="optionRadioIS3" value="3">
+                                                        <input type="radio" name="inputInterest1S" id="optionRadioIS3" value="3">
                                                         3
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="inputInterestS" id="optionRadioIS4" value="4">
+                                                        <input type="radio" name="inputInterest1S" id="optionRadioIS4" value="4">
                                                         4
                                                     </label>
                                                 </div>
