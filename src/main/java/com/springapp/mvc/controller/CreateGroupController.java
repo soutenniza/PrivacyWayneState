@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by Zachary on 3/16/2015.
@@ -35,13 +36,17 @@ public class CreateGroupController {
     public String createGroup(
             @ModelAttribute("SpringWeb")Group group,
             ModelMap model,
-            @RequestParam(value = "inputGroupName") String gName){
+            @RequestParam(value = "inputGroupName") String gName,
+            final RedirectAttributes redirectAttributes){
 
         group.setName(gName);
 
         model.addAttribute("name", group.getName());
 
         groupRepository.save(group);
+
+        String msg = "Group created!";
+        redirectAttributes.addFlashAttribute("message", msg);
 
         return "redirect:/creategroup";
     }
