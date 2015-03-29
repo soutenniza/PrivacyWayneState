@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Group;
+import com.springapp.mvc.model.Comment;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.repository.AttributeRepository;
 import com.springapp.mvc.repository.GroupRepository;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 @Service
 @Transactional
 public class PersonService {
+
     @Autowired
     private Neo4jTemplate template;
     @Autowired
@@ -43,6 +45,11 @@ public class PersonService {
     public void addAttribute(Attribute attribute, Person user){
         attribute.has(user);
         template.save(attribute);
+    }
+
+    public void addOwner(Comment comment, Person person){
+        comment.owns(person);
+        template.save(comment);
     }
 
     public ArrayList<Person> getAllPersons(){

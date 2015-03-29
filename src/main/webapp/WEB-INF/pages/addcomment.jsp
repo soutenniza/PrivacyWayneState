@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +58,11 @@
                 </div>
             </div>
         </div>--%>
+        <c:if test="${message != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] Added Comment!</b>
+            </div>
+        </c:if>
     </div>
 </div>
 <br>
@@ -63,16 +71,15 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal" role="form">
+                    <form  method="POST" action="/submitnewcomment" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">User:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Tommy Bucks</option>
-                                    <option>2</option>
-                                </select>
+                                <form:select name="inputPerson" path="inputPerson" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -80,12 +87,12 @@
                                 <label class="control-label">Comment:</label>
                             </div>
                             <div class="col-sm-10">
-                                <textarea class="form-control"></textarea>
+                                <textarea name="inputComment" class="form-control"></textarea>
                             </div>
                         </div>
+                        <input type="submit" value="add comment" class="btn btn-block btn-lg btn-primary"/>
+                        <a class="btn btn-warning">Run "What-If" Analysis</a>
                     </form>
-                    <a class="btn btn-success">Add Comment</a>
-                    <a class="btn btn-warning">Run "What-If" Analysis</a>
                 </div>
             </div>
         </div>
