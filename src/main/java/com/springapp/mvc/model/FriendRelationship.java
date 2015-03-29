@@ -28,4 +28,8 @@ public class FriendRelationship {
         this.user = user;
         this.friend = friend;
     }
+
+    public Person getFriend(){
+        return friend;
+    }
 }

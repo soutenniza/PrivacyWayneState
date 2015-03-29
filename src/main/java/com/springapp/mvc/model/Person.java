@@ -54,4 +54,8 @@ public class Person {
         return friends;
     }
 
+    public Collection<FriendRelationship> getFriendRelationships(){
+        return friendRelationships;
+    }
+
 }
