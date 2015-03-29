@@ -40,6 +40,7 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
         <div class="row">
@@ -65,50 +66,52 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Select a user and a group to join!</p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Select a user and a group to join!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <form  method="POST" action="/submitjoingroup" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Person:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <form:select name="inputPerson" path="inputPerson" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Group:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <form:select name="inputGroup" path="inputGroup" class="form-control">
+                                    <form:options items="${groupList}"/>
+                                </form:select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="join group" class="btn btn-block btn-lg btn-primary"/>
+                                <a class="btn btn-warning">Run "What-If" Analysis</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <br>
+                    <br>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form  method="POST" action="/submitjoingroup" class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Person:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <form:select name="inputPerson" path="inputPerson" class="form-control">
-                                <form:options items="${peopleList}"/>
-                            </form:select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Group:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <form:select name="inputGroup" path="inputGroup" class="form-control">
-                                <form:options items="${groupList}"/>
-                            </form:select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" value="join group" class="btn btn-block btn-lg btn-primary"/>
-                            <a class="btn btn-warning">Run "What-If" Analysis</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <br>
-                <br>
-            </div>
-        </div>
-
     </div>
 </div>
 </body>

@@ -25,7 +25,7 @@
 <mytags:modifybar/>
 <div class="section">
     <div class="container">
-        <div class="row">
+ <%--       <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Data set imported!</b>
@@ -34,36 +34,39 @@
                     <b>[ERROR] You must select a data set!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-danger text-left">Warning: Importing a data set will delete any changes made to the existing
-                    data set!&nbsp;</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Data set:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>class_42_people.json</option>
-                            </select>
+                <div class="jumbotron">
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-danger text-left">Warning: Importing a data set will delete any changes made to the existing
+                                        data set!&nbsp;</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
-                <a class="btn btn-success">Import</a>
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Data set:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>class_42_people.json</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <a class="btn btn-success">Import</a>
+                </div>
             </div>
         </div>
     </div>

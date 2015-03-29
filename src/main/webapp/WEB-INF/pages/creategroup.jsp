@@ -39,9 +39,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+<%--        <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Created group!</b>
@@ -50,40 +51,39 @@
                     <b>[ERROR] Group already exists!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Enter a name for the new group!</p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Enter a name for the new group!</p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <form  method="POST" action="/submitcreategroup" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Name:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input name="inputGroupName" type="text" class="form-control" placeholder="Panda Fan Club">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="create group" class="btn btn-block btn-lg btn-primary"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form  method="POST" action="/submitcreategroup" class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Name:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input name="inputGroupName" type="text" class="form-control" placeholder="Panda Fan Club">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" value="create group" class="btn btn-block btn-lg btn-primary"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <br>
-                <br>
-            </div>
-        </div>
-
     </div>
 </div>
 </body>

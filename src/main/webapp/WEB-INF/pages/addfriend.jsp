@@ -42,57 +42,54 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Select two users to become friends!</p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Select two users to become friends!</p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form  method="POST" action="/submitaddfriend" class="form-horizontal" role="form">
-                    <c:if test="${message != null}">
-                        <div id="message" class="alert alert-success">
-                            <b>[SUCCESS] Friends Added!</b>
-                        </div>
-                    </c:if>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User 1:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <form:select path="inputPerson1" class="form-control" name="inputPerson1">
-                                <form:options items="${peopleList}"/>
-                            </form:select>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <form  method="POST" action="/submitaddfriend" class="form-horizontal" role="form">
+                        <c:if test="${message != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>[SUCCESS] Friends Added!</b>
+                            </div>
+                        </c:if>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User 1:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <form:select path="inputPerson1" class="form-control" name="inputPerson1">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User 2:</label>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User 2:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <form:select name="inputPerson2" path="inputPerson2" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <form:select name="inputPerson2" path="inputPerson2" class="form-control">
-                                <form:options items="${peopleList}"/>
-                            </form:select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" value="Add Friend" class="btn btn-block btn-lg btn-primary"/>
-                            <a class="btn btn-warning">Run "What-If" Analysis</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <br>
-                <br>
+                        <br>
+                        <input type="submit" value="Add Friend" class="btn btn-block btn-lg btn-primary"/>
+                        <a class="btn btn-warning">Run "What-If" Analysis</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <br>
+                    <br>
+                </div>
             </div>
         </div>
     </div>

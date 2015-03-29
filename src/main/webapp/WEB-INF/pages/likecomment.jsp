@@ -39,9 +39,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+       <%-- <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] Comment liked!</b>
@@ -56,39 +57,42 @@
                     <b>[WARN] This is a PRIVACY warning!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User:</label>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Tommy Bucks</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Tommy Bucks</option>
-                                <option>2</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Comment:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Jimmy Playkid: "U wot 1v1 me m9"</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Comment:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Jimmy Playkid: "U wot 1v1 me m9"</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-                <a class="btn btn-success">Like Comment</a>
-                <a class="btn btn-warning">Run "What-If" Analysis</a>
+                    </form>
+                    <a class="btn btn-success">Like Comment</a>
+                    <a class="btn btn-warning">Run "What-If" Analysis</a>
+                </div>
             </div>
         </div>
     </div>

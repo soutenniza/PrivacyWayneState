@@ -23,9 +23,10 @@
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+       <%-- <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Privacy levels updated!</b>
@@ -37,73 +38,76 @@
                     <b>[WARN] This is a PRIVACY warning!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User:</label>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Tommy Bucks</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Tommy Bucks</option>
-                                <option>2</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Attribute:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>--Get Attributes--</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Attribute:</label>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Privacy Value:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>0</option>
+                                    <option>0</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>--Get Attributes--</option>
-                                <option>2</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Sensitivity Value:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>0</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Privacy Value:</label>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Visibility Value:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>0</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>0</option>
-                                <option>0</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Sensitivity Value:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>0</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Visibility Value:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>0</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-                <a class="btn btn-primary">Get Attributes</a>
-                <a class="btn btn-success">Save Changes</a>
-                <a class="btn btn-warning">Run "What-If" Analysis</a>
+                    </form>
+                    <a class="btn btn-primary">Get Attributes</a>
+                    <a class="btn btn-success">Save Changes</a>
+                    <a class="btn btn-warning">Run "What-If" Analysis</a>
+                </div>
             </div>
         </div>
     </div>

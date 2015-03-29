@@ -40,9 +40,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+      <%--  <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Interest removed!</b>
@@ -51,49 +52,52 @@
                     <b>[ERROR] You must fill in all fields!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>1. Select a root user as User
-                    <br>2. Click "Get Interests List" to retrieve root user's interest list
-                    <br>3. Select a interest to remove as Interest
-                    <br>4. Click Remove Interest</p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>1. Select a root user as User
+                        <br>2. Click "Get Interests List" to retrieve root user's interest list
+                        <br>3. Select a interest to remove as Interest
+                        <br>4. Click Remove Interest</p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User:</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Jon Hopkins</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Jon Hopkins</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Group:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>-- Get Interests --</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Group:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>-- Get Interests --</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <a class="btn btn-primary">Get Interests List</a>
-                <br>
-                <br>
-                <a class="btn btn-danger">Remove Interest</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-primary">Get Interests List</a>
+                    <br>
+                    <br>
+                    <a class="btn btn-danger">Remove Interest</a>
+                </div>
             </div>
         </div>
     </div>
