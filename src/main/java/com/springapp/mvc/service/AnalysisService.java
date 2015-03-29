@@ -1,9 +1,8 @@
 package com.springapp.mvc.service;
 
-import com.springapp.mvc.analysis.MutualFriendsAnalysisHandler;
+import com.springapp.mvc.analysis.RelationshipAnalysisHandler;
 import com.springapp.mvc.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,8 @@ public class AnalysisService {
     }
 
     public void fullAnalysis(){
-        MutualFriendsAnalysisHandler mutualFriendsAnalysisHandler = new MutualFriendsAnalysisHandler(root, personService.getAllPersons());
+        RelationshipAnalysisHandler relationshipAnalysisHandler = new RelationshipAnalysisHandler(root);
+        relationshipAnalysisHandler.calculateRelationshipStrength();
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by Van on 3/17/2015.
@@ -20,9 +21,11 @@ public class Person {
     @RelatedToVia
     Collection<FriendRelationship> friendRelationships;
 
-    ArrayList<Person> friends;
+    Collection<Person> friends;
 
-    public Person() {}
+
+    public Person() {
+    }
 
     public Person(String name) {
         this.name = name;
@@ -46,7 +49,7 @@ public class Person {
         return friendRelationship;
     }
 
-    public ArrayList<Person> getFriends(){
+    public Collection<Person> getFriends(){
         return friends;
     }
 

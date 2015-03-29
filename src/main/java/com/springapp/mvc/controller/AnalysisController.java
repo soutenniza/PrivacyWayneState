@@ -40,6 +40,7 @@ public class AnalysisController {
     public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
                             Model models){
         analysisService.setRoot(personService.getPerson(p1));
+        analysisService.fullAnalysis();
         return "redirect:/analysis";
     }
 
