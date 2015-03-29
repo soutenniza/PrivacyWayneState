@@ -44,18 +44,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;User joined group!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] User is already in this group!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must fill in all fields!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[WARN] This is a PRIVACY warning!</b>
-                </div>
+                <%--<div class="alert alert-dismissable alert-success">--%>
+                    <%--<b>[SUCCESS] &nbsp;User joined group!</b>--%>
+                <%--</div>--%>
+                <%--<div class="alert alert-danger alert-dismissable">--%>
+                    <%--<b>[ERROR] User is already in this group!</b>--%>
+                <%--</div>--%>
+                <%--<div class="alert alert-danger alert-dismissable">--%>
+                    <%--<b>[ERROR] You must fill in all fields!</b>--%>
+                <%--</div>--%>
+                <%--<div class="alert alert-danger alert-dismissable">--%>
+                    <%--<b>[WARN] This is a PRIVACY warning!</b>--%>
+                <%--</div>--%>
+                <c:if test="${message != null}">
+                    <div id="message" class="alert alert-success">
+                        <b>[SUCCESS] Joined group!</b>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
@@ -75,7 +80,7 @@
                             <label class="control-label">Person:</label>
                         </div>
                         <div class="col-sm-10">
-                            <form:select path="inputPerson" class="form-control">
+                            <form:select name="inputPerson" path="inputPerson" class="form-control">
                                 <form:options items="${peopleList}"/>
                             </form:select>
                         </div>
@@ -85,7 +90,7 @@
                             <label class="control-label">Group:</label>
                         </div>
                         <div class="col-sm-10">
-                            <form:select path="inputGroup" class="form-control">
+                            <form:select name="inputGroup" path="inputGroup" class="form-control">
                                 <form:options items="${groupList}"/>
                             </form:select>
                         </div>

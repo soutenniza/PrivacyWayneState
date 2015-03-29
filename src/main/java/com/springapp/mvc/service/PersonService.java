@@ -55,6 +55,8 @@ public class PersonService {
         return  personRepository.findOne(id);
     }
 
+    public Group getGroup(Long id) { return groupRepository.findOne(id);}
+
     public ArrayList<Group> getAllGroups(){
         ArrayList<Group> groups = new ArrayList<Group>();
         groups.addAll(groupRepository.findAll().as(ArrayList.class));
