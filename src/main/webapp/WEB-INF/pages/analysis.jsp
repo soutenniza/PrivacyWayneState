@@ -7,6 +7,9 @@
 --%>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -68,10 +71,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissable">
-                    <b>Edward Smith is an outlier in your personal network. SCORE: 1.34 AVERAGE:
-                        7.23 THRESHOLD: 2.5</b>
-                </div>
+
             </div>
         </div>
     </div>
@@ -84,16 +84,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissable">
-                    <b>John Clause has a low number of mutual friends. SCORE: 2 AVERAGE: 4 THRESHOLD:
-                        3.5</b>
+            <c:if test="${relationships != null}">
+                ${relationships}
+            </c:if>
+            <c:if test="${relationshipsok != null}">
+                <div id="message" class="alert alert-success">
+                    <b>${relationshipsok}</b>
                 </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>John Clause has infrequent contact with you. SCORE: 0 AVERAGE: 0.2 THRESHOLD:
-                        0.1</b>
-                </div>
-            </div>
+            </c:if>
         </div>
     </div>
 </div>

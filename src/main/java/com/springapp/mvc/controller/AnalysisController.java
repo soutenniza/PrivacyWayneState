@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -38,9 +39,32 @@ public class AnalysisController {
     @RequestMapping(value = "/submitanalysis", method = RequestMethod.POST)
     @Transactional
     public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
-                            Model models){
+                            Model models, final RedirectAttributes redirectAttributes){
         analysisService.setRoot(personService.getPerson(p1));
         analysisService.fullAnalysis();
+
+        ArrayList<String> messages = analysisService.fullAnalysis();
+
+        String relationshipMsgs = "";
+        String msg;
+
+        // sort messages
+        // mutual friends
+        for(String m : messages){
+            if(m.contains("low number of mutual friends")){
+                relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
+        }
+
+        // add notifications
+        if(relationshipMsgs==""){
+            msg = "No issues here!";
+            redirectAttributes.addFlashAttribute("relationshipsok", msg);
+        }
+        else {
+            redirectAttributes.addFlashAttribute("relationships", relationshipMsgs);
+        }
+
         return "redirect:/analysis";
     }
 

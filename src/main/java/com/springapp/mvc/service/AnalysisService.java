@@ -25,8 +25,11 @@ public class AnalysisService {
         this.root = root;
     }
 
-    public void fullAnalysis(){
-        calculateAllMutualFriends();
+    public ArrayList<String> fullAnalysis(){
+        ArrayList<String> allMessages;
+        allMessages = calculateAllMutualFriends();
+
+        return allMessages;
     }
 
     private ArrayList<String> calculateAllMutualFriends() {
