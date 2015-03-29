@@ -58,6 +58,18 @@ public class PersonService {
         return people;
     }
 
+    public boolean groupExists(String name) {
+        ArrayList<Group> groups = getAllGroups();
+        boolean found = false;
+        for (Group g : groups) {
+            if (g.getName().equals(name)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
     public Person getPerson(Long id){
         return  personRepository.findOne(id);
     }
