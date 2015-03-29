@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,16 +45,11 @@
 <br>
 <div class="section">
     <div class="container">
-<%--        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Group deleted!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a group!</b>
-                </div>
+        <c:if test="${message != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${message}</b>
             </div>
-        </div>--%>
+        </c:if>
     </div>
 </div>
 <br>
@@ -65,28 +63,23 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form class="form-horizontal" role="form">
+                    <form method="POST" action="/submitdeletegroup" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">Group:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Detroit Watertower Fans</option>
-                                    <option>2</option>
-                                </select>
+                                <form:select name="inputGroup" path="inputGroup" class="form-control">
+                                    <form:options items="${groupList}"/>
+                                </form:select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="delete group" class="btn btn-block btn-lg btn-primary"/>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-md-6">
-                    <br>
-                    <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="btn btn-danger">Create Group</a>
                 </div>
             </div>
         </div>

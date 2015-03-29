@@ -118,5 +118,8 @@ public class PersonService {
         return attributes;
     }
 
-
+    public void deleteGroup(Long id){
+        Group g = groupRepository.findOne(id);
+        groupRepository.delete(g);
+    }
 }
