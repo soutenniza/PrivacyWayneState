@@ -39,9 +39,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+<%--        <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Group deleted!</b>
@@ -50,40 +51,43 @@
                     <b>[ERROR] You must select a group!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Select a group to delete!</p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Select a group to delete!</p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Group:</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Group:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Detroit Watertower Fans</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Detroit Watertower Fans</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <br>
+                    <br>
+                </div>
             </div>
-            <div class="col-md-6">
-                <br>
-                <br>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-danger">Create Group</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-danger">Create Group</a>
+                </div>
             </div>
         </div>
     </div>

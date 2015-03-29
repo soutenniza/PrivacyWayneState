@@ -39,9 +39,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+     <%--   <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Interest added!</b>
@@ -53,75 +54,77 @@
                     <b>[ERROR] User is already has entered interest!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User:
-                                <br>
-                            </label>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User:
+                                    <br>
+                                </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>George James</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>George James</option>
-                                <option>2</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Interest:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Sports">
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Privacy Value:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Visibility Value:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Sensitivity Value:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-6">
+                        <a class="btn btn-success">Add Interest</a>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Interest:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Sports">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Privacy Value:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Visibility Value:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Sensitivity Value:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-                <div class="col-md-6">
-                    <a class="btn btn-success">Add Interest</a>
                 </div>
             </div>
         </div>
-        <div class="row"></div>
     </div>
 </div>
 </body>

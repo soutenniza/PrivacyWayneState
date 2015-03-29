@@ -9,7 +9,7 @@
                 <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/home.jsp' ? 'active' : ''} ">
                     <a href="/">Home</a>
                 </li>
-                <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/import.jsp' ? 'active' : ''}">
+                <li class="${(pageContext.request.requestURI eq '/WEB-INF/pages/import.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/createuser.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/removeuser.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/addfriend.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/removefriend.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/creategroup.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/deletegroup.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/joingroup.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/leavegroup.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/addinterest.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/removeinterest.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/changeplevels.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/addcomment.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/likecomment.jsp')||(pageContext.request.requestURI eq '/WEB-INF/pages/viewprofile.jsp') ? 'active' : ''}">
                     <a href="/import">Social Network</a>
                 </li>
                 <li class="${pageContext.request.requestURI eq '/WEB-INF/pages/network.jsp' ? 'active' : ''}">

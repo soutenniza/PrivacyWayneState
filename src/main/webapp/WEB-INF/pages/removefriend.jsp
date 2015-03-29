@@ -39,9 +39,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+<%--        <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;Removed friend!</b>
@@ -50,49 +51,51 @@
                     <b>[ERROR] You must select two valid friends!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>1. Select a root user as User 1
-                    <br>2. Click "Get Friends List" to retrieve root user's friends list
-                    <br>3. Select a friend to remove as User 2
-                    <br>4. Click Remove Friend</p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>1. Select a root user as User 1
+                        <br>2. Click "Get Friends List" to retrieve root user's friends list
+                        <br>3. Select a friend to remove as User 2
+                        <br>4. Click Remove Friend</p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User 1:</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User 1:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Jon Hopkins</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Jon Hopkins</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User 2:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>-- Get Friends --</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User 2:</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>-- Get Friends --</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <a class="btn btn-primary">Get Friends List</a>
-                <br>
-                <br>
-                <a class="btn btn-danger">Remove Friend</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-primary">Get Friends List</a>
+                    <br>
+                    <br>
+                    <a class="btn btn-danger">Remove Friend</a>
+                </div>
             </div>
         </div>
     </div>

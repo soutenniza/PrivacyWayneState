@@ -23,17 +23,22 @@
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
-<ul class="nav nav-justified nav-pills">
-    <li class="">
-        <a href="/createuser">Create User</a>
-    </li>
-    <li class="active">
-        <a href="#">Delete User</a>
-    </li>
-</ul>
+<div class="container">
+    <div class="col-md-12">
+        <ul class="nav nav-justified nav-pills">
+            <li class="">
+                <a href="/createuser">Create User</a>
+            </li>
+            <li class="active">
+                <a href="#">Delete User</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+       <%-- <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-dismissable alert-success">
                     <b>[SUCCESS] &nbsp;User deleted!</b>
@@ -42,27 +47,29 @@
                     <b>[ERROR] You must select a user!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
 <div class="section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User</label>
+                <div class="jumbotron">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Don Jones</option>
+                                    <option>Camp Tucker</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Don Jones</option>
-                                <option>Camp Tucker</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-                <a class="btn btn-danger">Submit</a>
+                        <a class="btn btn-danger">Submit</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

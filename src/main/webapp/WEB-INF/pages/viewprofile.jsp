@@ -23,39 +23,44 @@
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
+        <%--<div class="row">
             <div class="col-md-12">
                 <div class="alert alert-danger alert-dismissable">
                     <b>[ERROR] You must select a user!</b>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">User:</label>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">User:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>Tommy Bucks</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Tommy Bucks</option>
-                                <option>2</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-                <a class="btn btn-success">View Profile</a>
+                    </form>
+                    <a class="btn btn-success">View Profile</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
         <div class="row">

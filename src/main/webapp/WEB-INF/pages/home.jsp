@@ -29,7 +29,7 @@
                 <div class="jumbotron">
                     <h1>Welcome</h1>
                     <p>to PrivacyWayne</p>
-                    <a href="/import" class="btn btn-lg btn-primary">Get Started</a>
+                    <a href="/createuser" class="btn btn-lg btn-primary">Get Started</a>
                 </div>
             </div>
         </div>
