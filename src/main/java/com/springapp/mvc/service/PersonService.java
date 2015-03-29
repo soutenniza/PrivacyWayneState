@@ -73,7 +73,7 @@ public class PersonService {
     }
 
     public boolean areFriends(Person p1, Person p2){
-        ArrayList<Person> persons = p1.getFriends();
+        Collection<Person> persons = p1.getFriends();
         boolean found = false;
         if(persons.isEmpty())
             return false;
