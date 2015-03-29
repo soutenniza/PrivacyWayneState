@@ -23,7 +23,6 @@ public class Person {
 
     Collection<Person> friends;
 
-
     public Person() {
     }
 
@@ -49,6 +48,7 @@ public class Person {
         friendRelationships.add(friendRelationship);
         return friendRelationship;
     }
+
 
     public Collection<Person> getFriends(){
         return friends;
