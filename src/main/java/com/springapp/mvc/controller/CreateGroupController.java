@@ -4,6 +4,7 @@ import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.repository.GroupRepository;
 import com.springapp.mvc.repository.PersonRepository;
+import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,9 @@ public class CreateGroupController {
     @Autowired
     GroupRepository groupRepository;
 
+    @Autowired
+    PersonService service;
+
     @RequestMapping(value = "/creategroup")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("creategroup");
@@ -39,14 +43,17 @@ public class CreateGroupController {
             @RequestParam(value = "inputGroupName") String gName,
             final RedirectAttributes redirectAttributes){
 
-        group.setName(gName);
-
-        model.addAttribute("name", group.getName());
-
-        groupRepository.save(group);
-
-        String msg = "Group created!";
-        redirectAttributes.addFlashAttribute("message", msg);
+        if(service.groupExists(gName)){
+            String msg = "Group exists!";
+            redirectAttributes.addFlashAttribute("exists", msg);
+        }
+        else{
+            group.setName(gName);
+            model.addAttribute("name", group.getName());
+            groupRepository.save(group);
+            String msg = "Group created!";
+            redirectAttributes.addFlashAttribute("created", msg);
+        }
 
         return "redirect:/creategroup";
     }

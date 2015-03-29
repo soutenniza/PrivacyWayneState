@@ -55,9 +55,14 @@
                 </div>
             </div>
         </div>--%>
-    <c:if test="${message != null}">
+    <c:if test="${created != null}">
         <div id="message" class="alert alert-success">
-            <b>[SUCCESS] Created Group!</b>
+            <b>[SUCCESS] Created group!</b>
+        </div>
+    </c:if>
+    <c:if test="${exists != null}">
+        <div id="message" class="alert alert-danger">
+            <b>[FAIL] Group exists!</b>
         </div>
     </c:if>
     </div>
@@ -79,7 +84,7 @@
                                 <label class="control-label">Name:</label>
                             </div>
                             <div class="col-sm-10">
-                                <input name="inputGroupName" type="text" class="form-control" placeholder="Panda Fan Club">
+                                <input name="inputGroupName" type="text" class="form-control" placeholder="Panda Fan Club" required>
                             </div>
                         </div>
                         <br>
