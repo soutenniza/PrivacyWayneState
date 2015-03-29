@@ -86,6 +86,20 @@ public class PersonService {
         return found;
     }
 
+    public boolean isMember(Group group, Person person){
+        Collection<Person> persons = group.getMembers();
+        boolean found = false;
+        if(persons.isEmpty())
+            return false;
+        for (Person p : persons) {
+            if (p.getNodeID().equals(person.getNodeID())) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
     public Person getPerson(Long id){
         return  personRepository.findOne(id);
     }
