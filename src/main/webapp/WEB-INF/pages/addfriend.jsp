@@ -45,6 +45,26 @@
 <br>
 <div class="section">
     <div class="container">
+        <c:if test="${added != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${added}</b>
+            </div>
+        </c:if>
+        <c:if test="${exists != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${exists}</b>
+            </div>
+        </c:if>
+        <c:if test="${same != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${same}</b>
+            </div>
+        </c:if>
+    </div>
+</div>
+<br>
+<div class="section">
+    <div class="container">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-12">
@@ -55,21 +75,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <form  method="POST" action="/submitaddfriend" class="form-horizontal" role="form">
-                        <c:if test="${added != null}">
-                            <div id="message" class="alert alert-success">
-                                <b>[SUCCESS] ${added}</b>
-                            </div>
-                        </c:if>
-                        <c:if test="${exists != null}">
-                            <div id="message" class="alert alert-danger">
-                                <b>[FAIL] ${exists}</b>
-                            </div>
-                        </c:if>
-                        <c:if test="${same != null}">
-                            <div id="message" class="alert alert-danger">
-                                <b>[FAIL] ${same}</b>
-                            </div>
-                        </c:if>
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">User 1:</label>

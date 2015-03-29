@@ -57,10 +57,17 @@ public class JoinGroupController {
     public String addFriend(@RequestParam(value = "inputPerson") Long p,
                             @RequestParam(value = "inputGroup") Long g, Model model, final RedirectAttributes redirectAttributes){
 
-        service.addMember(service.getGroup(g), service.getPerson(p));
+        if(service.isMember(service.getGroup(g), service.getPerson(p))){
+            String msg = service.getPerson(p).getName() + " is already a member of the group " + service.getGroup(g).getName() + "!";
+            redirectAttributes.addFlashAttribute("ismember", msg);
+        }
+        else
+        {
+            service.addMember(service.getGroup(g), service.getPerson(p));
+            String msg = service.getPerson(p).getName() + " joined the group " + service.getGroup(g).getName() + "!";
+            redirectAttributes.addFlashAttribute("message", msg);
+        }
 
-        String msg = "Joined group!";
-        redirectAttributes.addFlashAttribute("message", msg);
         return "redirect:/joingroup";
     }
 

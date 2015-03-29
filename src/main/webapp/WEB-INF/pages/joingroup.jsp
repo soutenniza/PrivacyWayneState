@@ -47,21 +47,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <%--<div class="alert alert-dismissable alert-success">--%>
-                    <%--<b>[SUCCESS] &nbsp;User joined group!</b>--%>
-                <%--</div>--%>
-                <%--<div class="alert alert-danger alert-dismissable">--%>
-                    <%--<b>[ERROR] User is already in this group!</b>--%>
-                <%--</div>--%>
-                <%--<div class="alert alert-danger alert-dismissable">--%>
-                    <%--<b>[ERROR] You must fill in all fields!</b>--%>
-                <%--</div>--%>
-                <%--<div class="alert alert-danger alert-dismissable">--%>
-                    <%--<b>[WARN] This is a PRIVACY warning!</b>--%>
-                <%--</div>--%>
+                <c:if test="${nogroup != null}">
+                    <div id="message" class="alert alert-danger">
+                        <b>[FAIL] ${nogroup}</b>
+                    </div>
+                </c:if>
                 <c:if test="${message != null}">
                     <div id="message" class="alert alert-success">
-                        <b>[SUCCESS] Joined group!</b>
+                        <b>[SUCCESS] ${message}</b>
+                    </div>
+                </c:if>
+                <c:if test="${ismember != null}">
+                    <div id="message" class="alert alert-danger">
+                        <b>[FAIL] ${ismember}</b>
                     </div>
                 </c:if>
             </div>

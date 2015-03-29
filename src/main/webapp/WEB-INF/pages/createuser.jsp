@@ -23,14 +23,16 @@
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
-<ul class="nav nav-justified nav-pills">
-    <li class="active">
-        <a href="#">Create User</a>
-    </li>
-    <li class="">
-        <a href="/removeuser">Delete User</a>
-    </li>
-</ul>
+<div class="container">
+    <ul class="nav nav-justified nav-pills">
+        <li class="active">
+            <a href="#">Create User</a>
+        </li>
+        <li class="">
+            <a href="/removeuser">Delete User</a>
+        </li>
+    </ul>
+</div>
 <br>
 <div class="section">
     <div class="container">

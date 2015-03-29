@@ -19,6 +19,8 @@ public class Group {
     @RelatedToVia
     Collection<MemberRelationship> memberRelationships;
 
+    Collection<Person> members;
+
     public Group() {
         // null
     }
@@ -41,8 +43,13 @@ public class Group {
 
     public MemberRelationship member(Person user){
         final MemberRelationship memberRelationship = new MemberRelationship(this, user);
+        members.add(user);
         memberRelationships.add(memberRelationship);
         return memberRelationship;
+    }
+
+    public Collection<Person> getMembers(){
+        return members;
     }
 
 }
