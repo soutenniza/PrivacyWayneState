@@ -72,6 +72,20 @@ public class PersonService {
         return found;
     }
 
+    public boolean areFriends(Person p1, Person p2){
+        ArrayList<Person> persons = p1.getFriends();
+        boolean found = false;
+        if(persons.isEmpty())
+            return false;
+        for (Person p : persons) {
+            if (p.getName().equals(p2.getName())) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
     public Person getPerson(Long id){
         return  personRepository.findOne(id);
     }
