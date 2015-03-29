@@ -13,6 +13,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -25,14 +26,11 @@ import java.util.Map;
 public class JoinGroupController {
 
     @Autowired
-    PersonService personRepository;
+    PersonService service;
 
     @Autowired
     @Qualifier("personValidator")
     private Validator personValidator;
-
-    @Autowired
-    PersonService groupRepository;
 
     @Autowired
     @Qualifier("groupValidator")
@@ -56,30 +54,27 @@ public class JoinGroupController {
 
     @RequestMapping(value = "/submitjoingroup", method = RequestMethod.POST)
     @Transactional
-    public String joinGroup(
-            @ModelAttribute("SpringWeb")Person person,
-            @ModelAttribute("SpringGroup")Group group,
-            ModelMap model,
-            @RequestParam(value = "inputPerson") String p,
-            @RequestParam(value = "inputGroup") String g ){
+    public String addFriend(@RequestParam(value = "inputPerson") Long p,
+                            @RequestParam(value = "inputGroup") Long g, Model model, final RedirectAttributes redirectAttributes){
 
-        //groupRepository.addMember(person, group);
+        service.addMember(service.getGroup(g), service.getPerson(p));
 
-
+        String msg = "Joined group!";
+        redirectAttributes.addFlashAttribute("message", msg);
         return "redirect:/joingroup";
     }
 
     protected void initDropDown(Model model){
         // person list
         Map<Long, String> peoples = new LinkedHashMap<Long, String>();
-        ArrayList<Person> people = personRepository.getAllPersons();
+        ArrayList<Person> people = service.getAllPersons();
         for(int i = 0; i < people.size(); i++){
             peoples.put(people.get(i).getNodeID(), people.get(i).getName());
         }
         model.addAttribute("peopleList", peoples);
         // group list
         Map<Long, String> groups = new LinkedHashMap<Long, String>();
-        ArrayList<Group> group = groupRepository.getAllGroups();
+        ArrayList<Group> group = service.getAllGroups();
         for(int i = 0; i < group.size(); i++){
             groups.put(group.get(i).getNodeID(), group.get(i).getName());
         }
