@@ -52,7 +52,7 @@ public class AddFriendController {
     public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
             @RequestParam(value = "inputPerson2") Long p2, Model model, final RedirectAttributes redirectAttributes){
 
-        if(p1==p2){
+        if(service.getPerson(p1).getName().equals(service.getPerson(p2).getName())){
             String msg = "A person cannot be friends with themselves!";
             redirectAttributes.addFlashAttribute("exists", msg);
         }

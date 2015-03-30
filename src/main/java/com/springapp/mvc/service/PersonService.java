@@ -5,6 +5,7 @@ import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Comment;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.repository.AttributeRepository;
+import com.springapp.mvc.repository.CommentRepository;
 import com.springapp.mvc.repository.GroupRepository;
 import com.springapp.mvc.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class PersonService {
     private GroupRepository groupRepository;
     @Autowired
     private AttributeRepository attributeRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     public void addFriend(Person friend, Person user){
@@ -45,8 +48,8 @@ public class PersonService {
     }
 
     public void addAttribute(Attribute attribute, Person user){
-        attribute.has(user);
-        template.save(attribute);
+        user.has(attribute);
+        template.save(user);
     }
 
     public void addOwner(Comment comment, Person person){
@@ -65,6 +68,18 @@ public class PersonService {
         boolean found = false;
         for (Group g : groups) {
             if (g.getName().equals(name)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public boolean personExists(String name) {
+        ArrayList<Person> persons = getAllPersons();
+        boolean found = false;
+        for (Person p : persons) {
+            if (p.getName().equals(name)) {
                 found = true;
                 break;
             }
@@ -112,6 +127,12 @@ public class PersonService {
         return groups;
     }
 
+    public ArrayList<Comment> getAllComments(){
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        comments.addAll(commentRepository.findAll().as(ArrayList.class));
+        return comments;
+    }
+
     public ArrayList<Attribute> getAllAttributes(){
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();
         attributes.addAll(attributeRepository.findAll().as(ArrayList.class));
@@ -126,6 +147,31 @@ public class PersonService {
     public void removeUser(Long id){
         Person p = personRepository.findOne(id);
         personRepository.delete(p);
+    }
+
+    public void deleteComment(Long id){
+        Comment c = commentRepository.findOne(id);
+        commentRepository.delete(c);
+    }
+
+    public void deleteAttribute(Long id){
+        Attribute a = attributeRepository.findOne(id);
+        attributeRepository.delete(a);
+    }
+
+    public void deleteAll(){
+        for(Group g : getAllGroups()){
+            deleteGroup(g.getNodeID());
+        }
+        for(Person p : getAllPersons()){
+            removeUser(p.getNodeID());
+        }
+        for(Comment c : getAllComments()){
+            deleteComment(c.getNodeID());
+        }
+        for(Attribute a : getAllAttributes()){
+            deleteAttribute(a.getNodeID());
+        }
     }
 
 }

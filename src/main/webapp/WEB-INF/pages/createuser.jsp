@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +39,16 @@
 <br>
 <div class="section">
     <div class="container">
+        <c:if test="${valid != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${valid}</b>
+            </div>
+        </c:if>
+        <c:if test="${exists != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${exists}</b>
+            </div>
+        </c:if>
     </div>
 </div>
 <br>

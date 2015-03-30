@@ -5,6 +5,7 @@ import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.repository.AttributeRepository;
 import com.springapp.mvc.repository.PersonRepository;
+import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by Zachary on 3/16/2015.
@@ -27,6 +29,9 @@ public class CreateUserController {
 
     @Autowired
     AttributeRepository attributeRepository;
+
+    @Autowired
+    PersonService service;
 
     @RequestMapping(value = "/createuser", method = RequestMethod.GET)
     public ModelAndView index() {
@@ -92,66 +97,85 @@ public class CreateUserController {
                                 ModelMap modelAttEdu,
                                 ModelMap modelAttBd,
                                 ModelMap modelAttPh,
-                                ModelMap modelAttIt1
+                                ModelMap modelAttIt1,
+                                final RedirectAttributes redirectAttributes
                                 ){
 
-        person.setName(fName + " " + lName);
-        modelPerson.addAttribute("name", person.getName());
-        personRepository.save(person);
+        if(service.personExists(fName + " " + lName)){
+            String msg = fName + " " + lName + " is already a user!";
+            redirectAttributes.addFlashAttribute("exists", msg);
+        }
+        else {
+            person.setName(fName + " " + lName);
+            modelPerson.addAttribute("name", person.getName());
+            personRepository.save(person);
 
-        attAge.setLabel("age");
-        modelAttAge.addAttribute("label", attAge.getLabel());
-        attAge.setValue(age);
-        modelAttAge.addAttribute("value", attAge.getValue());
-        attributeRepository.save(attAge);
+            attAge.setLabel("age");
+            modelAttAge.addAttribute("label", attAge.getLabel());
+            attAge.setValue(age);
+            modelAttAge.addAttribute("value", attAge.getValue());
+            attributeRepository.save(attAge);
+            //service.addAttribute(attAge, person);
 
-        attGender.setLabel("gender");
-        modelAttGender.addAttribute("label", attGender.getLabel());
-        attGender.setValue(gender);
-        modelAttGender.addAttribute("value", attGender.getValue());
-        attributeRepository.save(attGender);
+            attGender.setLabel("gender");
+            modelAttGender.addAttribute("label", attGender.getLabel());
+            attGender.setValue(gender);
+            modelAttGender.addAttribute("value", attGender.getValue());
+            attributeRepository.save(attGender);
+            //service.addAttribute(attGender, person);
 
-        attLocation.setLabel("location");
-        modelAttLocation.addAttribute("label", attLocation.getLabel());
-        attLocation.setValue(location);
-        modelAttLocation.addAttribute("value", attLocation.getValue());
-        attributeRepository.save(attLocation);
+            attLocation.setLabel("location");
+            modelAttLocation.addAttribute("label", attLocation.getLabel());
+            attLocation.setValue(location);
+            modelAttLocation.addAttribute("value", attLocation.getValue());
+            attributeRepository.save(attLocation);
+            //service.addAttribute(attLocation, person);
 
-        attPolitical.setLabel("political view");
-        modelAttPolitical.addAttribute("label", attPolitical.getLabel());
-        attPolitical.setValue(political);
-        modelAttPolitical.addAttribute("value", attPolitical.getValue());
-        attributeRepository.save(attPolitical);
+            attPolitical.setLabel("political view");
+            modelAttPolitical.addAttribute("label", attPolitical.getLabel());
+            attPolitical.setValue(political);
+            modelAttPolitical.addAttribute("value", attPolitical.getValue());
+            attributeRepository.save(attPolitical);
+            //service.addAttribute(attPolitical, person);
 
-        attWork.setLabel("work");
-        modelAttWork.addAttribute("label", attWork.getLabel());
-        attWork.setValue(work);
-        modelAttWork.addAttribute("value", attWork.getValue());
-        attributeRepository.save(attWork);
+            attWork.setLabel("work");
+            modelAttWork.addAttribute("label", attWork.getLabel());
+            attWork.setValue(work);
+            modelAttWork.addAttribute("value", attWork.getValue());
+            attributeRepository.save(attWork);
+            //service.addAttribute(attWork, person);
 
-        attEdu.setLabel("education");
-        modelAttEdu.addAttribute("label", attEdu.getLabel());
-        attEdu.setValue(education);
-        modelAttEdu.addAttribute("value", attEdu.getValue());
-        attributeRepository.save(attEdu);
+            attEdu.setLabel("education");
+            modelAttEdu.addAttribute("label", attEdu.getLabel());
+            attEdu.setValue(education);
+            modelAttEdu.addAttribute("value", attEdu.getValue());
+            attributeRepository.save(attEdu);
+            //service.addAttribute(attEdu, person);
 
-        attBd.setLabel("birthday");
-        modelAttBd.addAttribute("label", attBd.getLabel());
-        attBd.setValue(bday);
-        modelAttBd.addAttribute("value", attBd.getValue());
-        attributeRepository.save(attBd);
+            attBd.setLabel("birthday");
+            modelAttBd.addAttribute("label", attBd.getLabel());
+            attBd.setValue(bday);
+            modelAttBd.addAttribute("value", attBd.getValue());
+            attributeRepository.save(attBd);
+            //service.addAttribute(attBd, person);
 
-        attPh.setLabel("phone number");
-        modelAttPh.addAttribute("label", attPh.getLabel());
-        attPh.setValue(phone);
-        modelAttPh.addAttribute("value", attPh.getValue());
-        attributeRepository.save(attPh);
+            attPh.setLabel("phone number");
+            modelAttPh.addAttribute("label", attPh.getLabel());
+            attPh.setValue(phone);
+            modelAttPh.addAttribute("value", attPh.getValue());
+            attributeRepository.save(attPh);
+            //service.addAttribute(attPh, person);
 
-        attIt1.setLabel("interest");
-        modelAttIt1.addAttribute("label", attIt1.getLabel());
-        attIt1.setValue(interest1);
-        modelAttIt1.addAttribute("value", attIt1.getValue());
-        attributeRepository.save(attIt1);
+            attIt1.setLabel("interest");
+            modelAttIt1.addAttribute("label", attIt1.getLabel());
+            attIt1.setValue(interest1);
+            modelAttIt1.addAttribute("value", attIt1.getValue());
+            attributeRepository.save(attIt1);
+            //service.addAttribute(attIt1, person);
+
+            String msg = "Created the user " + fName + " " + lName + "!";
+            redirectAttributes.addFlashAttribute("valid", msg);
+        }
 
         return "redirect:/createuser";
     }
