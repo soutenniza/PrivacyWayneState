@@ -122,4 +122,10 @@ public class PersonService {
         Group g = groupRepository.findOne(id);
         groupRepository.delete(g);
     }
+
+    public void removeUser(Long id){
+        Person p = personRepository.findOne(id);
+        personRepository.delete(p);
+    }
+
 }
