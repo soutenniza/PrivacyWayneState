@@ -91,7 +91,7 @@ public class AddFriendController {
         else
         {
             analysisService.setRoot(service.getPerson(p1));
-            ArrayList<String> messages = analysisService.fullAnalysis();
+            ArrayList<String> messages = analysisService.calculateSingleFriend(service.getPerson(p2));
 
             String relationshipMsgs = "";
             String msg;
