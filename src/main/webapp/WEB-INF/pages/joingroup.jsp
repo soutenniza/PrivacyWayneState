@@ -102,7 +102,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="submit" value="join group" class="btn btn-block btn-lg btn-primary"/>
+                                <input type="submit" value="join group" class="btn btn-success"/>
                                 <a class="btn btn-warning">Run "What-If" Analysis</a>
                             </div>
                         </div>
