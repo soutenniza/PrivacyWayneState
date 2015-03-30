@@ -14,6 +14,10 @@ public class HasRelationship {
     @GraphId
     Long id;
 
+    private int pv; // privacy value
+    private int vv; // visibility value
+    private int sv; // sensitivity value
+
     @StartNode
     Person user;
 
@@ -24,8 +28,11 @@ public class HasRelationship {
         //null
     }
 
-    public HasRelationship(Person user, Attribute attribute){
+    public HasRelationship(Person user, Attribute attribute, int pv, int vv, int sv){
         this.user = user;
         this.attribute = attribute;
+        this.pv = pv;
+        this.vv = vv;
+        this.sv = sv;
     }
 }

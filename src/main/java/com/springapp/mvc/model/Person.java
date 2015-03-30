@@ -1,5 +1,6 @@
 package com.springapp.mvc.model;
 
+import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
@@ -26,7 +27,7 @@ public class Person {
 
     Collection<Person> friends;
 
-    Collection<Attribute> has;
+    Collection<Attribute> attributes;
 
     public Person() {
     }
@@ -54,9 +55,9 @@ public class Person {
         return friendRelationship;
     }
 
-    public HasRelationship has(Attribute attribute){
-        final HasRelationship hasRelationship = new HasRelationship(this, attribute);
-        has.add(attribute);
+    public HasRelationship has(Attribute attribute, int p, int v, int s){
+        final HasRelationship hasRelationship = new HasRelationship(this, attribute, p, v, s);
+        //attributes.add(attribute);
         hasRelationships.add(hasRelationship);
         return hasRelationship;
     }
@@ -68,6 +69,14 @@ public class Person {
 
     public Collection<FriendRelationship> getFriendRelationships(){
         return friendRelationships;
+    }
+
+    public Collection<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public Collection<HasRelationship> getAttributeRelationships() {
+        return hasRelationships;
     }
 
 }
