@@ -43,8 +43,8 @@ public class PersonService {
     }
 
     public void addMember(Group group, Person user){
-        group.member(user);
-        template.save(group);
+        user.member(group);
+        template.save(user);
     }
 
     public void addAttribute(Attribute attribute, Person user, int p, int v, int s){
@@ -113,12 +113,12 @@ public class PersonService {
     }
 
     public boolean isMember(Group group, Person person){
-        Collection<Person> persons = group.getMembers();
+        Collection<Group> groups = person.getGroups();
         boolean found = false;
-        if(persons.isEmpty())
+        if(groups.isEmpty())
             return false;
-        for (Person p : persons) {
-            if (p.getNodeID().equals(person.getNodeID())) {
+        for (Group g : groups) {
+            if (g.getNodeID().equals(group.getNodeID())) {
                 found = true;
                 break;
             }
