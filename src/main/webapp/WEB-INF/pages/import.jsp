@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,18 +26,29 @@
 <body>
 <mytags:navbar/>
 <mytags:modifybar/>
+<br>
 <div class="section">
     <div class="container">
- <%--       <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Data set imported!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a data set!</b>
-                </div>
+        <c:if test="${deleted != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${deleted}</b>
             </div>
-        </div>--%>
+        </c:if>
+        <c:if test="${wrong != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${wrong}</b>
+            </div>
+        </c:if>
+        <c:if test="${pass != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${pass}</b>
+            </div>
+        </c:if>
+        <c:if test="${fail != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${fail}</b>
+            </div>
+        </c:if>
     </div>
 </div>
 <br>
@@ -47,13 +61,12 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="text-danger text-left">Warning: Importing a data set will delete any changes made to the existing
-                                        data set!&nbsp;</p>
+                                    <p class="text-danger text-left">Warning: Importing a data set will append the existing data set!&nbsp;</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <form class="form-horizontal" role="form">
+                    <form method="POST" action="/submitimport" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">Data set:</label>
@@ -64,8 +77,39 @@
                                 </select>
                             </div>
                         </div>
+                        <input type="submit" value="delete" class="btn btn-success"/>
                     </form>
-                    <a class="btn btn-success">Import</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-danger text-left">Warning: Deleting the data set will DELETE THE DATA SET!&nbsp;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form method="POST" action="/submitdeleteset" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label path="name" class="control-label">Passcode</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="pass" placeholder="top secret do not tell ok" required type="password">
+                            </div>
+                        </div>
+                        <input type="submit" value="delete" class="btn btn-danger"/>
+                    </form>
                 </div>
             </div>
         </div>
