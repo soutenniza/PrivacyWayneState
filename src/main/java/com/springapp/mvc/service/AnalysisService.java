@@ -65,6 +65,38 @@ public class AnalysisService {
         return messaages;
     }
 
+    public ArrayList<String> calculateSingleFriend(Person friend){
+        Collection<Person> friends = root.getFriends();
+        ArrayList<Integer> mutualFriends = new ArrayList<>();
+        ArrayList<Long> mutualFriendID  = new ArrayList<>();
+        ArrayList<String> messaages = new ArrayList<>();
+        for(Person p : friends){
+            Long pID = p.getNodeID();
+            int mt = mutualfriends(root, personService.getPerson(pID));
+            mutualFriends.add(mt);
+            mutualFriendID.add(pID);
+        }
+        double threshold = 0;
+
+
+
+        for(int i = 0; i < mutualFriends.size(); i++){
+            threshold += mutualFriends.get(i);
+        }
+
+        threshold /= mutualFriends.size();
+        double average = threshold;
+        threshold = threshold - threshold/mutualFriends.size();
+
+        int mt = mutualfriends(root, personService.getPerson(friend.getNodeID()));
+        if(mt < threshold) {
+            String msg = String.format("%s has a low number of mutual friends. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(friend.getNodeID()).getName(), mt, average, threshold);
+            messaages.add(msg);
+        }
+        return messaages;
+
+    }
+
     public int mutualfriends(Person r, Person p){
         Collection<Person> rootFriends = root.getFriends();
         ArrayList<Long> rootLong = new ArrayList<>();

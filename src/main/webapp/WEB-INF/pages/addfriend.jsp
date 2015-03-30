@@ -64,6 +64,20 @@
         </c:if>
     </div>
 </div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <c:if test="${relationships != null}">
+                ${relationships}
+            </c:if>
+            <c:if test="${relationshipsok != null}">
+                <div id="message" class="alert alert-success">
+                    <b>${relationshipsok}</b>
+                </div>
+            </c:if>
+        </div>
+    </div>
+</div>
 <br>
 <div class="section">
     <div class="container">
@@ -98,8 +112,9 @@
                             </div>
                         </div>
                         <br>
-                        <input type="submit" value="Add Friend" class="btn btn-success"/>
-                        <a class="btn btn-warning">Run "What-If" Analysis</a>
+                        <input type="submit" name="submit" value="Add Friend" class="btn btn-success"/>
+                        <input type="submit" name="whatif" value="What-If Analysis" class="btn btn-warning"/>
+
                     </form>
                 </div>
                 <div class="col-md-6">

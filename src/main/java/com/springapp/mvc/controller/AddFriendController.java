@@ -1,6 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Person;
+import com.springapp.mvc.service.AnalysisService;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,9 @@ import java.util.Map;
 @Controller
 public class AddFriendController {
     @Autowired
+    AnalysisService analysisService;
+
+    @Autowired
     PersonService service;
 
     @Autowired
@@ -47,7 +51,7 @@ public class AddFriendController {
         return "addfriend";
     }
 
-    @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST)
+    @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST, params={"submit", "!whatif"})
     @Transactional
     public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
             @RequestParam(value = "inputPerson2") Long p2, Model model, final RedirectAttributes redirectAttributes){
@@ -66,6 +70,48 @@ public class AddFriendController {
             service.addFriend(service.getPerson(p2), service.getPerson(p1));
             String msg = "Friends Added!";
             redirectAttributes.addFlashAttribute("added", msg);
+        }
+
+        return "redirect:/addfriend";
+    }
+
+    @RequestMapping(value = "/submitaddfriend", method = RequestMethod.POST, params={"!submit", "whatif"})
+    @Transactional
+    public String whatIfFriend(@RequestParam(value = "inputPerson1") Long p1,
+                            @RequestParam(value = "inputPerson2") Long p2, Model model, final RedirectAttributes redirectAttributes){
+
+        if(service.getPerson(p1).getName().equals(service.getPerson(p2).getName())){
+            String msg = "A person cannot be friends with themselves!";
+            redirectAttributes.addFlashAttribute("exists", msg);
+        }
+        else if((service.areFriends(service.getPerson(p1),service.getPerson(p2)))&&(p1!=p2)) {
+            String msg = service.getPerson(p1).getName() + " and " + service.getPerson(p2).getName() + " are already friends!";
+            redirectAttributes.addFlashAttribute("exists", msg);
+        }
+        else
+        {
+            analysisService.setRoot(service.getPerson(p1));
+            ArrayList<String> messages = analysisService.fullAnalysis();
+
+            String relationshipMsgs = "";
+            String msg;
+
+            // sort messages
+            // mutual friends
+            for(String m : messages){
+                if(m.contains("low number of mutual friends")){
+                    relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                }
+            }
+
+            // add notifications
+            if(relationshipMsgs==""){
+                msg = "No issues here!";
+                redirectAttributes.addFlashAttribute("relationshipsok", msg);
+            }
+            else {
+                redirectAttributes.addFlashAttribute("relationships", relationshipMsgs);
+            }
         }
 
         return "redirect:/addfriend";
