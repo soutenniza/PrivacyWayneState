@@ -53,7 +53,7 @@ public class AnalysisController {
         // sort messages
         // mutual friends
         for(String m : messages){
-            if(m.contains("low number of mutual friends")){
+            if(m.contains("has")){
                 relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
         }

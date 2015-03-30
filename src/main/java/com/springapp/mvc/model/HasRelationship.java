@@ -35,4 +35,16 @@ public class HasRelationship {
         this.vv = vv;
         this.sv = sv;
     }
+
+    public int getPv(){
+        return pv;
+    }
+
+    public int getVv(){
+        return vv;
+    }
+
+    public int getSv(){
+        return sv;
+    }
 }

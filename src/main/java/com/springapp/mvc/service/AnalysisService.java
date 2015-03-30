@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.analysis.RelationshipAnalysisHandler;
 import com.springapp.mvc.model.FriendRelationship;
+import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,51 @@ public class AnalysisService {
     public ArrayList<String> fullAnalysis(){
         ArrayList<String> allMessages;
         allMessages = calculateAllMutualFriends();
+        allMessages.addAll(calculateAllPrivacyScore());
 
         return allMessages;
+    }
+
+    private ArrayList<String> calculateAllPrivacyScore(){
+        Collection<Person> friends = root.getFriends();
+        ArrayList<Integer> privacyScores = new ArrayList<>();
+        ArrayList<Long> privacyScoresID  = new ArrayList<>();
+        ArrayList<String> messaages = new ArrayList<>();
+        for(Person p : friends){
+            Long pID = p.getNodeID();
+            int ps = getPrivacyScore(personService.getPerson(pID));
+            privacyScores.add(ps);
+            privacyScoresID.add(pID);
+        }
+
+        double threshold = 0;
+
+        for(int i = 0; i < privacyScores.size(); i++){
+            threshold += privacyScores.get(i);
+        }
+
+        threshold /= privacyScores.size();
+        double avg = threshold;
+        threshold = threshold + threshold/privacyScores.size();
+
+        for(int i = 0; i < privacyScores.size(); i++){
+            if(privacyScores.get(i) > threshold){
+                String msg = String.format("%s has a high Privacy Score. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(privacyScoresID.get(i)).getName(), privacyScores.get(i), avg, threshold);
+                messaages.add(msg);
+            }
+        }
+
+        return messaages;
+    }
+
+    private int getPrivacyScore(Person p){
+        Person person = personService.getPerson(p.getNodeID());
+        Collection<HasRelationship> relationships = person.getAttributeRelationships();
+        int score = 0;
+        for(HasRelationship r : relationships){
+            score += r.getVv()*r.getSv();
+        }
+        return score;
     }
 
     private ArrayList<String> calculateAllMutualFriends() {
