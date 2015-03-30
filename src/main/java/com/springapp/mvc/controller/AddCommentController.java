@@ -57,14 +57,23 @@ public class AddCommentController {
                             @ModelAttribute("SpringWeb")Comment comment,
                             @RequestParam(value = "inputComment") String t, Model model, final RedirectAttributes redirectAttributes){
 
-        comment.setText(t);
-        model.addAttribute("content", comment.getText());
-        commentRepository.save(comment);
 
-        //service.addOwner(comment, service.getPerson(p));
+        if(service.commentExists(t)){
+            String msg = "This comment has already been made. Why don't you say something new?";
+            redirectAttributes.addFlashAttribute("fail", msg);
+        }
+        else
+        {
+            comment.setText(t);
+            model.addAttribute("content", comment.getText());
+            commentRepository.save(comment);
 
-        String msg = "Comment created!";
-        redirectAttributes.addFlashAttribute("message", msg);
+            service.addComment(comment, service.getPerson(p));
+
+            String msg = "Comment created!";
+            redirectAttributes.addFlashAttribute("message", msg);
+        }
+
         return "redirect:/addcomment";
     }
 

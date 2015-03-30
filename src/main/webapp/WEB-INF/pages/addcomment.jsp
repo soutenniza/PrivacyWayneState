@@ -47,19 +47,11 @@
 <br>
 <div class="section">
     <div class="container">
-        <%--<div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] Comment created!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must fill in all fields!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[WARN] This is a PRIVACY warning!</b>
-                </div>
+        <c:if test="${fail != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${fail}</b>
             </div>
-        </div>--%>
+        </c:if>
         <c:if test="${message != null}">
             <div id="message" class="alert alert-success">
                 <b>[SUCCESS] Added Comment!</b>
@@ -92,7 +84,7 @@
                                 <textarea name="inputComment" class="form-control"></textarea>
                             </div>
                         </div>
-                        <input type="submit" value="add comment" class="btn btn-block btn-lg btn-primary"/>
+                        <input type="submit" value="add comment" class="btn btn-success"/>
                         <a class="btn btn-warning">Run "What-If" Analysis</a>
                     </form>
                 </div>

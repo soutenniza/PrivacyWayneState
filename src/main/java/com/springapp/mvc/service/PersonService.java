@@ -63,9 +63,9 @@ public class PersonService {
         }
     }
 
-    public void addOwner(Comment comment, Person person){
-        comment.owns(person);
-        template.save(comment);
+    public void addComment(Comment comment, Person person){
+        person.owns(comment);
+        template.save(person);
     }
 
     public ArrayList<Person> getAllPersons(){
@@ -105,6 +105,20 @@ public class PersonService {
             return false;
         for (Person p : persons) {
             if (p.getNodeID().equals(p2.getNodeID())) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public boolean commentExists(String t){
+        Collection<Comment> comments = getAllComments();
+        boolean found = false;
+        if(comments.isEmpty())
+            return false;
+        for (Comment cs : comments) {
+            if (cs.getText().equals(t)) {
                 found = true;
                 break;
             }

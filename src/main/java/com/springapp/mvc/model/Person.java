@@ -28,6 +28,11 @@ public class Person {
     @RelatedToVia
     Collection<MemberRelationship> memberRelationships;
 
+    @RelatedToVia
+    Collection<OwnsRelationship> ownsRelationships;
+
+    Collection<Comment> comments;
+
     Collection<Person> friends;
 
     Collection<Attribute> attributes;
@@ -74,6 +79,16 @@ public class Person {
         return memberRelationship;
     }
 
+    public OwnsRelationship owns(Comment c){
+        final OwnsRelationship ownsRelationship = new OwnsRelationship(c, this);
+        comments.add(c);
+        ownsRelationships.add(ownsRelationship);
+        return ownsRelationship;
+    }
+
+    public Collection<Comment> getComments(){
+        return comments;
+    }
 
     public Collection<Person> getFriends(){
         return friends;
@@ -93,6 +108,10 @@ public class Person {
 
     public Collection<HasRelationship> getAttributeRelationships() {
         return hasRelationships;
+    }
+
+    public Collection<OwnsRelationship> getCommentRelationships() {
+        return ownsRelationships;
     }
 
 }
