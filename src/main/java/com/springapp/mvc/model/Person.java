@@ -21,7 +21,12 @@ public class Person {
     @RelatedToVia
     Collection<FriendRelationship> friendRelationships;
 
+    @RelatedToVia
+    Collection<HasRelationship> hasRelationships;
+
     Collection<Person> friends;
+
+    Collection<Attribute> has;
 
     public Person() {
     }
@@ -47,6 +52,13 @@ public class Person {
         friends.add(friend);
         friendRelationships.add(friendRelationship);
         return friendRelationship;
+    }
+
+    public HasRelationship has(Attribute attribute){
+        final HasRelationship hasRelationship = new HasRelationship(this, attribute);
+        has.add(attribute);
+        hasRelationships.add(hasRelationship);
+        return hasRelationship;
     }
 
 

@@ -51,7 +51,7 @@ public class Attribute {
     }
 
     public HasRelationship has(Person person){
-        final HasRelationship hasRelationship = new HasRelationship(this, person);
+        final HasRelationship hasRelationship = new HasRelationship(person, this);
         hasRelationships.add(hasRelationship);
         return hasRelationship;
     }

@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <br>
-                        <input type="submit" value="Add Friend" class="btn btn-block btn-lg btn-primary"/>
+                        <input type="submit" value="Add Friend" class="btn btn-success"/>
                         <a class="btn btn-warning">Run "What-If" Analysis</a>
                     </form>
                 </div>

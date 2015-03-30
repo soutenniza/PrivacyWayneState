@@ -48,8 +48,8 @@ public class PersonService {
     }
 
     public void addAttribute(Attribute attribute, Person user){
-        attribute.has(user);
-        template.save(attribute);
+        user.has(attribute);
+        template.save(user);
     }
 
     public void addOwner(Comment comment, Person person){
@@ -68,6 +68,18 @@ public class PersonService {
         boolean found = false;
         for (Group g : groups) {
             if (g.getName().equals(name)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public boolean personExists(String name) {
+        ArrayList<Person> persons = getAllPersons();
+        boolean found = false;
+        for (Person p : persons) {
+            if (p.getName().equals(name)) {
                 found = true;
                 break;
             }

@@ -24,7 +24,7 @@ public class HasRelationship {
         //null
     }
 
-    public HasRelationship(Attribute attribute, Person user){
+    public HasRelationship(Person user, Attribute attribute){
         this.user = user;
         this.attribute = attribute;
     }
