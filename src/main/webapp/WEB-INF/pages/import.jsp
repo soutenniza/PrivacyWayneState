@@ -79,7 +79,7 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="submit" value="delete" class="btn btn-success"/>
+                        <input type="submit" value="import" class="btn btn-success"/>
                     </form>
                 </div>
             </div>

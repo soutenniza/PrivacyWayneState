@@ -24,7 +24,7 @@ public class Attribute {
 
     }
 
-    public Attribute(String label) {
+    public Attribute(String label, String value) {
         this.label = label;
         this.value = value;
     }
@@ -50,8 +50,8 @@ public class Attribute {
         return nodeID;
     }
 
-    public HasRelationship has(Person person){
-        final HasRelationship hasRelationship = new HasRelationship(person, this);
+    public HasRelationship has(Person person, int p, int v, int s){
+        final HasRelationship hasRelationship = new HasRelationship(person, this, p, v, s);
         hasRelationships.add(hasRelationship);
         return hasRelationship;
     }

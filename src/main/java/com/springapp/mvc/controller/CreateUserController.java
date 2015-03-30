@@ -40,17 +40,7 @@ public class CreateUserController {
     }
     @RequestMapping(value = "/submitcreateuser", method = RequestMethod.POST)
     @Transactional
-    public String createUser(   @ModelAttribute("person")Person person,
-                                @ModelAttribute("attAge")Attribute attAge,
-                                @ModelAttribute("attGen")Attribute attGender,
-                                @ModelAttribute("attLoc")Attribute attLocation,
-                                @ModelAttribute("attPol")Attribute attPolitical,
-                                @ModelAttribute("attWor")Attribute attWork,
-                                @ModelAttribute("attEdu")Attribute attEdu,
-                                @ModelAttribute("attBdy")Attribute attBd,
-                                @ModelAttribute("attPhn")Attribute attPh,
-                                @ModelAttribute("attIt1")Attribute attIt1,
-                                @RequestParam(value = "inputFirstName") String fName,
+    public String createUser(   @RequestParam(value = "inputFirstName") String fName,
                                 @RequestParam(value = "inputLastName") String lName,
                                 @RequestParam(value = "inputAge") String age,
                                 @RequestParam(value = "inputAgeP") String ageP,
@@ -88,16 +78,6 @@ public class CreateUserController {
                                 @RequestParam(value = "inputInterest1P") String interest1P,
                                 @RequestParam(value = "inputInterest1V") String interest1V,
                                 @RequestParam(value = "inputInterest1S") String interest1S,
-                                ModelMap modelPerson,
-                                ModelMap modelAttAge,
-                                ModelMap modelAttGender,
-                                ModelMap modelAttLocation,
-                                ModelMap modelAttPolitical,
-                                ModelMap modelAttWork,
-                                ModelMap modelAttEdu,
-                                ModelMap modelAttBd,
-                                ModelMap modelAttPh,
-                                ModelMap modelAttIt1,
                                 final RedirectAttributes redirectAttributes
                                 ){
 
@@ -106,72 +86,44 @@ public class CreateUserController {
             redirectAttributes.addFlashAttribute("exists", msg);
         }
         else {
-            person.setName(fName + " " + lName);
-            modelPerson.addAttribute("name", person.getName());
-            personRepository.save(person);
+            Person p = new Person(fName + " " + lName);
+            personRepository.save(p);
 
-            attAge.setLabel("age");
-            modelAttAge.addAttribute("label", attAge.getLabel());
-            attAge.setValue(age);
-            modelAttAge.addAttribute("value", attAge.getValue());
+            Attribute attAge = new Attribute("age", age);
             attributeRepository.save(attAge);
-            //service.addAttribute(attAge, person);
+            service.addAttribute(attAge, p, Integer.parseInt(ageP), Integer.parseInt(ageV), Integer.parseInt(ageS));
 
-            attGender.setLabel("gender");
-            modelAttGender.addAttribute("label", attGender.getLabel());
-            attGender.setValue(gender);
-            modelAttGender.addAttribute("value", attGender.getValue());
+            Attribute attGender = new Attribute("gender", gender);
             attributeRepository.save(attGender);
-            //service.addAttribute(attGender, person);
+            service.addAttribute(attGender, p, Integer.parseInt(genderP), Integer.parseInt(genderV), Integer.parseInt(genderS));
 
-            attLocation.setLabel("location");
-            modelAttLocation.addAttribute("label", attLocation.getLabel());
-            attLocation.setValue(location);
-            modelAttLocation.addAttribute("value", attLocation.getValue());
+            Attribute attLocation = new Attribute("location", location);
             attributeRepository.save(attLocation);
-            //service.addAttribute(attLocation, person);
+            service.addAttribute(attLocation, p, Integer.parseInt(locationP), Integer.parseInt(locationV), Integer.parseInt(locationS));
 
-            attPolitical.setLabel("political view");
-            modelAttPolitical.addAttribute("label", attPolitical.getLabel());
-            attPolitical.setValue(political);
-            modelAttPolitical.addAttribute("value", attPolitical.getValue());
+            Attribute attPolitical = new Attribute("political view", political);
             attributeRepository.save(attPolitical);
-            //service.addAttribute(attPolitical, person);
+            service.addAttribute(attPolitical, p, Integer.parseInt(politicalP), Integer.parseInt(politicalV), Integer.parseInt(politicalS));
 
-            attWork.setLabel("work");
-            modelAttWork.addAttribute("label", attWork.getLabel());
-            attWork.setValue(work);
-            modelAttWork.addAttribute("value", attWork.getValue());
+            Attribute attWork = new Attribute("work", work);
             attributeRepository.save(attWork);
-            //service.addAttribute(attWork, person);
+            service.addAttribute(attWork, p, Integer.parseInt(workP), Integer.parseInt(workV), Integer.parseInt(workS));
 
-            attEdu.setLabel("education");
-            modelAttEdu.addAttribute("label", attEdu.getLabel());
-            attEdu.setValue(education);
-            modelAttEdu.addAttribute("value", attEdu.getValue());
+            Attribute attEdu = new Attribute("education", education);
             attributeRepository.save(attEdu);
-            //service.addAttribute(attEdu, person);
+            service.addAttribute(attEdu, p, Integer.parseInt(educationP), Integer.parseInt(educationV), Integer.parseInt(educationS));
 
-            attBd.setLabel("birthday");
-            modelAttBd.addAttribute("label", attBd.getLabel());
-            attBd.setValue(bday);
-            modelAttBd.addAttribute("value", attBd.getValue());
+            Attribute attBd = new Attribute("birthday", bday);
             attributeRepository.save(attBd);
-            //service.addAttribute(attBd, person);
+            service.addAttribute(attBd, p, Integer.parseInt(bdayP), Integer.parseInt(bdayV), Integer.parseInt(bdayS));
 
-            attPh.setLabel("phone number");
-            modelAttPh.addAttribute("label", attPh.getLabel());
-            attPh.setValue(phone);
-            modelAttPh.addAttribute("value", attPh.getValue());
+            Attribute attPh = new Attribute("phone numebr", phone);
             attributeRepository.save(attPh);
-            //service.addAttribute(attPh, person);
+            service.addAttribute(attPh, p, Integer.parseInt(phoneP), Integer.parseInt(phoneV), Integer.parseInt(phoneS));
 
-            attIt1.setLabel("interest");
-            modelAttIt1.addAttribute("label", attIt1.getLabel());
-            attIt1.setValue(interest1);
-            modelAttIt1.addAttribute("value", attIt1.getValue());
+            Attribute attIt1 = new Attribute("interest", interest1);
             attributeRepository.save(attIt1);
-            //service.addAttribute(attIt1, person);
+            service.addAttribute(attIt1, p, Integer.parseInt(interest1P), Integer.parseInt(interest1V), Integer.parseInt(interest1S));
 
             String msg = "Created the user " + fName + " " + lName + "!";
             redirectAttributes.addFlashAttribute("valid", msg);

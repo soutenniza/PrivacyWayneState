@@ -47,9 +47,20 @@ public class PersonService {
         template.save(group);
     }
 
-    public void addAttribute(Attribute attribute, Person user){
-        user.has(attribute);
-        template.save(user);
+    public void addAttribute(Attribute attribute, Person user, int p, int v, int s){
+        Person thePerson = getAllPersons().get(0);
+        boolean found = false;
+        ArrayList<Person> pp = getAllPersons();
+        for(Person tp : pp){
+            if(tp.getName().equals(user.getName())){
+                thePerson = tp;
+                found = true;
+            }
+        }
+        if(found) {
+            thePerson.has(attribute, p, v, s);
+            template.save(thePerson);
+        }
     }
 
     public void addOwner(Comment comment, Person person){
