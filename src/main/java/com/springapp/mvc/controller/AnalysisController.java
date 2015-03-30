@@ -48,6 +48,8 @@ public class AnalysisController {
         String relationshipMsgs = "";
         String msg;
 
+        redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
+
         // sort messages
         // mutual friends
         for(String m : messages){

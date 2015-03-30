@@ -58,42 +58,44 @@
                             </form:select>
                         </div>
                     </div>
-                    <input type="submit" value="Run Analysis" class="btn btn-block btn-lg btn-primary"/>
+                    <input type="submit" value="Run Analysis" class="btn btn-success"/>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Utility</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Relationships</h1>
-            </div>
-        </div>
-        <div class="row">
-            <c:if test="${relationships != null}">
-                ${relationships}
+        <div class="jumbotron">
+            <c:if test="${user != null}">
+                ${user}
             </c:if>
-            <c:if test="${relationshipsok != null}">
-                <div id="message" class="alert alert-success">
-                    <b>${relationshipsok}</b>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Utility</h1>
                 </div>
-            </c:if>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Relationships</h1>
+                </div>
+            </div>
+            <div class="row">
+                <c:if test="${relationships != null}">
+                    ${relationships}
+                </c:if>
+                <c:if test="${relationshipsok != null}">
+                    <div id="message" class="alert alert-success">
+                        <b>${relationshipsok}</b>
+                    </div>
+                </c:if>
+            </div>
         </div>
     </div>
 </div>
