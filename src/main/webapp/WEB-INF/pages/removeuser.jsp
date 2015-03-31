@@ -15,6 +15,7 @@
 <html>
 <head>
     <title>PrivacyWayne</title>
+    <link rel="favicon" href="/resources/images/favicon.ico" type="image/x-icon" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
