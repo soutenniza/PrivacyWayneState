@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,35 +32,22 @@
 <br>
 <div class="section">
     <div class="container">
-        <%--<div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a user!</b>
-                </div>
-            </div>
-        </div>--%>
-    </div>
-</div>
-<br>
-<div class="section">
-    <div class="container">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal" role="form">
+                    <form method="POST" action="/submitviewprofile" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">User:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Tommy Bucks</option>
-                                    <option>2</option>
-                                </select>
+                                <form:select name="inputPerson" path="inputPerson" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
                             </div>
                         </div>
+                        <input type="submit" value="view profile" class="btn btn-success"/>
                     </form>
-                    <a class="btn btn-success">View Profile</a>
                 </div>
             </div>
         </div>
@@ -66,24 +56,53 @@
 <br>
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>User Name</h1>
+            <c:if test="${username != null}">
+                <div class="jumbotron">
+            </c:if>
+            <div class="row">
+                <div class="col-md-12">
+                    <c:if test="${username != null}">
+                        <h1>${username}</h1>
+                    </c:if>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <c:if test="${attributes != null}">
+                           ${attributes}
+                    </c:if>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <c:if test="${friends != null}">
+                        ${friends}
+                    </c:if>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <c:if test="${comments != null}">
+                        ${comments}
+                    </c:if>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <c:if test="${likes != null}">
+                        ${likes}
+                    </c:if>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>About:</p>
-                <ul class="list-group">
-                    <li class="list-group-item">Attribute</li>
-                    <li class="list-group-item">Attribute</li>
-                    <li class="list-group-item">Attribute</li>
-                    <li class="list-group-item">Attribute</li>
-                    <li class="list-group-item">Attribute</li>
-                </ul>
+        <c:if test="${username != null}">
             </div>
-        </div>
-    </div>
+        </c:if>
 </div>
+<br>
+<br>
 </body>
 </html>

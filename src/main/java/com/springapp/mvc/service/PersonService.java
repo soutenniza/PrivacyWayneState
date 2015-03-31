@@ -202,6 +202,8 @@ public class PersonService {
 
     public Comment getComment(Long id) { return commentRepository.findOne(id); }
 
+    public Attribute getAttributeWithId(Long id) { return attributeRepository.findOne(id); }
+
     public ArrayList<Group> getAllGroups(){
         ArrayList<Group> groups = new ArrayList<Group>();
         groups.addAll(groupRepository.findAll().as(ArrayList.class));

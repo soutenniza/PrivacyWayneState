@@ -86,12 +86,20 @@ public class LikeCommentController {
         // comment list
         Map<Long, String> comments = new LinkedHashMap<Long, String>();
         ArrayList<Comment> comment = service.getAllComments();
+
         for(int i = 0; i < comment.size(); i++){
-           comments.put(comment.get(i).getNodeID(), service.getCommentOwner(comment.get(i)).getName() + ": " + comment.get(i).getText());
+            Comment ac = comment.get(i);
+            comments.put(ac.getNodeID(), normalizeCommentListItem(ac));
         }
         model.addAttribute("commentList", comments);
     }
 
-
+    public String normalizeCommentListItem(Comment c){
+        String out = service.getCommentOwner(c).getName() + ": " + c.getText();
+        if(out.length()>60){
+            out = out.substring(0,57) + "...";
+        }
+        return out;
+    }
 
 }
