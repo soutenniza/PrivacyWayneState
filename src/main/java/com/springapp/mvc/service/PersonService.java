@@ -63,6 +63,41 @@ public class PersonService {
         }
     }
 
+    public Attribute createAttribute(String label, String value){
+        if(attributeExists(label, value)){
+            Attribute a = getAttribute(label, value);
+            return a;
+        }
+        else{
+            Attribute a = new Attribute(label, value);
+            attributeRepository.save(a);
+            return a;
+        }
+    }
+
+    public Attribute getAttribute(String label, String value){
+        Attribute att = getAllAttributes().get(0);;
+        ArrayList<Attribute> attributes = getAllAttributes();
+        for (Attribute a : attributes) {
+            if ((a.getLabel().equals(label))&&(a.getValue().equals(value))) {
+                att = a;
+            }
+        }
+        return att;
+    }
+
+    public boolean attributeExists(String label, String value){
+        ArrayList<Attribute> attributes = getAllAttributes();
+        boolean found = false;
+        for (Attribute a : attributes) {
+            if ((a.getLabel().equals(label))&&(a.getValue().equals(value))) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
     public void addComment(Comment comment, Person person){
         person.owns(comment);
         template.save(person);

@@ -89,40 +89,31 @@ public class CreateUserController {
             Person p = new Person(fName + " " + lName);
             personRepository.save(p);
 
-            Attribute attAge = new Attribute("age", age);
-            attributeRepository.save(attAge);
+            Attribute attAge = service.createAttribute("age", age);
             service.addAttribute(attAge, p, Integer.parseInt(ageP), Integer.parseInt(ageV), Integer.parseInt(ageS));
 
-            Attribute attGender = new Attribute("gender", gender);
-            attributeRepository.save(attGender);
+            Attribute attGender = service.createAttribute("gender", gender);
             service.addAttribute(attGender, p, Integer.parseInt(genderP), Integer.parseInt(genderV), Integer.parseInt(genderS));
 
-            Attribute attLocation = new Attribute("location", location);
-            attributeRepository.save(attLocation);
+            Attribute attLocation = service.createAttribute("location", location);
             service.addAttribute(attLocation, p, Integer.parseInt(locationP), Integer.parseInt(locationV), Integer.parseInt(locationS));
 
-            Attribute attPolitical = new Attribute("political view", political);
-            attributeRepository.save(attPolitical);
+            Attribute attPolitical = service.createAttribute("political view", political);
             service.addAttribute(attPolitical, p, Integer.parseInt(politicalP), Integer.parseInt(politicalV), Integer.parseInt(politicalS));
 
-            Attribute attWork = new Attribute("work", work);
-            attributeRepository.save(attWork);
+            Attribute attWork = service.createAttribute("work", work);
             service.addAttribute(attWork, p, Integer.parseInt(workP), Integer.parseInt(workV), Integer.parseInt(workS));
 
-            Attribute attEdu = new Attribute("education", education);
-            attributeRepository.save(attEdu);
+            Attribute attEdu = service.createAttribute("education", education);
             service.addAttribute(attEdu, p, Integer.parseInt(educationP), Integer.parseInt(educationV), Integer.parseInt(educationS));
 
-            Attribute attBd = new Attribute("birthday", bday);
-            attributeRepository.save(attBd);
+            Attribute attBd = service.createAttribute("birthday", bday);
             service.addAttribute(attBd, p, Integer.parseInt(bdayP), Integer.parseInt(bdayV), Integer.parseInt(bdayS));
 
-            Attribute attPh = new Attribute("phone numebr", phone);
-            attributeRepository.save(attPh);
+            Attribute attPh = service.createAttribute("phone numebr", phone);
             service.addAttribute(attPh, p, Integer.parseInt(phoneP), Integer.parseInt(phoneV), Integer.parseInt(phoneS));
 
-            Attribute attIt1 = new Attribute("interest", interest1);
-            attributeRepository.save(attIt1);
+            Attribute attIt1 = service.createAttribute("interest", interest1);
             service.addAttribute(attIt1, p, Integer.parseInt(interest1P), Integer.parseInt(interest1V), Integer.parseInt(interest1S));
 
             String msg = "Created the user " + fName + " " + lName + "!";
