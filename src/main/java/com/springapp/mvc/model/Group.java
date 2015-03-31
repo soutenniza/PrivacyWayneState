@@ -21,6 +21,8 @@ public class Group {
 
     Collection<Person> members;
 
+    Collection<Group> groups;
+
     public Group() {
         // null
     }
@@ -52,4 +54,5 @@ public class Group {
         return members;
     }
 
+    public Collection<Group> getGroups() { return groups; }
 }
