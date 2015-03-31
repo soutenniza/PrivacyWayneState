@@ -2,6 +2,7 @@ package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Comment;
+import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.repository.CommentRepository;
 import com.springapp.mvc.repository.PersonRepository;
@@ -29,16 +30,8 @@ import java.util.Map;
 @Controller
 public class ViewProfileController {
 
-
-    @Autowired
-    CommentRepository commentRepository;
-
-    @Autowired
-    PersonRepository personRepository;
-
     @Autowired
     PersonService service;
-
 
     @RequestMapping(value = "/viewprofile")
     public String displayLikeComment(Model model){
@@ -58,6 +51,7 @@ public class ViewProfileController {
 
         genAttributeList(user, redirectAttributes);
         genFriendsList(user, redirectAttributes);
+        genGroupsList(user, redirectAttributes);
         genCommentsList(user, redirectAttributes);
         genLikesList(user, redirectAttributes);
 
@@ -139,7 +133,7 @@ public class ViewProfileController {
             for(Comment ac : likes){
                 Long pID = ac.getNodeID();
                 Comment acc = service.getComment(pID);
-                html = html.concat("<li class=\"list-group-item\">" + service.getCommentOwner(acc).getName() + ": " + acc.getText() + "</li>");
+                html = html.concat("<li class=\"list-group-item\">" + service.getPerson(acc.getOwnerID()).getName() + ": " + acc.getText() + "</li>");
             }
             html = html.concat("</ul>");
         }
@@ -154,6 +148,23 @@ public class ViewProfileController {
             return val.toUpperCase();
         }
         return val.substring(0,1).toUpperCase() + val.substring(1).toLowerCase();
+    }
+
+    public void genGroupsList(Person p, RedirectAttributes r){
+        String html = "";
+        Collection<Group> groups = p.getGroups();
+        if(groups.isEmpty()){
+            html = p.getName() + " is not a member of any group!";
+        }
+        else{
+            html = "<h3>Groups:</h3><br><ul class=\"list-group\">";
+            for(Group ac : groups){
+                Long pID = ac.getNodeID();
+                html = html.concat("<li class=\"list-group-item\">" + service.getGroup(pID).getName() + "</li>");
+            }
+            html = html.concat("</ul>");
+        }
+        r.addFlashAttribute("groups", html);
     }
 
 }

@@ -14,7 +14,7 @@
 <html>
 <head>
     <title>PrivacyWayne</title>
-    <link rel="favicon" href="/resources/images/favicon.ico" type="image/x-icon" />
+    <link  rel="shortcut icon" href="/resources/images/favicon.ico" type="image/x-icon" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -78,6 +78,14 @@
                 <div class="col-md-12">
                     <c:if test="${friends != null}">
                         ${friends}
+                    </c:if>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <c:if test="${groups != null}">
+                        ${groups}
                     </c:if>
                 </div>
             </div>
