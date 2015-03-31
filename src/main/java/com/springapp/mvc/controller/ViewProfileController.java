@@ -80,14 +80,14 @@ public class ViewProfileController {
 
         Collection<Attribute> atts = p.getAttributes();
         if(atts.isEmpty()){
-            html = p.getName() + " somehow has not attributes. Something went terribly wrong. Please email me at zackrzot@gmail.com.";
+            html = p.getName() + " somehow has no attributes. Something went terribly wrong. Please email me at zackrzot@gmail.com.";
         }
         else{
             html = "<h3>Attributes:</h3><br><ul class=\"list-group\">";
             for(Attribute a : atts){
                 Long pID = a.getNodeID();
                 Attribute aa = service.getAttributeWithId(pID);
-                html = html.concat("<li class=\"list-group-item\">" + aa.getLabel() + ": " + aa.getValue() + "</li>");
+                html = html.concat("<li class=\"list-group-item\">" + normalizeString(aa.getLabel()) + ": " + aa.getValue() + "</li>");
             }
             html = html.concat("</ul>");
         }
@@ -145,4 +145,15 @@ public class ViewProfileController {
         }
         r.addFlashAttribute("likes", html);
     }
+
+    public String normalizeString(String val){
+        if(val.length() == 0){
+            return "";
+        }
+        if(val.length() == 1){
+            return val.toUpperCase();
+        }
+        return val.substring(0,1).toUpperCase() + val.substring(1).toLowerCase();
+    }
+
 }

@@ -95,7 +95,9 @@ public class LikeCommentController {
     }
 
     public String normalizeCommentListItem(Comment c){
-        String out = service.getCommentOwner(c).getName() + ": " + c.getText();
+        Long pID = c.getNodeID();
+        Comment acc = service.getComment(pID);
+        String out = service.getCommentOwner(acc).getName() + ": " + c.getText();
         if(out.length()>60){
             out = out.substring(0,57) + "...";
         }
