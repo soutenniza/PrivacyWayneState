@@ -110,7 +110,7 @@ public class CreateUserController {
             Attribute attBd = service.createAttribute("birthday", bday);
             service.addAttribute(attBd, p, Integer.parseInt(bdayP), Integer.parseInt(bdayV), Integer.parseInt(bdayS));
 
-            Attribute attPh = service.createAttribute("phone numebr", phone);
+            Attribute attPh = service.createAttribute("phone number", phone);
             service.addAttribute(attPh, p, Integer.parseInt(phoneP), Integer.parseInt(phoneV), Integer.parseInt(phoneS));
 
             Attribute attIt1 = service.createAttribute("interest", interest1);

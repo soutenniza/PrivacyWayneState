@@ -29,11 +29,70 @@ public class AnalysisService {
 
     public ArrayList<String> fullAnalysis(){
         ArrayList<String> allMessages;
-        allMessages = calculateAllMutualFriends();
-        allMessages.addAll(calculateAllMutualGroups());
-        allMessages.addAll(calculateAllPrivacyScore());
+        allMessages = calculateAll();
+
 
         return allMessages;
+    }
+
+    private ArrayList<String> calculateAll(){
+        Collection<Person> friends = root.getFriends();
+        ArrayList<Integer> privacyScores = new ArrayList<>();
+        ArrayList<Integer> mutualfriends = new ArrayList<>();
+        ArrayList<Integer> commonGroups = new ArrayList<>();
+        ArrayList<Long> privacyScoresID  = new ArrayList<>();
+        ArrayList<String> messaages = new ArrayList<>();
+        for(Person p : friends){
+            Long pID = p.getNodeID();
+            int ps = getPrivacyScore(personService.getPerson(pID));
+            int mt = mutualfriends(root, personService.getPerson(pID));
+            int mg = mutualgroups(root, personService.getPerson(pID));
+            mutualfriends.add(mt);
+            commonGroups.add(mg);
+            privacyScores.add(ps);
+            privacyScoresID.add(pID);
+        }
+
+        double thresholdPS = 0;
+        double thresholdMT = 0;
+        double thresholdMG = 0;
+
+        for(int i = 0; i < privacyScores.size(); i++){
+            thresholdPS += privacyScores.get(i);
+            thresholdMT += mutualfriends.get(i);
+            thresholdMG += commonGroups.get(i);
+        }
+
+        double avgPS = thresholdPS / privacyScores.size();
+        double avgMT = thresholdMT / privacyScores.size();
+        double avgMG = thresholdMG / privacyScores.size();
+        thresholdPS = avgPS + avgPS/privacyScores.size();
+        thresholdMT = avgMT - avgMT/privacyScores.size();
+        thresholdMG = avgMG - avgMG/privacyScores.size();
+
+        for(int i = 0; i < privacyScores.size(); i++){
+            if(privacyScores.get(i) > thresholdPS){
+                String msg = String.format("%s has a high Privacy Score. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(privacyScoresID.get(i)).getName(), privacyScores.get(i), avgPS, thresholdPS);
+                messaages.add(msg);
+            }
+        }
+
+
+        for(int i = 0; i < mutualfriends.size(); i++){
+            if(mutualfriends.get(i) < thresholdMT){
+                String msg = String.format("%s has a low number of mutual friends. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(privacyScoresID.get(i)).getName(), mutualfriends.get(i), avgMT, thresholdMT);
+                messaages.add(msg);
+            }
+        }
+
+        for(int i = 0; i < commonGroups.size(); i++){
+            if(commonGroups.get(i) < thresholdMG){
+                String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(privacyScoresID.get(i)).getName(), commonGroups.get(i), avgMG, thresholdMG);
+                messaages.add(msg);
+            }
+        }
+
+        return messaages;
     }
 
     private ArrayList<String> calculateAllPrivacyScore(){
@@ -138,13 +197,7 @@ public class AnalysisService {
             if(mutualGroups.get(i) < threshold){
                 String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(mutualGroupID.get(i)).getName(), mutualGroups.get(i), average, threshold);
                 messaages.add(msg);
-                //System.out.println(msg);
             }
-            else {
-                String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(mutualGroupID.get(i)).getName(), mutualGroups.get(i), average, threshold);
-                messaages.add(msg);
-            }
-
         }
         return messaages;
     }
