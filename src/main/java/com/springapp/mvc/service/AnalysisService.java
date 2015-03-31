@@ -29,7 +29,8 @@ public class AnalysisService {
 
     public ArrayList<String> fullAnalysis(){
         ArrayList<String> allMessages;
-        allMessages = calculateAllMutualGroups();
+        allMessages = calculateAllMutualFriends();
+        allMessages.addAll(calculateAllMutualGroups());
         allMessages.addAll(calculateAllPrivacyScore());
 
         return allMessages;
@@ -112,33 +113,38 @@ public class AnalysisService {
 
     private ArrayList<String> calculateAllMutualGroups() {
         Collection<Person> friends = root.getFriends();
-        ArrayList<Integer> mutualFriends = new ArrayList<>();
-        ArrayList<Long> mutualFriendID  = new ArrayList<>();
+        ArrayList<Integer> mutualGroups = new ArrayList<>();
+        ArrayList<Long> mutualGroupID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
             Long pID = p.getNodeID();
             int mt = mutualgroups(root, personService.getPerson(pID));
-            mutualFriends.add(mt);
-            mutualFriendID.add(pID);
+            mutualGroups.add(mt);
+            mutualGroupID.add(pID);
         }
         double threshold = 0;
 
 
 
-        for(int i = 0; i < mutualFriends.size(); i++){
-            threshold += mutualFriends.get(i);
+        for(int i = 0; i < mutualGroups.size(); i++){
+            threshold += mutualGroups.get(i);
         }
 
-        threshold /= mutualFriends.size();
+        threshold /= mutualGroups.size();
         double average = threshold;
-        threshold = threshold - threshold/mutualFriends.size();
+        threshold = threshold - threshold/mutualGroups.size();
 
-        for(int i = 0; i < mutualFriends.size(); i++){
-            if(mutualFriends.get(i) < threshold){
-                String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(mutualFriendID.get(i)).getName(), mutualFriends.get(i), average, threshold);
+        for(int i = 0; i < mutualGroups.size(); i++){
+            if(mutualGroups.get(i) < threshold){
+                String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(mutualGroupID.get(i)).getName(), mutualGroups.get(i), average, threshold);
                 messaages.add(msg);
                 //System.out.println(msg);
             }
+            else {
+                String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(mutualGroupID.get(i)).getName(), mutualGroups.get(i), average, threshold);
+                messaages.add(msg);
+            }
+
         }
         return messaages;
     }
