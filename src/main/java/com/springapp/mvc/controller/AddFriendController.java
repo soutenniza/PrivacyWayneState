@@ -96,6 +96,9 @@ public class AddFriendController {
             String relationshipMsgs = "";
             String msg;
 
+            String whatIfMsg = "What if " + service.getPerson(p1).getName() + " were to become friends with " + service.getPerson(p2).getName() +"?";
+            redirectAttributes.addFlashAttribute("whatifmsg", whatIfMsg);
+
             // sort messages
             // mutual friends
             for(String m : messages){

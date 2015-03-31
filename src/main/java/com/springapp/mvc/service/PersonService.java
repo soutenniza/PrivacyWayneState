@@ -103,6 +103,11 @@ public class PersonService {
         template.save(person);
     }
 
+    public void addLike(Comment c, Person p){
+        p.likes(c);
+        template.save(p);
+    }
+
     public ArrayList<Person> getAllPersons(){
         ArrayList<Person> people = new ArrayList<Person>();
         people.addAll(personRepository.findAll().as(ArrayList.class));
@@ -175,11 +180,27 @@ public class PersonService {
         return found;
     }
 
+    public boolean likesComment(Comment c, Person p){
+        Collection<Comment> likes = p.getLikes();
+        boolean found = false;
+        if(likes.isEmpty())
+            return false;
+        for (Comment lc : likes) {
+            if (c.getNodeID().equals(lc.getNodeID())) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
     public Person getPerson(Long id){
         return  personRepository.findOne(id);
     }
 
-    public Group getGroup(Long id) { return groupRepository.findOne(id);}
+    public Group getGroup(Long id) { return groupRepository.findOne(id); }
+
+    public Comment getComment(Long id) { return commentRepository.findOne(id); }
 
     public ArrayList<Group> getAllGroups(){
         ArrayList<Group> groups = new ArrayList<Group>();
@@ -191,6 +212,20 @@ public class PersonService {
         ArrayList<Comment> comments = new ArrayList<Comment>();
         comments.addAll(commentRepository.findAll().as(ArrayList.class));
         return comments;
+    }
+
+    public Person getCommentOwner(Comment c){
+        Person thePerson = getAllPersons().get(0);
+        for(Person p : getAllPersons()){
+            Collection<Comment> comments = p.getComments();
+            for(Comment pc : comments){
+                if(pc.equals(c)){
+                    thePerson = p;
+                    break;
+                }
+            }
+        }
+        return thePerson;
     }
 
     public ArrayList<Attribute> getAllAttributes(){

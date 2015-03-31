@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,22 +48,16 @@
 <br>
 <div class="section">
     <div class="container">
-       <%-- <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] Comment liked!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must fill in all fields!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] User already likes this comment!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[WARN] This is a PRIVACY warning!</b>
-                </div>
+        <c:if test="${alreadylikes != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${alreadylikes}</b>
             </div>
-        </div>--%>
+        </c:if>
+        <c:if test="${message != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${message}</b>
+            </div>
+        </c:if>
     </div>
 </div>
 <br>
@@ -69,16 +66,15 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal" role="form">
+                    <form method="POST" action="/submitlikecomment" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label class="control-label">User:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Tommy Bucks</option>
-                                    <option>2</option>
-                                </select>
+                                <form:select name="inputPerson" path="inputPerson" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -86,15 +82,14 @@
                                 <label class="control-label">Comment:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Jimmy Playkid: "U wot 1v1 me m9"</option>
-                                    <option>2</option>
-                                </select>
+                                <form:select name="inputComment" path="inputComment" class="form-control">
+                                    <form:options items="${commentList}"/>
+                                </form:select>
                             </div>
                         </div>
+                        <input type="submit" value="like comment" class="btn btn-success"/>
+                        <a class="btn btn-warning">Run "What-If" Analysis</a>
                     </form>
-                    <a class="btn btn-success">Like Comment</a>
-                    <a class="btn btn-warning">Run "What-If" Analysis</a>
                 </div>
             </div>
         </div>

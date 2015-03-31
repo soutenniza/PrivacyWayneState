@@ -68,6 +68,9 @@
 <div class="section">
     <div class="container">
         <div class="row">
+            <c:if test="${whatifmsg != null}">
+                    <i>${whatifmsg}</i>
+            </c:if>
             <c:if test="${relationships != null}">
                 ${relationships}
             </c:if>
