@@ -43,27 +43,40 @@ public class AnalysisController {
         analysisService.setRoot(personService.getPerson(p1));
         ArrayList<String> messages = analysisService.fullAnalysis();
 
+        redirectAttributes.addFlashAttribute("ran", "loaded");
+
         String relationshipMsgs = "";
-        String msg;
+        String psMsgs = "";
+        String mgpsMsgs = "";
+        String ascMsgs = "";
+        String contentMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
 
         // sort messages
-        // mutual friends
         for(String m : messages){
-            if(m.contains("has")){
+            if(m.contains("mutual friends")){
                 relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
+            if(m.contains("Privacy Score")){
+                psMsgs = psMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
+            if(m.contains("mutual groups")){
+                mgpsMsgs = mgpsMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
+            if(m.contains("association")){
+                ascMsgs = ascMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
+            if(m.contains("content")){
+                contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
         }
 
-        // add notifications
-        if(relationshipMsgs==""){
-            msg = "No issues here!";
-            redirectAttributes.addFlashAttribute("relationshipsok", msg);
-        }
-        else {
-            redirectAttributes.addFlashAttribute("relationships", relationshipMsgs);
-        }
+        printRelationships(redirectAttributes, relationshipMsgs);
+        printPS(redirectAttributes, psMsgs);
+        printMgps(redirectAttributes, mgpsMsgs);
+        printAsc(redirectAttributes, ascMsgs);
+        printContent(redirectAttributes, contentMsgs);
 
         return "redirect:/analysis";
     }
@@ -76,4 +89,55 @@ public class AnalysisController {
         }
         model.addAttribute("peopleList", peoples);
     }
+
+    public void printRelationships(RedirectAttributes r, String relationshipMsgs){
+        if(relationshipMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("relationshipsok", msg);
+        }
+        else {
+            r.addFlashAttribute("relationships", relationshipMsgs);
+        }
+    }
+
+    public void printPS(RedirectAttributes r, String psMsgs){
+        if(psMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("fpsok", msg);
+        }
+        else {
+            r.addFlashAttribute("fps", psMsgs);
+        }
+    }
+
+    public void printMgps(RedirectAttributes r, String groupMsgs){
+        if(groupMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("gpsok", msg);
+        }
+        else {
+            r.addFlashAttribute("gps", groupMsgs);
+        }
+    }
+
+    public void printAsc(RedirectAttributes r, String ascMsgs){
+        if(ascMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("ascok", msg);
+        }
+        else {
+            r.addFlashAttribute("asc", ascMsgs);
+        }
+    }
+
+    public void printContent(RedirectAttributes r, String contentMsgs){
+        if(contentMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("contentok", msg);
+        }
+        else {
+            r.addFlashAttribute("content", contentMsgs);
+        }
+    }
+
 }

@@ -1,18 +1,11 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Attribute;
-import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
-import com.springapp.mvc.repository.AttributeRepository;
-import com.springapp.mvc.repository.PersonRepository;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,12 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CreateUserController {
     @Autowired
-    PersonRepository personRepository;
-
-    @Autowired
-    AttributeRepository attributeRepository;
-
-    @Autowired
     PersonService service;
 
     @RequestMapping(value = "/createuser", method = RequestMethod.GET)
@@ -38,6 +25,7 @@ public class CreateUserController {
         ModelAndView mav = new ModelAndView("createuser");
         return mav;
     }
+
     @RequestMapping(value = "/submitcreateuser", method = RequestMethod.POST)
     @Transactional
     public String createUser(   @RequestParam(value = "inputFirstName") String fName,
@@ -81,13 +69,14 @@ public class CreateUserController {
                                 final RedirectAttributes redirectAttributes
                                 ){
 
-        if(service.personExists(fName + " " + lName)){
-            String msg = fName + " " + lName + " is already a user!";
+        String name = (fName + " " + lName).trim();
+
+        if(service.personExists(name)){
+            String msg = name + " is already a user!";
             redirectAttributes.addFlashAttribute("exists", msg);
         }
         else {
-            Person p = new Person(fName + " " + lName);
-            personRepository.save(p);
+            Person p = service.createPerson(name);
 
             Attribute attAge = service.createAttribute("age", age);
             service.addAttribute(attAge, p, Integer.parseInt(ageP), Integer.parseInt(ageV), Integer.parseInt(ageS));
@@ -116,12 +105,10 @@ public class CreateUserController {
             Attribute attIt1 = service.createAttribute("interest", interest1);
             service.addAttribute(attIt1, p, Integer.parseInt(interest1P), Integer.parseInt(interest1V), Integer.parseInt(interest1S));
 
-            String msg = "Created the user " + fName + " " + lName + "!";
+            String msg = "Created the user " + name + "!";
             redirectAttributes.addFlashAttribute("valid", msg);
         }
 
         return "redirect:/createuser";
     }
-
-
 }
