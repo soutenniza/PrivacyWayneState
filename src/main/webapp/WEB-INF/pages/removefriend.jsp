@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -65,39 +68,43 @@
                     <p>1. Select a root user as User 1
                         <br>2. Click "Get Friends List" to retrieve root user's friends list
                         <br>3. Select a friend to remove as User 2
-                        <br>4. Click Remove Friend</p>
+                        <br>4. Click Remove Friend
+                    </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="control-label">User 1:</label>
+                    <form method="POST" action="/submitremovefriend" class="form-horizontal" role="form">
+                        <c:if test="${gotfriends == null}">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="control-label">User 1:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <form:select path="inputPerson1" class="form-control" name="inputPerson1">
+                                        <form:options items="${peopleList}"/>
+                                    </form:select>
+                                </div>
                             </div>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>Jon Hopkins</option>
-                                </select>
+                            <br>
+                            <input type="submit" name="submit" value="get friends list" class="btn btn-success"/>
+                        </c:if>
+                        <c:if test="${gotfriends != null}">
+                            ${gotfriends}
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="control-label">User 2:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <form:select path="inputPerson2" class="form-control" name="inputPerson2">
+                                        <form:options items="${peopleList2}"/>
+                                    </form:select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="control-label">User 2:</label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>-- Get Friends --</option>
-                                </select>
-                            </div>
-                        </div>
+                            <br>
+                            <input type="submit" name="remove" value="remove friend" class="btn btn-danger"/>
+                        </c:if>
                     </form>
-                </div>
-                <div class="col-md-6">
-                    <a class="btn btn-primary">Get Friends List</a>
-                    <br>
-                    <br>
-                    <a class="btn btn-danger">Remove Friend</a>
                 </div>
             </div>
         </div>

@@ -45,16 +45,6 @@
 <br>
 <div class="section">
     <div class="container">
-       <%-- <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;User deleted!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select a user!</b>
-                </div>
-            </div>
-        </div>--%>
         <c:if test="${message != null}">
             <div id = "message" class="alert alert-success">
                 <b>[SUCCESS] ${message}</b>
@@ -80,7 +70,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <input class="btn btn-block btn-lg btn-primary" type="submit" value="Delete User">
+                                <input class="btn btn-danger" type="submit" value="Delete User">
                             </div>
                             </div>
                     </form>
