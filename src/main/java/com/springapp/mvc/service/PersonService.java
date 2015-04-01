@@ -10,13 +10,11 @@ import com.springapp.mvc.repository.GroupRepository;
 import com.springapp.mvc.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
-import org.springframework.data.neo4j.template.Neo4jOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Created by Van on 3/20/2015.
@@ -24,7 +22,6 @@ import java.util.Iterator;
 @Service
 @Transactional
 public class PersonService {
-
     @Autowired
     private Neo4jTemplate template;
     @Autowired
@@ -35,7 +32,6 @@ public class PersonService {
     private AttributeRepository attributeRepository;
     @Autowired
     private CommentRepository commentRepository;
-
 
     public void addFriend(Person friend, Person user){
         user.friends(friend);
@@ -63,7 +59,14 @@ public class PersonService {
         }
     }
 
+    public Person createPerson(String name){
+        Person p = new Person(name);
+        personRepository.save(p);
+        return p;
+    }
+
     public Attribute createAttribute(String label, String value){
+        value = value.trim();
         if(attributeExists(label, value)){
             Attribute a = getAttribute(label, value);
             return a;
@@ -76,7 +79,7 @@ public class PersonService {
     }
 
     public Attribute getAttribute(String label, String value){
-        Attribute att = getAllAttributes().get(0);;
+        Attribute att = getAllAttributes().get(0);
         ArrayList<Attribute> attributes = getAllAttributes();
         for (Attribute a : attributes) {
             if ((a.getLabel().equals(label))&&(a.getValue().equals(value))) {

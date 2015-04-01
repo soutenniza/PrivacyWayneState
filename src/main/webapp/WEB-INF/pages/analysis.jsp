@@ -34,12 +34,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Analysis</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-pills"></ul>
+                <h1>Analysis</h1><br>
+                <h5><i>Get privacy warnings for a specific user</i></h5>
             </div>
         </div>
     </div>
@@ -58,48 +54,95 @@
                                 <form:options items="${peopleList}"/>
                             </form:select>
                         </div>
+                        <input type="submit" value="Run Analysis" class="btn btn-success"/>
                     </div>
-                    <input type="submit" value="Run Analysis" class="btn btn-success"/>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <br>
-<div class="section">
-    <div class="container">
-        <div class="jumbotron">
-            <c:if test="${user != null}">
-                ${user}
-            </c:if>
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Utility</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Relationships</h1>
-                </div>
-            </div>
-            <div class="row">
-                <c:if test="${relationships != null}">
-                    ${relationships}
-                </c:if>
-                <c:if test="${relationshipsok != null}">
-                    <div id="message" class="alert alert-success">
-                        <b>${relationshipsok}</b>
+<c:if test="${ran != null}">
+    <div class="section">
+        <div class="container">
+            <div class="jumbotron">
+                <h3>${user}</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Relationships</h1>
                     </div>
-                </c:if>
+                    <h4>Mutual Friends</h4>
+                    <div class="col-md-12">
+                        <c:if test="${relationships != null}">
+                            ${relationships}
+                        </c:if>
+                        <c:if test="${relationshipsok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${relationshipsok}</b>
+                            </div>
+                        </c:if>
+                    </div>
+                    <h4>Friend's Privacy Scores</h4>
+                    <div class="col-md-12">
+                        <c:if test="${fps != null}">
+                            ${fps}
+                        </c:if>
+                        <c:if test="${fpsok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${fpsok}</b>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Groups and Circles</h1>
+                    </div>
+                    <h4>Mutual Groups</h4>
+                    <div class="col-md-12">
+                            <c:if test="${gps != null}">
+                                ${gps}
+                            </c:if>
+                            <c:if test="${gpsok != null}">
+                                <div id="message" class="alert alert-success">
+                                    <b>${gpsok}</b>
+                                </div>
+                            </c:if>
+                    </div>
+                    <h4>Associations</h4>
+                    <div class="col-md-12">
+                        <c:if test="${asc != null}">
+                            ${asc}
+                        </c:if>
+                        <c:if test="${ascok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${ascok}</b>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Content</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Comments and Likes</h4>
+                    <div class="col-md-12">
+                        <c:if test="${content != null}">
+                            ${content}
+                        </c:if>
+                        <c:if test="${contentok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${contentok}</b>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</c:if>
 </body>
 
 </html>
