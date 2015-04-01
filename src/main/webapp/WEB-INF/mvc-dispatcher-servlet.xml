@@ -18,6 +18,8 @@
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <import resource="applicationContext.xml" />
 
+    <mvc:resources mapping="/favicon.ico" location="/resources/images/" />
+
     <mvc:annotation-driven />
 
 

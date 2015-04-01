@@ -65,7 +65,9 @@ public class AddCommentController {
         else
         {
             comment.setText(t);
-            model.addAttribute("content", comment.getText());
+            comment.setOwnerId(p);
+            //model.addAttribute("content", comment.getText());
+            //model.addAttribute("owner")
             commentRepository.save(comment);
 
             service.addComment(comment, service.getPerson(p));

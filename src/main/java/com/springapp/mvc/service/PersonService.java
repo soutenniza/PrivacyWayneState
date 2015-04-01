@@ -217,17 +217,7 @@ public class PersonService {
     }
 
     public Person getCommentOwner(Comment c){
-        Person thePerson = getAllPersons().get(0);
-        for(Person p : getAllPersons()){
-            Collection<Comment> comments = p.getComments();
-            for(Comment pc : comments){
-                if(pc.equals(c)){
-                    thePerson = p;
-                    break;
-                }
-            }
-        }
-        return thePerson;
+        return getPerson(c.getOwnerID());
     }
 
     public ArrayList<Attribute> getAllAttributes(){

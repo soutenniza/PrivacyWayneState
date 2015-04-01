@@ -26,7 +26,7 @@ public class Attribute {
 
     public Attribute(String label, String value) {
         this.label = label;
-        this.value = value;
+        this.value = normalizeString(value);
     }
 
     public String getLabel(){
