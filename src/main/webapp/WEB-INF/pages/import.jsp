@@ -64,45 +64,13 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="text-danger text-left">Warning: Importing a data set will append the existing data set!&nbsp;</p>
+                                    <p class="text-danger text-left">Warning: Importing a data set will delete the existing data set!&nbsp;</p>
+                                    <p class="text-danger text-left">Warning: Deleting the data set will DELETE THE DATA SET!&nbsp;</p><br>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <form method="POST" action="/submitimport" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="control-label">Data set:</label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>class_42_people.json</option>
-                                </select>
-                            </div>
-                        </div>
-                        <input type="submit" value="import" class="btn btn-success"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<br>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="jumbotron">
-                    <div class="section">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="text-danger text-left">Warning: Deleting the data set will DELETE THE DATA SET!&nbsp;</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <form method="POST" action="/submitdeleteset" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
                                 <label path="name" class="control-label">Passcode</label>
@@ -111,12 +79,24 @@
                                 <input class="form-control" name="pass" placeholder="top secret do not tell ok" required type="password">
                             </div>
                         </div>
-                        <input type="submit" value="delete" class="btn btn-danger"/>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label class="control-label">Data set:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>class_data.json</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <input type="submit" name="import" value="import" class="btn btn-success"/>     <input type="submit" name="delete" value="delete" class="btn btn-danger"/>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<br>
 </body>
 </html>

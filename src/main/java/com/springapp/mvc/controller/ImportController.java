@@ -1,6 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Group;
+import com.springapp.mvc.service.ImportService;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,15 @@ public class ImportController {
     @Autowired
     PersonService service;
 
+    @Autowired
+    ImportService importService;
+
     @RequestMapping(value = "/import")
     public String displayImport(){
         return "/import";
     }
 
-    @RequestMapping(value = "/submitdeleteset", method = RequestMethod.POST)
+    @RequestMapping(value = "/submitdeleteset", method = RequestMethod.POST, params={"delete", "!import"})
     @Transactional
     public String deleteData(@RequestParam(value = "pass") String s, final RedirectAttributes redirectAttributes){
 
@@ -41,13 +45,15 @@ public class ImportController {
         return "redirect:/import";
     }
 
-    @RequestMapping(value = "/submitimport", method = RequestMethod.POST)
+    @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"!delete", "import"})
     @Transactional
     public String importData(final RedirectAttributes redirectAttributes){
 
         boolean pass = false;
 
-        // pass = importSet(Set name)
+        service.deleteAll();
+
+        pass = importService.importFromJSON();
 
         if(pass){
             redirectAttributes.addFlashAttribute("pass", "Data set imported!");
