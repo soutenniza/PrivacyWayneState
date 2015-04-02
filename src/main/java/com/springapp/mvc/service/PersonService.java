@@ -197,9 +197,7 @@ public class PersonService {
         return found;
     }
 
-    public Person getPerson(Long id){
-        return  personRepository.findOne(id);
-    }
+    public Person getPerson(Long id){ return  personRepository.findOne(id); }
 
     public Group getGroup(Long id) { return groupRepository.findOne(id); }
 
@@ -262,6 +260,15 @@ public class PersonService {
         for(Attribute a : getAllAttributes()){
             deleteAttribute(a.getNodeID());
         }
+    }
+
+    public void removeFriendship(Person p1, Person p2){
+        p1.removeFriend(p2);
+        p2.removeFriend(p1);
+        template.deleteRelationshipBetween(p1, p2, "FriendRelationship");
+        template.deleteRelationshipBetween(p2, p1, "FriendRelationship");
+        template.save(p1);
+        template.save(p2);
     }
 
 }

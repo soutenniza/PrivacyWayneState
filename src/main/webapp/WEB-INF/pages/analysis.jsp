@@ -54,8 +54,8 @@
                                 <form:options items="${peopleList}"/>
                             </form:select>
                         </div>
-                        <input type="submit" value="Run Analysis" class="btn btn-success"/>
                     </div>
+                    <input type="submit" value="Run Analysis" class="btn btn-success"/>
                 </form>
             </div>
         </div>

@@ -48,16 +48,11 @@
 <br>
 <div class="section">
     <div class="container">
-<%--        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Removed friend!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must select two valid friends!</b>
-                </div>
+        <c:if test="${success != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${success}</b>
             </div>
-        </div>--%>
+        </c:if>
     </div>
 </div>
 <div class="section">
@@ -65,10 +60,14 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-12">
+                    <c:if test="${gotfriends == null}"><b></c:if>
                     <p>1. Select a root user as User 1
                         <br>2. Click "Get Friends List" to retrieve root user's friends list
+                        <c:if test="${gotfriends == null}"></b></c:if>
+                        <c:if test="${gotfriends != null}"><b></c:if>
                         <br>3. Select a friend to remove as User 2
                         <br>4. Click Remove Friend
+                        <c:if test="${gotfriends != null}"></b></c:if>
                     </p>
                 </div>
             </div>

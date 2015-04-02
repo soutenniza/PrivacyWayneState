@@ -63,6 +63,10 @@ public class Person {
         return nodeID;
     }
 
+    public void removeFriend(Person p){
+        friends.remove(p);
+    }
+
     public FriendRelationship friends(Person friend){
         final FriendRelationship friendRelationship = new FriendRelationship(this, friend);
         friends.add(friend);
