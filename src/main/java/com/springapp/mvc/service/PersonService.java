@@ -271,4 +271,14 @@ public class PersonService {
         template.save(p2);
     }
 
+    public Long getPersonByName(String name){
+        Collection<Person> persons = getAllPersons();
+        for(Person p : persons){
+            if(p.getName() == name){
+                return p.getNodeID();
+            }
+        }
+        return null;
+    }
+
 }
