@@ -271,11 +271,21 @@ public class PersonService {
         template.save(p2);
     }
 
-    public Long getPersonByName(String name){
-        Collection<Person> persons = getAllPersons();
-        for(Person p : persons){
-            if(p.getName() == name){
+    public Long getPersonByName(String name) {
+        ArrayList<Person> persons = getAllPersons();
+        for (Person p : persons) {
+            if (p.getName().equals(name)) {
                 return p.getNodeID();
+            }
+        }
+        return null;
+    }
+
+    public Long getGroupByName(String name) {
+        ArrayList<Group> groups = getAllGroups();
+        for (Group g : groups) {
+            if (g.getName().equals(name)) {
+                return g.getNodeID();
             }
         }
         return null;

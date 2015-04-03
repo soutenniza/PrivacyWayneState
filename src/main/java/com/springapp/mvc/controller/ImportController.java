@@ -30,9 +30,9 @@ public class ImportController {
         return "/import";
     }
 
-    @RequestMapping(value = "/submitdeleteset", method = RequestMethod.POST, params={"delete", "!import"})
+    @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"delete", "!import"})
     @Transactional
-    public String deleteData(@RequestParam(value = "pass") String s, final RedirectAttributes redirectAttributes){
+    public String deleteData(@RequestParam(value = "pass") String s, @RequestParam(value = "inputNum") String n, final RedirectAttributes redirectAttributes){
 
         if(s.equals("Erfan")){
             redirectAttributes.addFlashAttribute("deleted", "All data deleted!");
@@ -47,22 +47,24 @@ public class ImportController {
 
     @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"!delete", "import"})
     @Transactional
-    public String importData(final RedirectAttributes redirectAttributes){
+    public String importData(@RequestParam(value = "pass") String s, @RequestParam(value = "inputNum") String n, final RedirectAttributes redirectAttributes){
 
-        boolean pass = false;
-
-        service.deleteAll();
-
-        pass = importService.importFromJSON();
-
-        if(pass){
-            redirectAttributes.addFlashAttribute("pass", "Data set imported!");
+        if(s.equals("Erfan")){
+            boolean pass = false;
+            System.out.println(Integer.parseInt(n));
+            pass = importService.importFromJSON(Integer.parseInt(n));
+            if(pass){
+                redirectAttributes.addFlashAttribute("pass", "Data set imported!");
+            }
+            else
+            {
+                redirectAttributes.addFlashAttribute("fail", "Import failed!");
+            }
         }
         else
         {
-            redirectAttributes.addFlashAttribute("fail", "Import failed!");
+            redirectAttributes.addFlashAttribute("wrong", "Get out of here, you don't even know the passcode.");
         }
         return "redirect:/import";
     }
-
 }

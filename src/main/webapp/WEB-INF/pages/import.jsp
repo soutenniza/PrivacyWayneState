@@ -64,7 +64,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="text-danger text-left">Warning: Importing a data set will delete the existing data set!&nbsp;</p>
+                                    <p class="text-warning text-left">Select the number of users to import. Existing imported users will not be duplicated.&nbsp;</p>
                                     <p class="text-danger text-left">Warning: Deleting the data set will DELETE THE DATA SET!&nbsp;</p><br>
                                 </div>
                             </div>
@@ -81,12 +81,12 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <label class="control-label">Data set:</label>
+                                <label class="control-label"># users to import:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>class_data.json</option>
-                                </select>
+                                <div class="col-sm-10">
+                                    <input type="number" name="inputNum" min="1" max="41" value="10">
+                                </div>
                             </div>
                         </div>
                         <br>

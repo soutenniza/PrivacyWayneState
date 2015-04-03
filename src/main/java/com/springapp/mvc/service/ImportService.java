@@ -38,7 +38,11 @@ public class ImportService {
 
     private static final String JSON_PATH = "http://zackrzot.com/data.json";
 
-    public boolean importFromJSON() {
+    public boolean importFromJSON(int stop) {
+
+        if(stop>41){
+            stop = 41;
+        }
 
         boolean worked = false;
 
@@ -64,7 +68,7 @@ public class ImportService {
             JSONArray users = (JSONArray) jsonObject.get("user");
 
             // Add the users to the database
-            for (int i = 0; i < users.size(); i++) {
+            for (int i = 0; i < stop; i++) {
                 System.out.println("Import: Importing person " + Integer.toString((i+1)) + "." );
                 JSONObject user = (JSONObject) users.get(i);
                 name = (String) user.get("name");
@@ -119,33 +123,43 @@ public class ImportService {
                 }
             }
 
+            users = (JSONArray) jsonObject.get("user");
             System.out.println("Import: Adding friends.");
             // Add friend relationships
-            for (int i = 0; i < users.size(); i++) {
+            for (int i = 0; i < stop; i++) {
                 JSONObject user = (JSONObject) users.get(i);
                 String userS = (String) user.get("name");
+                System.out.println("Import: Adding friends for user " + userS + "." );
                 JSONArray userFriends = (JSONArray) user.get("friends");
                 for(int j=0; j<userFriends.size(); j++){
                     friend = (String) userFriends.get(j);
-
+                    System.out.println("Import: Adding the friend " + friend + "." );
                     Long p1 = service.getPersonByName(userS);
                     Long p2 = service.getPersonByName(friend);
 
-                    if((service.areFriends(service.getPerson(p1),service.getPerson(p2)))&&(p1!=p2)) {
-                        System.out.println("Import: Users are already friends.");
+                    if((p1 != null)&&(p2 != null)){
+                        if((service.areFriends(service.getPerson(p1),service.getPerson(p2)))&&(p1!=p2)) {
+                            System.out.println("Import: Users are already friends.");
+                        }
+                        else
+                        {
+                            service.addFriend(service.getPerson(p1), service.getPerson(p2));
+                            service.addFriend(service.getPerson(p2), service.getPerson(p1));
+                        }
                     }
-                    else
-                    {
-                        service.addFriend(service.getPerson(p1), service.getPerson(p2));
-                        service.addFriend(service.getPerson(p2), service.getPerson(p1));
+                    else{
+                        System.out.println("Import: [ERROR] p1 or p2 not valid.");
+                        System.out.println(p1);
+                        System.out.println(p2);
                     }
+
                 }
             }
 
             System.out.println("Import: Adding groups.");
             // Add users to / create groups
 
-            for(int i=0; i<users.size(); i++) {
+            for(int i=0; i < stop; i++) {
                 JSONObject user = (JSONObject) users.get(i);
                 String nameS = (String) user.get("name");
                 JSONArray userGroups = (JSONArray) user.get("groups");
@@ -154,6 +168,24 @@ public class ImportService {
 
                     if(service.groupExists(groupS)){
                         System.out.println("Import: Group exists.");
+
+                        Long gid = service.getGroupByName(groupS);
+                        Long p1 = service.getPersonByName(nameS);
+
+                        if((p1 != null)&&(gid != null)){
+                            if(service.isMember(service.getGroup(gid), service.getPerson(p1))){
+                                System.out.println("Import: Already member of group.");
+                            }
+                            else
+                            {
+                                service.addMember(service.getGroup(gid), service.getPerson(p1));
+                            }
+                        }
+                        else{
+                            System.out.println("Import: [ERROR] Unable to add to group. p1 or gid invalid.");
+                            System.out.println(p1);
+                            System.out.println(gid);
+                        }
                     }
                     else{
                         Group group = new Group();
@@ -164,12 +196,18 @@ public class ImportService {
 
                         Long p1 = service.getPersonByName(nameS);
 
-                        if(service.isMember(service.getGroup(gid), service.getPerson(p1))){
-                            System.out.println("Import: Already member of group.");
+                        if(p1 != null){
+                            if(service.isMember(service.getGroup(gid), service.getPerson(p1))){
+                                System.out.println("Import: Already member of group.");
+                            }
+                            else
+                            {
+                                service.addMember(service.getGroup(gid), service.getPerson(p1));
+                            }
                         }
-                        else
-                        {
-                            service.addMember(service.getGroup(gid), service.getPerson(p1));
+                        else{
+                            System.out.println("Import: [ERROR] Unable to add to group. p1 invalid.");
+                            System.out.println(p1);
                         }
                     }
                 }
@@ -180,7 +218,6 @@ public class ImportService {
 
         return true;
     }
-
 
     public int getVal(){
         Random gen = new Random();
