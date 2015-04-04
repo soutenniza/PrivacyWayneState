@@ -7,6 +7,7 @@ package com.springapp.mvc.service;
 import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
+import com.springapp.mvc.repository.CommentRepository;
 import com.springapp.mvc.repository.GroupRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,9 +33,10 @@ public class ImportService {
     PersonService service;
 
     @Autowired
+    ContentGenService contentService;
+
+    @Autowired
     GroupRepository groupRepository;
-
-
 
     private static final String JSON_PATH = "http://zackrzot.com/data.json";
 
@@ -120,7 +122,19 @@ public class ImportService {
                         Attribute att = service.createAttribute("interest", interest);
                         service.addAttribute(att, p, getVal(), getVal(), getVal());
                     }
+
+                    // add comment(s)
+                    Long p1 = service.getPersonByName(name);
+                    if(p1 != null){
+                        contentService.addComments(p1);
+                    }
+                    else{
+                        System.out.println("Import: [ERROR] Unable to identify name for comment. p1 invalid.");
+                        System.out.println(p1);
+                    }
                 }
+
+
             }
 
             users = (JSONArray) jsonObject.get("user");
@@ -156,8 +170,8 @@ public class ImportService {
                 }
             }
 
-            System.out.println("Import: Adding groups.");
-            // Add users to / create groups
+            System.out.println("Import: Adding groups snd likes.");
+            // Add users to / create groups and likes
 
             for(int i=0; i < stop; i++) {
                 JSONObject user = (JSONObject) users.get(i);
@@ -211,10 +225,22 @@ public class ImportService {
                         }
                     }
                 }
+
+                // add likes(s)
+                Long p1 = service.getPersonByName(nameS);
+                if(p1 != null){
+                    contentService.addLikes(p1);
+                }
+                else{
+                    System.out.println("Import: [ERROR] Unable to identify name for likes. p1 invalid.");
+                    System.out.println(p1);
+                }
             }
         }
         catch(IOException e){e.printStackTrace(); return false; }
         catch (org.json.simple.parser.ParseException e){e.printStackTrace(); return false; }
+
+        System.out.println("Import: [PASS] Import complete without critical error.");
 
         return true;
     }
