@@ -1,13 +1,8 @@
 package com.springapp.mvc.service;
 
-import com.springapp.mvc.model.Attribute;
-import com.springapp.mvc.model.Group;
-import com.springapp.mvc.model.Comment;
-import com.springapp.mvc.model.Person;
-import com.springapp.mvc.repository.AttributeRepository;
-import com.springapp.mvc.repository.CommentRepository;
-import com.springapp.mvc.repository.GroupRepository;
-import com.springapp.mvc.repository.PersonRepository;
+import com.springapp.mvc.model.*;
+import com.springapp.mvc.repository.*;
+import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
@@ -32,6 +27,8 @@ public class PersonService {
     private AttributeRepository attributeRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private HasRepository hasRepository;
 
     public void addFriend(Person friend, Person user){
         user.friends(friend);
@@ -54,7 +51,8 @@ public class PersonService {
             }
         }
         if(found) {
-            thePerson.has(attribute, p, v, s);
+            HasRelationship has = thePerson.has(attribute, p, v, s);
+            hasRepository.save(has);
             template.save(thePerson);
         }
     }
@@ -200,6 +198,8 @@ public class PersonService {
     public Person getPerson(Long id){ return  personRepository.findOne(id); }
 
     public Group getGroup(Long id) { return groupRepository.findOne(id); }
+
+    public HasRelationship getHasRelationship(Long id) { return hasRepository.findOne(id); }
 
     public Comment getComment(Long id) { return commentRepository.findOne(id); }
 

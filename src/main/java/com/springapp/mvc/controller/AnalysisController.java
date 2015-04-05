@@ -40,6 +40,7 @@ public class AnalysisController {
     @Transactional
     public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
                             Model models, final RedirectAttributes redirectAttributes){
+
         analysisService.setRoot(personService.getPerson(p1));
         ArrayList<String> messages = analysisService.fullAnalysis();
 
@@ -49,6 +50,7 @@ public class AnalysisController {
         String psMsgs = "";
         String mgpsMsgs = "";
         String ascMsgs = "";
+        String sentMsgs = "";
         String contentMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
@@ -67,7 +69,10 @@ public class AnalysisController {
             if(m.contains("association")){
                 ascMsgs = ascMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
-            if(m.contains("content")){
+            if(m.contains("negitive comments")){
+                sentMsgs = sentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
+            if(m.contains("gave the attribute")){
                 contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
         }
@@ -76,7 +81,9 @@ public class AnalysisController {
         printPS(redirectAttributes, psMsgs);
         printMgps(redirectAttributes, mgpsMsgs);
         printAsc(redirectAttributes, ascMsgs);
+        printSent(redirectAttributes, sentMsgs);
         printContent(redirectAttributes, contentMsgs);
+
 
         return "redirect:/analysis";
     }
@@ -130,13 +137,23 @@ public class AnalysisController {
         }
     }
 
-    public void printContent(RedirectAttributes r, String contentMsgs){
-        if(contentMsgs==""){
+    public void printSent(RedirectAttributes r, String sentMsgs){
+        if(sentMsgs==""){
             String msg = "No issues here!";
-            r.addFlashAttribute("contentok", msg);
+            r.addFlashAttribute("sentMsgsok", msg);
         }
         else {
-            r.addFlashAttribute("content", contentMsgs);
+            r.addFlashAttribute("sentMsgs", sentMsgs);
+        }
+    }
+
+    public void printContent(RedirectAttributes r, String sentMsgs){
+        if(sentMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("contentMsgsok", msg);
+        }
+        else {
+            r.addFlashAttribute("contentMsgs", sentMsgs);
         }
     }
 

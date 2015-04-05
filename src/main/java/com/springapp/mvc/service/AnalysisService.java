@@ -1,7 +1,5 @@
 package com.springapp.mvc.service;
 
-import com.springapp.mvc.analysis.RelationshipAnalysisHandler;
-import com.springapp.mvc.model.FriendRelationship;
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
@@ -18,8 +16,12 @@ import java.util.Collection;
 @Service
 @Transactional
 public class AnalysisService {
+
     @Autowired
     PersonService personService;
+
+    @Autowired
+    ContentAnalysisService contentAnalysis;
 
     private Person root;
 
@@ -90,6 +92,18 @@ public class AnalysisService {
                 String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", personService.getPerson(privacyScoresID.get(i)).getName(), commonGroups.get(i), avgMG, thresholdMG);
                 messaages.add(msg);
             }
+        }
+
+        // get and add sentiment analysis messages
+        ArrayList<String> sentMsgs = contentAnalysis.runSentimentAnalysisForPerson(root);
+        for(String s : sentMsgs){
+            messaages.add(s);
+        }
+
+        // get and add content analysis messages
+        ArrayList<String> contentMsgs = contentAnalysis.runContentAnalysisForPerson(root);
+        for(String s : contentMsgs){
+            messaages.add(s);
         }
 
         return messaages;
