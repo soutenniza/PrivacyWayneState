@@ -5,6 +5,7 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
+import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -43,6 +44,10 @@ public class Person {
     Collection<Group> groups;
 
     Collection<Comment> likes;
+
+    public ArrayList<Integer> privacyScoreRecord;
+
+    public ArrayList<Double> networkVisibilityRecord;
 
     public Person() {
     }
@@ -135,5 +140,6 @@ public class Person {
     public Collection<LikesRelationship> getLikesRelationships() {
         return likesRelationships;
     }
+
 
 }

@@ -36,8 +36,8 @@ public class RemoveFriendController {
         binder.setValidator(validator);
     }
 
-    public Person personTarget;
-    public Person personFriend;
+    public Long personTargetId;
+    public Long personFriendId;
 
     @RequestMapping(value = "/removefriend", method = RequestMethod.GET)
     public String displayRemoveFriend(Model model){
@@ -46,7 +46,7 @@ public class RemoveFriendController {
         Person person2 = new Person();
         model.addAttribute("inputPerson2", person2);
         initDropDown(model);
-        initDropDownFriends(model, personTarget);
+        initDropDownFriends(model, personTargetId);
         return "removefriend";
     }
 
@@ -54,8 +54,8 @@ public class RemoveFriendController {
     @Transactional
     public String rmSelectTarget(@RequestParam(value = "inputPerson1") Long p1, final RedirectAttributes redirectAttributes){
 
-        personTarget = service.getPerson(p1);
-        String msg = "Select a friend of " + personTarget.getName() + " to un-friend:";
+        personTargetId = service.getPerson(p1).getNodeID();
+        String msg = "Select a friend of " + service.getPerson(personTargetId).getName() + " to un-friend:";
         redirectAttributes.addFlashAttribute("gotfriends", msg);
 
         return "redirect:/removefriend";
@@ -65,7 +65,12 @@ public class RemoveFriendController {
     @Transactional
     public String rmSelectFriend(@RequestParam(value = "inputPerson2") Long p1, Model model, final RedirectAttributes redirectAttributes){
 
-        personFriend = service.getPerson(p1);
+        personFriendId = p1;
+
+        String msg = service.getPerson(personTargetId).getName() + " and " + service.getPerson(personFriendId).getName() + " are no longer friends!";
+        redirectAttributes.addFlashAttribute("success", msg);
+
+        service.removeFriendship(service.getPerson(personFriendId), service.getPerson(personTargetId));
 
         return "redirect:/removefriend";
     }
@@ -79,16 +84,14 @@ public class RemoveFriendController {
         model.addAttribute("peopleList", peoples);
     }
 
-    protected void initDropDownFriends(Model model, Person person){
-        if(person != null){
-            System.out.println(person.getName());
-            Map<Long, String> peoples = new LinkedHashMap<Long, String>();
-            Collection<Person> people = person.getFriends();
+    protected void initDropDownFriends(Model model, Long pid){
+        if(pid != null){
+            Map<Long, String> peoples2 = new LinkedHashMap<Long, String>();
+            Collection<Person> people = service.getPerson(pid).getFriends();
             for(Person p : people){
-                peoples.put(p.getNodeID(), p.getName());
-                System.out.println(p.getName());
+                peoples2.put(p.getNodeID(), service.getPerson(p.getNodeID()).getName());
             }
-            model.addAttribute("peopleList2", peoples);
+            model.addAttribute("peopleList2", peoples2);
         }
     }
 
