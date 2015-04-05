@@ -47,4 +47,9 @@ public class HasRelationship {
     public int getSv(){
         return sv;
     }
+
+    public Attribute getEnd() { return attribute; }
+
+    public Long getId() { return  id; }
+
 }

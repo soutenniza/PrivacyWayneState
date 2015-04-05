@@ -127,14 +127,27 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h4>Comments and Likes</h4>
+                    <h4>Comment Sentiments</h4>
                     <div class="col-md-12">
-                        <c:if test="${content != null}">
-                            ${content}
+                        <c:if test="${sentMsgs != null}">
+                            ${sentMsgs}
                         </c:if>
-                        <c:if test="${contentok != null}">
+                        <c:if test="${sentMsgsok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${contentok}</b>
+                                <b>${sentMsgsok}</b>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Comment Content</h4>
+                    <div class="col-md-12">
+                        <c:if test="${contentMsgs != null}">
+                            ${contentMsgs}
+                        </c:if>
+                        <c:if test="${contentMsgsok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${contentMsgsok}</b>
                             </div>
                         </c:if>
                     </div>

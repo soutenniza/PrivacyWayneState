@@ -42,8 +42,8 @@
     </div>
 </div>
 <center>
-    <object data="http://privacywayne.sb02.stations.graphenedb.com:24789/" width="1280" height="720">
-        <embed src="http://privacywayne.sb02.stations.graphenedb.com:24789/" width="1280" height="020">
+    <object data="http://privacywayneneo4j.zapto.org/" width="1280" height="720">
+        <embed src="http://privacywayneneo4j.zapto.org/" width="1280" height="020">
     </object>
 </center>
 </body>
