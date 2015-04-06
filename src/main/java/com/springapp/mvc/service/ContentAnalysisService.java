@@ -28,6 +28,22 @@ public class ContentAnalysisService {
     @Autowired
     PersonService service;
 
+    public ArrayList calculateAll(Person root){
+        ArrayList<String> messaages = new ArrayList<String>();
+        // get and add sentiment analysis messages
+        ArrayList<String> sentMsgs = runSentimentAnalysisForPerson(root);
+        for(String s : sentMsgs){
+            messaages.add(s);
+        }
+
+        // get and add content analysis messages
+        ArrayList<String> contentMsgs = runContentAnalysisForPerson(root);
+        for(String s : contentMsgs){
+            messaages.add(s);
+        }
+        return messaages;
+    }
+
     public ArrayList<String> runSentimentAnalysisForPerson(Person root){
         ArrayList<String> messages = new ArrayList<String>() {{
             add("head");
