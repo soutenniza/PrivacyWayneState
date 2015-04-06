@@ -4,6 +4,7 @@ import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
+import scala.Int;
 
 import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
@@ -45,9 +46,9 @@ public class Person {
 
     Collection<Comment> likes;
 
-    public ArrayList<Integer> privacyScoreRecord;
+    Collection<Integer> privacyScoreRecord;
 
-    public ArrayList<Double> networkVisibilityRecord;
+    Collection<Double> networkVisibilityRecord;
 
     public Person() {
     }
@@ -58,6 +59,13 @@ public class Person {
 
     public String getName(){
         return this.name;
+    }
+
+    public Collection<Integer> getRec() {return this.privacyScoreRecord; }
+
+    public void setRec(int val) {
+        System.out.println("Adding " + val + " to " + name + "'s privacy record.");
+        this.privacyScoreRecord.add(val);
     }
 
     public void setName(String sname){
@@ -72,6 +80,23 @@ public class Person {
         friends.remove(p);
     }
 
+    // --------------------- record keeping ---------------------- //
+    public void addPrivacyScoreRecord(int val){
+        privacyScoreRecord.add(val);
+    }
+
+    public void addNetworkVisibilityRecord(double val){
+        networkVisibilityRecord.add(val);
+    }
+
+    public Collection<Integer> getPrivacyScoreRecord(){
+        return privacyScoreRecord;
+    }
+
+    public Collection<Double> getNetworkVisibilityRecord(){
+        return networkVisibilityRecord;
+    }
+    // ---------------------------------------------------------- //
     public FriendRelationship friends(Person friend){
         final FriendRelationship friendRelationship = new FriendRelationship(this, friend);
         friends.add(friend);

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -26,7 +27,6 @@ public class ReportingController {
 
     @Autowired
     PersonService personService;
-
 
     @RequestMapping(value = "/reporting", method = RequestMethod.GET)
     public String displayAnalysisPage(Model model){
@@ -61,8 +61,6 @@ public class ReportingController {
         return "redirect:/reporting";
     }
 
-
-
     protected void initDropDown(Model model){
         Map<Long, String> peoples = new LinkedHashMap<Long, String>();
         ArrayList<Person> people = personService.getAllPersons();
@@ -74,7 +72,7 @@ public class ReportingController {
 
     public String genPSDataLine(String name, Long pid){
         String msg = "['"+name+"', ";
-        ArrayList<Integer> vals = personService.getPrivacyScoreRecord(personService.getPerson(pid));
+        Collection<Integer> vals = personService.getPrivacyScoreRecord(pid);
         if(vals.isEmpty()){
             return "['No History']";
         }

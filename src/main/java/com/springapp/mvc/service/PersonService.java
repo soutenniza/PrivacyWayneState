@@ -106,23 +106,38 @@ public class PersonService {
 
     // --------------------- record keeping ---------------------- //
     public void addToPrivacyScoreRecord(int val, Long pid){
-        getPerson(pid).privacyScoreRecord.add(val);
-        template.save(getPerson(pid));
+        System.out.println("in");
+        Person p = getPerson(pid);
+        System.out.println(val);
+        p.setRec(val);
+        System.out.println("half");
+        template.save(p);
+        System.out.println("out");
     }
 
     public void addToNetworkVisibilityRecord(double val, Long pid){
-        getPerson(pid).networkVisibilityRecord.add(val);
+        getPerson(pid).addNetworkVisibilityRecord(val);
         template.save(getPerson(pid));
     }
 
-    public ArrayList<Integer> getPrivacyScoreRecord(Person person) {
-        return person.privacyScoreRecord; }
+    public Collection<Integer> getPrivacyScoreRecord(Long pid) {
+        return getPerson(pid).getPrivacyScoreRecord();
+    }
 
     public int getLatestPrivacyScore(Long pid) {
-        if (getPerson(pid).privacyScoreRecord.isEmpty()) {
+        System.out.println(pid);
+        System.out.println(getPerson(pid).getName());
+        System.out.println(getPerson(pid).getRec());
+        System.out.println("done");
+
+        if (getPerson(pid).getPrivacyScoreRecord() == null) {
             return -1;
         } else {
-            return getPerson(pid).privacyScoreRecord.size();
+            int x = -1;
+            for(int i : getPerson(pid).getPrivacyScoreRecord()){
+                x = i;
+            }
+            return x;
         }
     }
     // ----------------------------------------------------------- //
