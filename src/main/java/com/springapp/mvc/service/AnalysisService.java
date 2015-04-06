@@ -148,6 +148,10 @@ public class AnalysisService {
         for(HasRelationship r : relationships){
             score += r.getVv()*r.getSv();
         }
+
+        // append to record
+        personService.addToPrivacyScoreRecord(score, p.getNodeID());
+
         return score;
     }
 

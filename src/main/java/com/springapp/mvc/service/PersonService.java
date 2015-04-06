@@ -104,6 +104,29 @@ public class PersonService {
         template.save(person);
     }
 
+    // --------------------- record keeping ---------------------- //
+    public void addToPrivacyScoreRecord(int val, Long pid){
+        Person p = getPerson(pid);
+        System.out.println(val);
+        p.addPrivacyScoreRecord(val);
+        template.save(p);
+    }
+    public void addToNetworkVisibilityRecord(double val, Long pid){
+        getPerson(pid).addNetworkVisibilityRecord(val);
+        template.save(getPerson(pid));
+    }
+    public ArrayList<Integer> getPrivacyScoreRecord(Long pid) {
+        return getPerson(pid).getPrivacyScoreRecord();
+    }
+    public int getLatestPrivacyScore(Long pid) {
+        if (getPerson(pid).getPrivacyScoreRecord().isEmpty()) {
+            return -1;
+        } else {
+            return getPerson(pid).getPrivacyScoreRecord().get(getPerson(pid).getPrivacyScoreRecord().size()-1);
+        }
+    }
+    // ----------------------------------------------------------- //
+
     public void addLike(Comment c, Person p){
         p.likes(c);
         template.save(p);
