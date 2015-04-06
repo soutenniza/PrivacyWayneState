@@ -30,6 +30,67 @@ public class RelationshipAnalysisService {
         this.root = root;
     }
 
+    /**
+     * This entire class is based on the assumption that
+     * RelationshipStrength = Sum (Norm(metric1), Norm(metric2), ..., Norm(metricn))
+     * where metrics={#mutualFriends,#commongroups,socialDistance,duration,#interactions,geographicLocation}
+     * and Norm is a value in [0,1]. We can get Norm is Avg(metrici) with respect to the number of elements in it's range.
+     * TODO: How do we deal with boolean values? E.g. geographicalLocation,associationWithSameOrganization
+     * TODO: make sure socioeconomicstatus, education level, political affiliation, race, gender , age, occupation, education,
+     * political, religious views of individuals are all attributes in the database.
+     */
+
+    public double calculateRelationshipStrength(Person r, Person p){
+        double RS = 0.0;
+
+//        Collection<FriendRelationship> friendRelationships = root.getFriendRelationships();
+//
+//        ArrayList<Person> persons = new ArrayList<>();
+//
+//        for(FriendRelationship f : friendRelationships){
+//            persons.add(f.getFriend());
+//        }
+
+        RS = mutualfriends(r,p)+commonGroups(r,p)+interactions(r,p);
+
+        return RS;
+    }
+
+
+    public int commonGroups(Person r, Person p){
+        Collection<Group> rootGroups = null; //TODO: get groups
+        ArrayList<Long> rootLong = new ArrayList<>();
+
+        //TODO: implement me. Pay attention this is the normalized result
+        return rootLong.size();
+    }
+
+    public int interactions(Person r, Person p){
+//        Collection<Comment> comments = r.getComments();
+//        for(Comment c :comments)
+//                if(c.getID()==p)
+//                    for (Like l: p.getLikes())
+//                            l.getComment().getID();
+        // Collection<Like> rootLikes (r,p);
+        ArrayList<Long> rootLong = new ArrayList<>();
+
+        //TODO: Zack: implement me
+        return rootLong.size();
+    }
+
+
+    public double geographicLocation(){
+
+        double gd = 0.0;
+        //Based on some preset values for locations this method measures the distance between locations.
+        //Account for cities in the same state being still close, citities in different states being less close, cities outstide the US based on the contentent
+        //being more distant.
+        //1. Lookup table
+        //2. GPS location
+        //TODO: Nariman: find a dataset
+        return gd;
+    }
+
     public ArrayList<String> calculateRelationshipStrength(Person root){
         this.root = root;
         ArrayList<String> allMessages;
@@ -197,6 +258,11 @@ public class RelationshipAnalysisService {
             threshold += mutualGroups.get(i);
         }
 
+
+        /**
+         * Nariman: Assumption: heuristic based for now; we assume that the threshold is based on what the
+         * average number of mutual friends in friend j's list.
+         */
         threshold /= mutualGroups.size();
         double average = threshold;
         threshold = threshold - threshold/mutualGroups.size();
@@ -283,6 +349,35 @@ public class RelationshipAnalysisService {
         rootLong.retainAll(gLong);
 
         return rootLong.size();
+    }
+
+    /**
+     * Social distance indicated by socioeconomic status, education level,
+     * political affiliation, race, gender or parity in age, occupation
+     * education political religious views of individuals
+     * @param r
+     * @param p
+     * @return
+     */
+    public double SocialDistance(Person r, Person p){
+
+        //TODO: Nariman: Add a more concrete definition
+        double socialdistance = 0.0;
+        double politicalAffiliationDistance;
+        double ethnicDistance;
+        boolean samegender;
+        double educationLevelDistance;
+        double occupationDistance;
+        int ageParity;
+
+        return socialdistance;
+
+    }
+
+    public double Duration(Person r, Person p){
+        double d =0.0;
+        //TODO: Nariman: find a way to import timestamps
+        return d;
     }
 
 }
