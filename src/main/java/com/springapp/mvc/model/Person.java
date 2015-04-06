@@ -46,26 +46,20 @@ public class Person {
 
     Collection<Comment> likes;
 
-    Collection<Integer> privacyScoreRecord;
+    ArrayList<Integer> privacyScoreRecord;
 
-    Collection<Double> networkVisibilityRecord;
+    ArrayList<Double> networkVisibilityRecord;
 
-    public Person() {
-    }
+    public Person() {}
 
     public Person(String name) {
         this.name = name;
+        privacyScoreRecord = new ArrayList<>();
+        privacyScoreRecord.add(0);
     }
 
     public String getName(){
         return this.name;
-    }
-
-    public Collection<Integer> getRec() {return this.privacyScoreRecord; }
-
-    public void setRec(int val) {
-        System.out.println("Adding " + val + " to " + name + "'s privacy record.");
-        this.privacyScoreRecord.add(val);
     }
 
     public void setName(String sname){
@@ -84,19 +78,17 @@ public class Person {
     public void addPrivacyScoreRecord(int val){
         privacyScoreRecord.add(val);
     }
-
     public void addNetworkVisibilityRecord(double val){
         networkVisibilityRecord.add(val);
     }
-
-    public Collection<Integer> getPrivacyScoreRecord(){
+    public ArrayList<Integer> getPrivacyScoreRecord(){
         return privacyScoreRecord;
     }
-
-    public Collection<Double> getNetworkVisibilityRecord(){
+    public ArrayList<Double> getNetworkVisibilityRecord(){
         return networkVisibilityRecord;
     }
     // ---------------------------------------------------------- //
+
     public FriendRelationship friends(Person friend){
         final FriendRelationship friendRelationship = new FriendRelationship(this, friend);
         friends.add(friend);

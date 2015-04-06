@@ -50,8 +50,8 @@ public class ReportingController {
         int pscore = personService.getLatestPrivacyScore(p1);
 
 
-        if(pscore == -1){
-            redirectAttributes.addFlashAttribute("pscore", "No privacy score have been calculated for this user as of yet.");
+        if(pscore == 0){
+            redirectAttributes.addFlashAttribute("pscore", "Privacy score has not been calculated for this user as of yet.");
         }
         else{
             redirectAttributes.addFlashAttribute("pscore", "Privacy score: " + pscore);
@@ -72,16 +72,16 @@ public class ReportingController {
 
     public String genPSDataLine(String name, Long pid){
         String msg = "['"+name+"', ";
-        Collection<Integer> vals = personService.getPrivacyScoreRecord(pid);
-        if(vals.isEmpty()){
+        ArrayList<Integer> vals = personService.getPrivacyScoreRecord(pid);
+        if(vals.size()==1){
             return "['No History']";
         }
         else{
             for(int x : vals){
-                msg.concat(Integer.toString(x) + ", ");
+                msg = msg + Integer.toString(x) + ", ";
             }
         }
-        msg.concat("],");
+        msg = msg + "],";
         return msg;
     }
 

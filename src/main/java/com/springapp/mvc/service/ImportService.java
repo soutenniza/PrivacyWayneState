@@ -93,27 +93,28 @@ public class ImportService {
                     System.out.println("Import: Person created.");
                     Attribute attAge = service.createAttribute("age", age);
                     service.addAttribute(attAge, p, getVal(), getVal(), getVal());
-                    System.out.println("Import: Attribute created.");
+                    System.out.println("Import: Attribute (1/8) added.");
                     Attribute attGender = service.createAttribute("gender", gender);
                     service.addAttribute(attGender, p, getVal(), getVal(), getVal());
-
+                    System.out.println("Import: Attribute (2/8) added.");
                     Attribute attLocation = service.createAttribute("location", location);
                     service.addAttribute(attLocation, p, getVal(), getVal(), getVal());
-
+                    System.out.println("Import: Attribute (3/8) added.");
                     Attribute attPolitical = service.createAttribute("political view", politicalView);
                     service.addAttribute(attPolitical, p, getVal(), getVal(), getVal());
-
+                    System.out.println("Import: Attribute (4/8) added.");
                     Attribute attWork = service.createAttribute("work", work);
                     service.addAttribute(attWork, p, getVal(), getVal(), getVal());
-
+                    System.out.println("Import: Attribute (5/8) added.");
                     Attribute attEdu = service.createAttribute("education", education);
                     service.addAttribute(attEdu, p, getVal(), getVal(), getVal());
-
+                    System.out.println("Import: Attribute (6/8) added.");
                     Attribute attBd = service.createAttribute("birthday", birthday);
                     service.addAttribute(attBd, p, getVal(), getVal(), getVal());
-
+                    System.out.println("Import: Attribute (7/8) added.");
                     Attribute attPh = service.createAttribute("phone number", phone);
                     service.addAttribute(attPh, p, getVal(), getVal(), getVal());
+                    System.out.println("Import: Attribute (8/8) added.");
                     System.out.println("Import: Adding user interests.");
                     // add interests
                     JSONArray interests = (JSONArray) user.get("interests");
@@ -121,20 +122,20 @@ public class ImportService {
                         interest = (String) interests.get(x);
                         Attribute att = service.createAttribute("interest", interest);
                         service.addAttribute(att, p, getVal(), getVal(), getVal());
+                        System.out.println("Import: Interest added.");
                     }
-
+                    System.out.println("Import: Adding comments.");
                     // add comment(s)
                     Long p1 = service.getPersonByName(name);
                     if(p1 != null){
                         contentService.addComments(p1);
+                        System.out.println("Import: Comment added.");
                     }
                     else{
                         System.out.println("Import: [ERROR] Unable to identify name for comment. p1 invalid.");
                         System.out.println(p1);
                     }
                 }
-
-
             }
 
             users = (JSONArray) jsonObject.get("user");
@@ -170,7 +171,7 @@ public class ImportService {
                 }
             }
 
-            System.out.println("Import: Adding groups snd likes.");
+            System.out.println("Import: Adding groups and likes.");
             // Add users to / create groups and likes
 
             for(int i=0; i < stop; i++) {
