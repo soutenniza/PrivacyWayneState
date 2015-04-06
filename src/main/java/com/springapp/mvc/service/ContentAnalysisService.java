@@ -53,22 +53,8 @@ public class ContentAnalysisService {
             int score = 0;
             Collection<Comment> comments = service.getPerson(f.getNodeID()).getComments();
             for(Comment c : comments){
-                String text = service.getComment(c.getNodeID()).getText();
-                if(text != null){
-                    Properties props = new Properties();
-                    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse, sentiment");
-                    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
-                    Annotation annotation = pipeline.process(text);
-                    List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
-                    for (CoreMap sentence : sentences) {
-                        String sentiment = sentence.get(SentimentCoreAnnotations.ClassName.class);
-                        score = score + getNumericVal(sentiment);
-                    }
-                }
-                else{
-                    System.out.println("SntAnlysSrvc: Comment was null!");
-                }
+                score = score + c.getSentiment();
+                System.out.println("score: " + score);
             }
             String msg = "";
             if(score < -1){
@@ -149,6 +135,27 @@ public class ContentAnalysisService {
         }
 
         return messages;
+    }
+
+    public int runSentimentAnalysisForText(String text){
+        int score = 0;
+        if(text != null){
+            Properties props = new Properties();
+            props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse, sentiment");
+            StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+
+            Annotation annotation = pipeline.process(text);
+            List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+            for (CoreMap sentence : sentences) {
+                String result = sentence.get(SentimentCoreAnnotations.ClassName.class);
+                score = score + getNumericVal(result);
+            }
+        }
+        else{
+            System.out.println("SntAnlysSrvc: Comment was null!");
+        }
+
+        return score;
     }
 
 }

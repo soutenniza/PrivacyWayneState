@@ -15,6 +15,7 @@ public class Comment {
     private Long nodeID;
     private String text;
     private Long ownerID;
+    private int sentiment;
 
     @RelatedToVia
     Collection<OwnsRelationship> ownsRelationships;
@@ -29,6 +30,10 @@ public class Comment {
     public void setText(String val){
         this.text = val;
     }
+
+    public void setSentiment(int val) { this.sentiment = val; }
+
+    public int getSentiment() { return this.sentiment; }
 
     public void setOwnerId(Long val) { this.ownerID = val; }
 

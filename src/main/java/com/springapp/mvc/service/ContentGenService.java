@@ -23,7 +23,7 @@ public class ContentGenService {
     PersonService service;
 
     @Autowired
-    CommentRepository commentRepository;
+    ContentAnalysisService contentAnalysisService;
 
     ArrayList<String> commentNeg = new ArrayList<String>() {{
         add("I am mad and full of rage!");
@@ -82,61 +82,29 @@ public class ContentGenService {
         String text;
         if(path == 0){
             for(count = 0; count < numComments; count++){
-                c = new Comment();
                 text = getAtt(pid);
-                if(service.commentExists(text)){
-                    System.out.println("ContentGen: [WARN] Tried to add duplicate comment.");
-                }
-                else{
-                    c.setText(text);
-                    c.setOwnerId(pid);
-                    commentRepository.save(c);
-                    service.addComment(c, service.getPerson(pid));
-                }
+                service.createComment(pid, text);
             }
         }
         if(path == 1){
             for(count = 0; count < numComments; count++){
                 c = new Comment();
                 text = getNeg();
-                if(service.commentExists(text)){
-                    System.out.println("ContentGen: [WARN] Tried to add duplicate comment.");
-                }
-                else{
-                    c.setText(text);
-                    c.setOwnerId(pid);
-                    commentRepository.save(c);
-                    service.addComment(c, service.getPerson(pid));
-                }
+                service.createComment(pid, text);
             }
         }
         if(path == 2){
             for(count = 0; count < numComments; count++){
                 c = new Comment();
                 text = getPos();
-                if(service.commentExists(text)){
-                    System.out.println("ContentGen: [WARN] Tried to add duplicate comment.");
-                }
-                else{
-                    c.setText(text);
-                    c.setOwnerId(pid);
-                    commentRepository.save(c);
-                    service.addComment(c, service.getPerson(pid));
-                }
+                service.createComment(pid, text);
             }
         }
         if(path == 3){
             for(count = 0; count < numComments; count++) {
                 c = new Comment();
                 text = getNeu();
-                if (service.commentExists(text)) {
-                    System.out.println("ContentGen: [WARN] Tried to add duplicate comment.");
-                } else {
-                    c.setText(text);
-                    c.setOwnerId(pid);
-                    commentRepository.save(c);
-                    service.addComment(c, service.getPerson(pid));
-                }
+                service.createComment(pid, text);
             }
         }
     }

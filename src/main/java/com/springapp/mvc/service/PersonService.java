@@ -29,10 +29,28 @@ public class PersonService {
     private CommentRepository commentRepository;
     @Autowired
     private HasRepository hasRepository;
+    @Autowired
+    ContentAnalysisService contentAnalysisService;
 
     public void addFriend(Person friend, Person user){
         user.friends(friend);
         template.save(user);
+    }
+
+    public boolean createComment(Long pid, String text){
+        if(commentExists(text)){
+            System.out.println("Comment exists!");
+            return false;
+        }
+        else {
+            Comment c = new Comment();
+            c.setOwnerId(pid);
+            c.setText(text);
+            c.setSentiment(contentAnalysisService.runSentimentAnalysisForText(text));
+            commentRepository.save(c);
+            addComment(c, getPerson(pid));
+            return true;
+        }
     }
 
     public void addMember(Group group, Person user){

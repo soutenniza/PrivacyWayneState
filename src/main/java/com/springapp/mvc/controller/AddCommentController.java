@@ -4,6 +4,7 @@ import com.springapp.mvc.model.Person;
 import com.springapp.mvc.model.Comment;
 import com.springapp.mvc.repository.CommentRepository;
 import com.springapp.mvc.repository.PersonRepository;
+import com.springapp.mvc.service.ContentAnalysisService;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,10 +31,10 @@ import java.util.Map;
 public class AddCommentController {
 
     @Autowired
-    CommentRepository commentRepository;
+    PersonService service;
 
     @Autowired
-    PersonService service;
+    ContentAnalysisService contentAnalysisService;
 
     @Autowired
     @Qualifier("personValidator")
@@ -58,20 +59,15 @@ public class AddCommentController {
                             @RequestParam(value = "inputComment") String t, Model model, final RedirectAttributes redirectAttributes){
 
 
-        if(service.commentExists(t)){
-            String msg = "This comment has already been made. Why don't you say something new?";
-            redirectAttributes.addFlashAttribute("fail", msg);
+        boolean created = service.createComment(service.getPerson(p).getNodeID(), t);
+        if(created){
+            String msg = "Comment created!";
+            redirectAttributes.addFlashAttribute("message", msg);
         }
         else
         {
-            comment.setText(t);
-            comment.setOwnerId(p);
-            commentRepository.save(comment);
-
-            service.addComment(comment, service.getPerson(p));
-
-            String msg = "Comment created!";
-            redirectAttributes.addFlashAttribute("message", msg);
+            String msg = "This comment has already been made. Why don't you say something new?";
+            redirectAttributes.addFlashAttribute("fail", msg);
         }
 
         return "redirect:/addcomment";
