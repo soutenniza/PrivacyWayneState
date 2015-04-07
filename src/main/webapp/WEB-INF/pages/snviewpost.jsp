@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Zack
-  Date: 4/6/15
-  Time: 3:54 PM
+  User: Zachary
+  Date: 4/6/2015
+  Time: 11:10 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,12 +27,23 @@
 </head>
 <body>
 <mytags:navbar/>
-<mytags:modifybar/>
+<mytags:session/>
 <br>
 
+<div class="section">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">${username}'s original post:</div>
+            <div class="panel-body">
+                <p>${originaltext}</p>
+            </div>
 
-
-
+            <ul class="list-group">
+                ${replies}
+            </ul>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
