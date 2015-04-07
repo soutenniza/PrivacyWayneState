@@ -9,6 +9,7 @@ import com.springapp.mvc.model.Comment;
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.PersonService;
+import edu.stanford.nlp.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -87,10 +88,8 @@ public class SocialNetworkSimController {
 
         mav.addObject("username", service.getPerson(service.getComment(id).getOwnerID()).getName());
         mav.addObject("originaltext", service.getComment(id).getText());
-        mav.addObject("replies", mgenReplies(id));
 
         previousCommentId = id;
-
 
         return mav;
     }
@@ -212,6 +211,7 @@ public class SocialNetworkSimController {
     public String mgenCommentsList(Person p){
         String html = "";
         Collection<Comment> comments = p.getComments();
+        System.out.println(comments.isEmpty());
         if(comments.isEmpty()){
             html = p.getName() + " has not made any comments yet!";
         }
@@ -219,9 +219,32 @@ public class SocialNetworkSimController {
             html = "<h3>Comments:</h3><br><div class=\"list-group\">";
             for(Comment ac : comments){
                 Long pID = ac.getNodeID();
-                html = html.concat("<a href=\"" +  "/snviewpost/?id=" + service.getComment(pID).getNodeID() + "\" class= \"list-group-item\">" + service.getComment(pID).getText() + "</a>");
+                if(service.getComment(pID).isRoot()) {
+                    html = html + constructReplyThread(service.getComment(ac.getNodeID()).getNodeID(), 0);
+                }
+
             }
             html = html.concat("</div>");
+        }
+        return html;
+    }
+
+    public String constructReplyThread(Long cid, int depth){
+        String tab = "<span class=\"tab\"></span>";
+        String html = "";
+
+        String tabs = StringUtils.repeat(tab, depth);
+        html = html + "<a href=\"" +  "/snviewpost/?id=" + service.getComment(cid).getNodeID() + "\" class= \"list-group-item\">" + tabs + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ": " + service.getComment(cid).getText() + "</a>";
+
+        while(service.getComment(cid).hasChildren()){
+            Collection<Comment> replies = service.getComment(cid).getReplies();
+
+            for(Comment child : replies){
+                int d = depth+1;
+                child = service.getComment(child.getNodeID());
+                html = html + constructReplyThread(child.getNodeID(), d);
+            }
+            break;
         }
         return html;
     }
@@ -261,14 +284,5 @@ public class SocialNetworkSimController {
         return html;
     }
 
-    public String mgenReplies(Long id){
-        String html = "<li class=\"list-group-item\">Jonny Tompson: This is a test.</li>";
-
-
-        //<li class="list-group-item">Cras justo odio</li>
-
-
-        return html;
-    }
 
 }

@@ -5,11 +5,17 @@
   Time: 8:12 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+    span.tab{
+        padding: 0 10px;
+    }
+</style>
 <html>
 <head>
     <title>PrivacyWayne</title>
@@ -32,7 +38,7 @@
     <div class="section">
         <div class="container">
             <div id="message" class="alert alert-success">
-                <b>[SUCCESS] Added Comment!</b>
+                <b>[SUCCESS] ${commentpass}</b>
             </div>
         </div>
     </div>
@@ -41,7 +47,7 @@
     <div class="section">
         <div class="container">
             <div id="message" class="alert alert-danger">
-                <b>[FAIL] ${fail}</b>
+                <b>[FAIL] ${commentfail}</b>
             </div>
         </div>
     </div>

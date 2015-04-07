@@ -41,6 +41,24 @@ public class Comment {
         this.parentID = id;
     }
 
+    public void setAsReply(){
+        this.root = false;
+    }
+
+    public boolean hasChildren(){
+        boolean has = false;
+        try{
+            has = !replies.isEmpty();
+        }
+        catch (Exception x){}
+
+        return has;
+    }
+
+    public Collection<Comment> getReplies(){
+        return this.replies;
+    }
+
     public void addReply(Comment c){
         this.replies.add(c);
     }
