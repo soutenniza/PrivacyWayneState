@@ -28,7 +28,24 @@
 <body>
 <mytags:navbar/>
 <mytags:session/>
-<br>
+<c:if test="${commentpass != null}">
+    <div class="section">
+        <div class="container">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] Added Comment!</b>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${commentfail != null}">
+    <div class="section">
+        <div class="container">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${fail}</b>
+            </div>
+        </div>
+    </div>
+</c:if>
 <div class="section">
     <div class="container">
         <div class="jumbotron">
@@ -76,6 +93,23 @@
                     </c:if>
                 </div>
             </div>
+            <br>
+            <c:if test="${home != null}">
+                <hr>
+                <br>
+                <form  method="POST" action="/snsubmitcomment" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label">Make a new post:</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <textarea name="inputComment" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <input type="submit" name = "add" value="add comment" class="btn btn-success"/>
+                    <input type="submit" name = "whatif" value="Run What-If Analysis" class="btn btn-warning"/>
+                </form>
+            </c:if>
         </div>
     </div>
 </div>

@@ -53,6 +53,24 @@ public class PersonService {
         }
     }
 
+    public boolean createReply(Long personId, Long parentId, String text){
+        if(commentExists(text)){
+            System.out.println("Comment exists!");
+            return false;
+        }
+        else {
+            Comment c = new Comment();
+            c.setOwnerId(personId);
+            c.setText(text);
+            c.setSentiment(contentAnalysisService.runSentimentAnalysisForText(text));
+            c.setParentId(parentId);
+            commentRepository.save(c);
+            addComment(c, getPerson(personId));
+            addReply(getComment(parentId).getNodeID(), c);
+            return true;
+        }
+    }
+
     public void addMember(Group group, Person user){
         user.member(group);
         template.save(user);
@@ -121,6 +139,11 @@ public class PersonService {
         person.owns(comment);
         template.save(person);
     }
+
+    public void addReply(Long cid, Comment c){
+        getComment(cid).addReply(c);
+    }
+
 
     // --------------------- record keeping ---------------------- //
     public void addToPrivacyScoreRecord(int val, Long pid){

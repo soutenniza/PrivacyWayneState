@@ -30,6 +30,8 @@ import java.util.Map;
 public class SocialNetworkSimController {
 
     public Long userId;
+    public Long previousId;
+    public Long previousCommentId;
 
     @Autowired
     PersonService service;
@@ -51,14 +53,6 @@ public class SocialNetworkSimController {
         return "/snviewlogin";
     }
 
-    @RequestMapping(value = "/snviewhome")
-    public String displaySNSim(Model model, final RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("user", service.getPerson(userId).getName());
-
-
-        return "snviewhome";
-    }
-
     @RequestMapping("/snviewprofile")
     public ModelAndView viewProfile(@RequestParam("id") Long id ) {
 
@@ -72,6 +66,14 @@ public class SocialNetworkSimController {
         mav.addObject("comments", mgenCommentsList(service.getPerson(id)));
         mav.addObject("likes", mgenLikesList(service.getPerson(id)));
         mav.addObject("groups", mgenGroupsList(service.getPerson(id)));
+
+        previousId = id;
+
+        // IF ON USERS OWN PAGE
+        if(userId==id){
+            mav.addObject("home", id);
+            previousId = userId;
+        }
 
         return mav;
     }
@@ -87,7 +89,7 @@ public class SocialNetworkSimController {
         mav.addObject("originaltext", service.getComment(id).getText());
         mav.addObject("replies", mgenReplies(id));
 
-
+        previousCommentId = id;
 
 
         return mav;
@@ -97,6 +99,38 @@ public class SocialNetworkSimController {
     @Transactional
     public String viewHome(){
         return "redirect:/snviewprofile/?id=" + userId;
+    }
+
+    @RequestMapping(value = "/snsubmitcomment", method = RequestMethod.POST, params={"add"})
+    @Transactional
+    public String redirectComment(@RequestParam(value = "inputComment") String t, final RedirectAttributes redirectAttributes){
+        boolean created = service.createComment(service.getPerson(userId).getNodeID(), t);
+        if(created){
+            String msg = "Comment created!";
+            redirectAttributes.addFlashAttribute("commentpass", msg);
+        }
+        else
+        {
+            String msg = "This comment has already been made. Why don't you say something new?";
+            redirectAttributes.addFlashAttribute("commentfail", msg);
+        }
+        return "redirect:/snviewprofile/?id=" + userId;
+    }
+
+    @RequestMapping(value = "/snsubmitreply", method = RequestMethod.POST, params={"reply"})
+    @Transactional
+    public String redirectReply(@RequestParam(value = "inputComment") String t, final RedirectAttributes redirectAttributes){
+        boolean created = service.createReply(service.getPerson(userId).getNodeID(), previousCommentId, t);
+        if(created){
+            String msg = "Reply sent!";
+            redirectAttributes.addFlashAttribute("commentpass", msg);
+        }
+        else
+        {
+            String msg = "This comment has already been made. Why don't you say something new?";
+            redirectAttributes.addFlashAttribute("commentfail", msg);
+        }
+        return "redirect:/snviewprofile/?id=" + previousId;
     }
 
     @RequestMapping(value = "/submitsession", method = RequestMethod.POST, params={"logout"})
