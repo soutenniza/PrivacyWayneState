@@ -5,11 +5,17 @@
   Time: 8:12 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+    span.tab{
+        padding: 0 10px;
+    }
+</style>
 <html>
 <head>
     <title>PrivacyWayne</title>
@@ -28,7 +34,24 @@
 <body>
 <mytags:navbar/>
 <mytags:session/>
-<br>
+<c:if test="${commentpass != null}">
+    <div class="section">
+        <div class="container">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] ${commentpass}</b>
+            </div>
+        </div>
+    </div>
+</c:if>
+<c:if test="${commentfail != null}">
+    <div class="section">
+        <div class="container">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] ${commentfail}</b>
+            </div>
+        </div>
+    </div>
+</c:if>
 <div class="section">
     <div class="container">
         <div class="jumbotron">
@@ -76,6 +99,23 @@
                     </c:if>
                 </div>
             </div>
+            <br>
+            <c:if test="${home != null}">
+                <hr>
+                <br>
+                <form  method="POST" action="/snsubmitcomment" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label">Make a new post:</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <textarea name="inputComment" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <input type="submit" name = "add" value="add comment" class="btn btn-success"/>
+                    <input type="submit" name = "whatif" value="Run What-If Analysis" class="btn btn-warning"/>
+                </form>
+            </c:if>
         </div>
     </div>
 </div>

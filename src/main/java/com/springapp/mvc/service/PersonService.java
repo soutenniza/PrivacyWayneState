@@ -53,6 +53,35 @@ public class PersonService {
         }
     }
 
+    public boolean createReply(Long personId, Long parentId, String text){
+        if(commentExists(text)){
+            System.out.println("Comment exists!");
+            return false;
+        }
+        else {
+            Comment c = new Comment();
+            c.setOwnerId(personId);
+            c.setText(text);
+            c.setSentiment(contentAnalysisService.runSentimentAnalysisForText(text));
+            c.setParentId(parentId);
+            c.setAsReply();
+            commentRepository.save(c);
+            addComment(c, getPerson(personId));
+            addReply(getComment(parentId).getNodeID(), c);
+            commentRepository.save(getComment(parentId));
+
+            System.out.println("comment created");
+            System.out.println("owner: " + getPerson(personId).getName());
+            System.out.println("parentid: " + c.getParentID());
+            System.out.println("is root: " + c.isRoot());
+            System.out.println("parent has children: " + getComment(c.getParentID()).hasChildren());
+            System.out.println("is parent root: " + getComment(c.getParentID()).isRoot());
+            System.out.println("has children: " + c.hasChildren());
+
+            return true;
+        }
+    }
+
     public void addMember(Group group, Person user){
         user.member(group);
         template.save(user);
@@ -121,6 +150,11 @@ public class PersonService {
         person.owns(comment);
         template.save(person);
     }
+
+    public void addReply(Long cid, Comment c){
+        getComment(cid).addReply(c);
+    }
+
 
     // --------------------- record keeping ---------------------- //
     public void addToPrivacyScoreRecord(int val, Long pid){

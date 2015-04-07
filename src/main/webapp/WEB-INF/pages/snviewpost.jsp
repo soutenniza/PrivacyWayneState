@@ -29,21 +29,30 @@
 <mytags:navbar/>
 <mytags:session/>
 <br>
-
 <div class="section">
     <div class="container">
         <div class="panel panel-default">
-            <div class="panel-heading">${username}'s original post:</div>
+            <div class="panel-heading">Reply to ${username}'s post:</div>
             <div class="panel-body">
                 <p>${originaltext}</p>
             </div>
-
-            <ul class="list-group">
-                ${replies}
-            </ul>
+            <br>
         </div>
+        <form  method="POST" action="/snsubmitreply" class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label">Reply to post:</label>
+                </div>
+                <div class="col-sm-10">
+                    <textarea name="inputComment" class="form-control"></textarea>
+                </div>
+            </div>
+            <br>
+            <input type="submit" name = "reply" value="reply" class="btn btn-success"/>
+            <input type="submit" name = "whatif" value="Run What-If Analysis" class="btn btn-warning"/>
+        </form>
     </div>
 </div>
-
+<br>
 </body>
 </html>
