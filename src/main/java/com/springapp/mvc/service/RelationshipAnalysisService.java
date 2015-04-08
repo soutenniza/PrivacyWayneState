@@ -24,6 +24,9 @@ public class RelationshipAnalysisService {
 
     private Person root;
 
+    @Autowired
+    private GroupAnalysisService groupservice;
+
     public RelationshipAnalysisService(){}
 
     public RelationshipAnalysisService(Person root){
@@ -51,19 +54,12 @@ public class RelationshipAnalysisService {
 //            persons.add(f.getFriend());
 //        }
 
-        RS = mutualfriends(r,p)+commonGroups(r,p)+interactions(r,p);
+        RS = mutualfriends(r,p)+groupservice.commonGroups(r, p)+interactions(r,p);
 
         return RS;
     }
 
 
-    public int commonGroups(Person r, Person p){
-        Collection<Group> rootGroups = null; //TODO: get groups
-        ArrayList<Long> rootLong = new ArrayList<>();
-
-        //TODO: implement me. Pay attention this is the normalized result
-        return rootLong.size();
-    }
 
     public int interactions(Person r, Person p){
 //        Collection<Comment> comments = r.getComments();
@@ -111,7 +107,7 @@ public class RelationshipAnalysisService {
             Long pID = p.getNodeID();
             int ps = getPrivacyScore(service.getPerson(pID));
             int mt = mutualfriends(root, service.getPerson(pID));
-            int mg = mutualgroups(root, service.getPerson(pID));
+            int mg = groupservice.mutualgroups(root, service.getPerson(pID));
             mutualfriends.add(mt);
             commonGroups.add(mg);
             privacyScores.add(ps);
@@ -246,7 +242,7 @@ public class RelationshipAnalysisService {
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
             Long pID = p.getNodeID();
-            int mt = mutualgroups(root, service.getPerson(pID));
+            int mt = groupservice.mutualgroups(root, service.getPerson(pID));
             mutualGroups.add(mt);
             mutualGroupID.add(pID);
         }
@@ -330,26 +326,7 @@ public class RelationshipAnalysisService {
         return rootLong.size();
     }
 
-    public int mutualgroups(Person r, Person g){
-        Collection<Group> rootGroups = root.getGroups();
-        ArrayList<Long> rootLong = new ArrayList<>();
-        for(Group group : rootGroups){
-            if(group.getNodeID() != r.getNodeID()){
-                rootLong.add(group.getNodeID());
-            }
-        }
-        Collection<Group> gGroups = g.getGroups();
-        ArrayList<Long> gLong = new ArrayList<>();
-        for(Group group : gGroups){
-            if(group.getNodeID() != g.getNodeID()){
-                gLong.add(group.getNodeID());
-            }
 
-        }
-        rootLong.retainAll(gLong);
-
-        return rootLong.size();
-    }
 
     /**
      * Social distance indicated by socioeconomic status, education level,
