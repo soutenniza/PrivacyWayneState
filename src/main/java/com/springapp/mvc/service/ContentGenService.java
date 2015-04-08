@@ -212,7 +212,7 @@ public class ContentGenService {
     }
 
     public void addReplies(Long pid){
-        int numReplies = (getVal(5)+1);
+        int numReplies = (getVal(3)+1);
         for(int x = 0; x < numReplies; x++){
             addReply(pid);
         }

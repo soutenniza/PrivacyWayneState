@@ -92,14 +92,6 @@
                 </div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <c:if test="${likes != null}">
-                        ${likes}
-                    </c:if>
-                </div>
-            </div>
-            <br>
             <c:if test="${home != null}">
                 <hr>
                 <br>
