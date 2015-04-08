@@ -20,6 +20,7 @@ import java.util.Properties;
 
 /**
  * Created by Zachary on 4/4/2015.
+ * This service is dedicated to Privacy analysis of content
  */
 @Service
 @Transactional

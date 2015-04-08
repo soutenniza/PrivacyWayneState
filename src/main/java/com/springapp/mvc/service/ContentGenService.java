@@ -14,6 +14,7 @@ import java.util.Random;
 
 /**
  * Created by Zachary on 4/4/2015.
+ * This service is dedicated to anything related to content generation
  */
 @Service
 @Transactional

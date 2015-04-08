@@ -53,5 +53,22 @@ public class OtherAnalyses {
         return null;
     }
 
+    /**
+     * Use a Google Service with a well crafted query from the user's profile
+     * @param p
+     */
+    HashMap<String,Double> detectFriendsUnderSameAdvisor(Person p){
+
+        String query ="nariman ammar wayne state score lab";
+        //googleservice.search(query);
+        //takes me to this page
+        //People-SCORElab: http://score.cs.wayne.edu/People.html
+
+
+    return null;
+    }
+
+
+
 
 }
