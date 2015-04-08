@@ -67,6 +67,20 @@ public class ContentGenService {
         add("Today is the third day of the month.");
     }};
 
+    ArrayList<String> reply = new ArrayList<String>() {{
+        add("I agree.");
+        add("I disagree.");
+        add("I strongly disagree!.");
+        add("I strongly agree!.");
+        add("You are wrong about this. I don't like you.");
+        add("You are right about this. I like you.");
+        add("This made me laugh.");
+        add("This made me cry.");
+        add("Who cares?");
+        add("I care about this.");
+        add("LOL!!");
+    }};
+
 
     public void addComments(Long pid){
 
@@ -121,6 +135,10 @@ public class ContentGenService {
         return commentNeu.get(getVal(commentNeu.size()));
     }
 
+    public String getRep(){
+        return reply.get(getVal(reply.size()));
+    }
+
     public String getAtt(Long pid){
         String msg = "";
 
@@ -172,11 +190,31 @@ public class ContentGenService {
         }
     }
 
+    public void addReply(Long pid){
+        Collection<Comment> comments = service.getAllComments();
+        int rando = getVal(comments.size());
+        int count = 0;
+        for(Comment c : comments){
+            if(count == rando){
+                service.createReply(service.getPerson(pid).getNodeID(), service.getComment(c.getNodeID()).getNodeID(), getRep());
+                break;
+            }
+            count++;
+        }
+    }
+
     public void addLikes(Long pid){
         int numLikes = (getVal(3)+1);
         for(int x = 0; x < numLikes; x++){
             addLike(pid);
         }
 
+    }
+
+    public void addReplies(Long pid){
+        int numReplies = (getVal(5)+1);
+        for(int x = 0; x < numReplies; x++){
+            addReply(pid);
+        }
     }
 }
