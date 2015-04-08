@@ -26,6 +26,10 @@ public class AnalysisService {
     @Autowired
     RelationshipAnalysisService relationshipAnalysis;
 
+    @Autowired
+    GroupAnalysisService groupAnalysis;
+
+
     private Person root;
 
     public void setRoot(Person root){
@@ -36,7 +40,7 @@ public class AnalysisService {
         ArrayList<String> allMessages;
         allMessages = relationshipAnalysis.calculateRelationshipStrength(root);
         allMessages.addAll(contentAnalysis.calculateAll(root));
-
+        //TODO: Dishank: add a call to group analysis service methods here
 
         return allMessages;
     }

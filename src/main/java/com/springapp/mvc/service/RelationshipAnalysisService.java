@@ -27,6 +27,10 @@ public class RelationshipAnalysisService {
     @Autowired
     private GroupAnalysisService groupservice;
 
+    @Autowired
+    private PrivacyProfileAnalysisService profileservice;
+
+
     public RelationshipAnalysisService(){}
 
     public RelationshipAnalysisService(Person root){
@@ -105,7 +109,7 @@ public class RelationshipAnalysisService {
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
             Long pID = p.getNodeID();
-            int ps = getPrivacyScore(service.getPerson(pID));
+            int ps = profileservice.getPrivacyScore(service.getPerson(pID));
             int mt = mutualfriends(root, service.getPerson(pID));
             int mg = groupservice.mutualgroups(root, service.getPerson(pID));
             mutualfriends.add(mt);
@@ -163,7 +167,7 @@ public class RelationshipAnalysisService {
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
             Long pID = p.getNodeID();
-            int ps = getPrivacyScore(service.getPerson(pID));
+            int ps = profileservice.getPrivacyScore(service.getPerson(pID));
             privacyScores.add(ps);
             privacyScoresID.add(pID);
         }
@@ -188,19 +192,7 @@ public class RelationshipAnalysisService {
         return messaages;
     }
 
-    private int getPrivacyScore(Person p){
-        Person person = service.getPerson(p.getNodeID());
-        Collection<HasRelationship> relationships = person.getAttributeRelationships();
-        int score = 0;
-        for(HasRelationship r : relationships){
-            score += r.getVv()*r.getSv();
-        }
 
-        // append to record
-        service.addToPrivacyScoreRecord(score, p.getNodeID());
-
-        return score;
-    }
 
     private ArrayList<String> calculateAllMutualFriends() {
         Collection<Person> friends = root.getFriends();
