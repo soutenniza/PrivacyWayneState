@@ -54,7 +54,26 @@ public class SocialNetworkSimController {
         return "/snviewlogin";
     }
 
-    @RequestMapping("/snviewprofile")
+    @RequestMapping("/snlikeredirect")
+    public String redirectLike(@RequestParam("id") Long id, final RedirectAttributes redirectAttributes ) {
+
+        String msg = "Liked comment!";
+        redirectAttributes.addFlashAttribute("commentpass", msg);
+
+        return "redirect:/snviewprofile/?id=" + previousId;
+    }
+
+    @RequestMapping("/snunlikeredirect")
+    public String redirectUnlike(@RequestParam("id") Long id, final RedirectAttributes redirectAttributes ) {
+
+        String msg = "Unliked comment!";
+        redirectAttributes.addFlashAttribute("commentpass", msg);
+
+        return "redirect:/snviewprofile/?id=" + previousId;
+    }
+
+
+        @RequestMapping("/snviewprofile")
     public ModelAndView viewProfile(@RequestParam("id") Long id ) {
 
         ModelAndView mav = new ModelAndView("snviewprofile");
@@ -65,7 +84,6 @@ public class SocialNetworkSimController {
         mav.addObject("attributes", mgenAttributeList(service.getPerson(id)));
         mav.addObject("friends", mgenFriendsList(service.getPerson(id)));
         mav.addObject("comments", mgenCommentsList(service.getPerson(id)));
-        mav.addObject("likes", mgenLikesList(service.getPerson(id)));
         mav.addObject("groups", mgenGroupsList(service.getPerson(id)));
 
         previousId = id;
@@ -235,8 +253,11 @@ public class SocialNetworkSimController {
         String tab = "<span class=\"tab\"></span>";
         String html = "";
 
+        String likeStr = genLike(cid);
+        String replyStr = genReplyBtn(cid);
+
         String tabs = StringUtils.repeat(tab, depth);
-        html = html + "<a href=\"" +  "/snviewpost/?id=" + service.getComment(cid).getNodeID() + "\" class= \"list-group-item\">" + tabs + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ": " + service.getComment(cid).getText() + "</a>";
+        html = html + "<div class= \"list-group-item\">" + tabs + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ": " + service.getComment(cid).getText() + replyStr + likeStr + "</div>";
 
         while(service.getComment(cid).hasChildren()){
             Collection<Comment> replies = service.getComment(cid).getReplies();
@@ -251,23 +272,6 @@ public class SocialNetworkSimController {
         return html;
     }
 
-    public String mgenLikesList(Person p){
-        String html = "";
-        Collection<Comment> likes = p.getLikes();
-        if(likes.isEmpty()){
-            html = p.getName() + " has not liked any comments yet!";
-        }
-        else{
-            html = "<h3>Liked comments:</h3><br><ul class=\"list-group\">";
-            for(Comment ac : likes){
-                Long pID = ac.getNodeID();
-                Comment acc = service.getComment(pID);
-                html = html.concat("<li class=\"list-group-item\">" + service.getPerson(acc.getOwnerID()).getName() + ": " + acc.getText() + "</li>");
-            }
-            html = html.concat("</ul>");
-        }
-        return html;
-    }
 
     public String mgenGroupsList(Person p){
         String html = "";
@@ -283,6 +287,43 @@ public class SocialNetworkSimController {
             }
             html = html.concat("</ul>");
         }
+        return html;
+    }
+
+    public String genLike(Long cid){
+        String html = "";
+        boolean liked = false;
+        Collection<Comment> likes = service.getPerson(userId).getLikes();
+        if(likes.isEmpty()){
+            // It's OK
+        }
+        else{
+            for(Comment ac : likes) {
+                if (service.getComment(cid).getNodeID().equals(service.getComment(ac.getNodeID()).getNodeID())) {
+                    html = html.concat("<button onclick=\"location.href='/snunlikeredirect/?id=" + service.getComment(cid).getNodeID() +  "'\" " +
+                            "type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
+                            "  <span class=\"glyphicon glyphicon-star\" aria-hidden=\"true\"></span> LIKE" +
+                            "</button>");
+                    liked = true;
+                    break;
+                }
+            }
+        }
+        if(liked==false){
+            html = html + "<button onclick=\"location.href='/snunlikeredirect/?id=" + service.getComment(cid).getNodeID() +  "'\" " +
+                    "type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
+                    "  <span class=\"glyphicon glyphicon-star-empty\" aria-hidden=\"true\"></span> LIKE" +
+                    "</button>";
+        }
+        return html;
+    }
+
+    public String genReplyBtn(Long cid){
+        String html = "";
+        html = html + "<button onclick=\"location.href='/snviewpost/?id=" + service.getComment(cid).getNodeID() +  "'\" " +
+                " type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
+                "  <span class=\"glyphicon glyphicon-share-alt\" aria-hidden=\"true\"></span> REPLY" +
+                "</button>";
         return html;
     }
 

@@ -30,5 +30,9 @@
         <constructor-arg index="1" value="privacywayne"/>
         <constructor-arg index="2" value="9x2oJYf0HWxrausGAzhf"/>
     </bean>
+    
+    <!--<constructor-arg index="0" value="http://localhost:7474/db/data/"/>
+        <constructor-arg index="1" value="neo4j"/>
+        <constructor-arg index="2" value="pass"/>-->
 
 </beans>
