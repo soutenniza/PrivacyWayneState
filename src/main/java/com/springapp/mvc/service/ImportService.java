@@ -171,7 +171,7 @@ public class ImportService {
                 }
             }
 
-            System.out.println("Import: Adding groups and likes.");
+            System.out.println("Import: Adding groups and likes and replies.");
             // Add users to / create groups and likes
 
             for(int i=0; i < stop; i++) {
@@ -227,13 +227,14 @@ public class ImportService {
                     }
                 }
 
-                // add likes(s)
+                // add likes(s) and replies
                 Long p1 = service.getPersonByName(nameS);
                 if(p1 != null){
                     contentService.addLikes(p1);
+                    contentService.addReplies(p1);
                 }
                 else{
-                    System.out.println("Import: [ERROR] Unable to identify name for likes. p1 invalid.");
+                    System.out.println("Import: [ERROR] Unable to identify name for likes/replies. p1 invalid.");
                     System.out.println(p1);
                 }
             }
