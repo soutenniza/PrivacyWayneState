@@ -28,5 +28,30 @@ public class OtherAnalyses {
         return null;
     }
 
-    
+
+    HashMap<String,Double> generateDynamicSensitivityeByConditionalPrivacyMap(Person p){
+
+        //TODO: get attributes from p
+        //TODO: for each attribute calculate ..
+
+        return null;
+    }
+
+    HashMap<String,Double> generateDynamicSensitivityeByLevelMap(Person p){
+
+        //TODO: get attributes from p
+        //TODO: for each attribute calculate ..
+
+        return null;
+    }
+
+    HashMap<String,Double> generateDynamicVisibilityByPropagationMap(Person p){
+
+        //TODO: get attributes from p
+        //TODO: for each attribute calculate ..
+
+        return null;
+    }
+
+
 }
