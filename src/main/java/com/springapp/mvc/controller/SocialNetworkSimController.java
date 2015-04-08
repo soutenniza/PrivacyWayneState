@@ -70,8 +70,10 @@ public class SocialNetworkSimController {
 
         previousId = id;
 
+
+
         // IF ON USERS OWN PAGE
-        if(userId==id){
+        if(userId.equals(id)){
             mav.addObject("home", id);
             previousId = userId;
         }
