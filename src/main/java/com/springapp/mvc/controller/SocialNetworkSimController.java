@@ -57,6 +57,8 @@ public class SocialNetworkSimController {
     @RequestMapping("/snlikeredirect")
     public String redirectLike(@RequestParam("id") Long id, final RedirectAttributes redirectAttributes ) {
 
+        service.toggleLike(service.getPerson(userId), service.getComment(id));
+
         String msg = "Liked comment!";
         redirectAttributes.addFlashAttribute("commentpass", msg);
 
@@ -65,6 +67,8 @@ public class SocialNetworkSimController {
 
     @RequestMapping("/snunlikeredirect")
     public String redirectUnlike(@RequestParam("id") Long id, final RedirectAttributes redirectAttributes ) {
+
+        service.toggleLike(service.getPerson(userId), service.getComment(id));
 
         String msg = "Unliked comment!";
         redirectAttributes.addFlashAttribute("commentpass", msg);
@@ -231,7 +235,6 @@ public class SocialNetworkSimController {
     public String mgenCommentsList(Person p){
         String html = "";
         Collection<Comment> comments = p.getComments();
-        System.out.println(comments.isEmpty());
         if(comments.isEmpty()){
             html = p.getName() + " has not made any comments yet!";
         }
@@ -310,7 +313,7 @@ public class SocialNetworkSimController {
             }
         }
         if(liked==false){
-            html = html + "<button onclick=\"location.href='/snunlikeredirect/?id=" + service.getComment(cid).getNodeID() +  "'\" " +
+            html = html + "<button onclick=\"location.href='/snlikeredirect/?id=" + service.getComment(cid).getNodeID() +  "'\" " +
                     "type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
                     "  <span class=\"glyphicon glyphicon-star-empty\" aria-hidden=\"true\"></span> LIKE" +
                     "</button>";

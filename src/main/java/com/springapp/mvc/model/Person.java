@@ -33,8 +33,8 @@ public class Person {
     @RelatedToVia
     Collection<OwnsRelationship> ownsRelationships;
 
-    @RelatedToVia
-    Collection<LikesRelationship> likesRelationships;
+//    @RelatedToVia
+//    Collection<LikesRelationship> likesRelationships;
 
     Collection<Comment> comments;
 
@@ -117,12 +117,20 @@ public class Person {
         return ownsRelationship;
     }
 
-    public LikesRelationship likes(Comment c){
-        final LikesRelationship likesRelationship = new LikesRelationship(c, this);
-        likes.add(c);
-        likesRelationships.add(likesRelationship);
-        return likesRelationship;
+    public void removeLike(Comment c){
+        this.likes.remove(c);
     }
+
+    public void addLike(Comment c){
+        this.likes.add(c);
+    }
+
+//    public LikesRelationship likes(Comment c){
+//        final LikesRelationship likesRelationship = new LikesRelationship(c, this);
+//        likes.add(c);
+//        likesRelationships.add(likesRelationship);
+//        return likesRelationship;
+//    }
 
     public Collection<Comment> getComments(){
         return comments;
@@ -154,9 +162,9 @@ public class Person {
         return ownsRelationships;
     }
 
-    public Collection<LikesRelationship> getLikesRelationships() {
-        return likesRelationships;
-    }
+//    public Collection<LikesRelationship> getLikesRelationships() {
+//        return likesRelationships;
+//    }
 
 
 }
