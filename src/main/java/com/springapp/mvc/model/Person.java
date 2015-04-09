@@ -46,6 +46,8 @@ public class Person {
 
     Collection<Comment> likes;
 
+    Collection<Comment> tempCommentCollection;
+
     ArrayList<Integer> privacyScoreRecord;
 
     ArrayList<Double> networkVisibilityRecord;
@@ -118,7 +120,19 @@ public class Person {
     }
 
     public void removeLike(Comment c){
-        this.likes.remove(c);
+        this.tempCommentCollection.clear();
+        for(Comment inc : this.getLikes()){
+            if(inc.getNodeID().equals(c.getNodeID())){
+                // don't add!
+            }
+            else{
+                tempCommentCollection.add(inc);
+            }
+        }
+        this.likes.clear();
+        for(Comment inc : tempCommentCollection){
+            this.likes.add(inc);
+        }
     }
 
     public void addLike(Comment c){
