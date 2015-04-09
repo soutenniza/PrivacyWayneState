@@ -235,9 +235,20 @@ public class SocialNetworkSimController {
         }
         else{
             html = "<h3>Friends:</h3><br><div class=\"list-group\">";
+            double thresholdRS = analysisService.getThresholdRS(service.getPerson(p.getNodeID()));
             for(Person ap : persons){
                 Long pID = ap.getNodeID();
-                html = html.concat("<a href=\"" +  "/snviewprofile/?id=" + service.getPerson(pID).getNodeID() + "\" class= \"list-group-item\">" + service.getPerson(pID).getName()  +"</a>");
+                double rs = analysisService.getRelationshipStrength(service.getPerson(p.getNodeID()), service.getPerson(pID));
+                html = html.concat("<a href=\"" +  "/snviewprofile/?id=" + service.getPerson(pID).getNodeID() + "\" class= \"list-group-item\">" + service.getPerson(pID).getName());
+                String format = String.format("%.2f", rs);
+                html = html + "<button " + "type=\"button\" " + "class=\"btn btn-sm ";
+                if(rs < thresholdRS){
+                    html += "btn-warning";
+                }else
+                    html += "btn-success";
+                html = html + "\" style=\"float: right;\">" +
+                        "<span aria-hidden=\"true\"></span>Relationship Strength: " + format +
+                        "</button>"+"</a>";
             }
             html = html.concat("</div>");
         }
