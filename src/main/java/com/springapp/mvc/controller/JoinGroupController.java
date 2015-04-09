@@ -2,6 +2,8 @@ package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
+import com.springapp.mvc.service.AnalysisService;
+import com.springapp.mvc.service.GroupAnalysisService;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +31,9 @@ public class JoinGroupController {
     PersonService service;
 
     @Autowired
+    GroupAnalysisService groupAnalysisService; /*this causes the error*/
+
+    @Autowired
     @Qualifier("personValidator")
     private Validator personValidator;
 
@@ -52,9 +57,9 @@ public class JoinGroupController {
         return "joingroup";
     }
 
-    @RequestMapping(value = "/submitjoingroup", method = RequestMethod.POST)
+    @RequestMapping(value = "/submitjoingroup", method = RequestMethod.POST, params={"submit", "!whatif"})
     @Transactional
-    public String addFriend(@RequestParam(value = "inputPerson") Long p,
+    public String joinGroup(@RequestParam(value = "inputPerson") Long p,
                             @RequestParam(value = "inputGroup") Long g, Model model, final RedirectAttributes redirectAttributes){
 
         if(service.isMember(service.getGroup(g), service.getPerson(p))){
@@ -69,6 +74,48 @@ public class JoinGroupController {
         }
 
         return "redirect:/joingroup";
+    }
+
+    @RequestMapping(value = "/submitjoingroup", method = RequestMethod.POST, params={"!submit", "whatif"})
+    @Transactional
+    public String whatIfGroup(@RequestParam(value = "inputPerson") Long p,
+                              @RequestParam(value = "inputGroup") Long g, Model model, final RedirectAttributes redirectAttributes) {
+
+        if(service.isMember(service.getGroup(g), service.getPerson(p))){
+            String msg = service.getPerson(p).getName() + " is already a member of the group: " + service.getGroup(g).getName() + "!";
+            redirectAttributes.addFlashAttribute("ismember", msg);
+        }
+        else
+        {
+            groupAnalysisService.setRoot(service.getPerson(p));
+            ArrayList<String> messages = groupAnalysisService.calculateFriendInGroup(service.getGroup(g));/* Look at GroupAnalysisService under service*/
+
+            String relationshipMsgs = "";
+            String msg;
+
+            String whatIfMsg = "What if " + service.getPerson(p).getName() + " were to join the group: " + service.getGroup(g).getName() +"?";
+            redirectAttributes.addFlashAttribute("whatifmsg", whatIfMsg);
+
+            // sort messages
+            // mutual friends
+            for(String m : messages){
+                if(m.contains("low number of friend")){
+                    relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                }
+            }
+
+            // add notifications
+            if(relationshipMsgs==""){
+                msg = "No issues here!";
+                redirectAttributes.addFlashAttribute("relationshipsok", msg);
+            }
+            else {
+                redirectAttributes.addFlashAttribute("relationships", relationshipMsgs);
+            }
+        }
+
+        return "redirect:/joingroup";
+
     }
 
     protected void initDropDown(Model model){

@@ -2,26 +2,71 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Created by narimanammar on 4/7/15.
+ * Created by Dishank on 4/6/2015.
  */
 @Service
 @Transactional
 public class GroupAnalysisService {
 
-    /**
-     * * gets common groups between a friend and each of the mutual friends between him
-     * and each friend in his friends list
-     * @param r
-     * @param g
-     * @return
-     */
+    @Autowired
+    PersonService service;
+
+    private Person root;
+
+    public void setRoot(Person root) {
+        this.root = root;
+    }
+
+    public ArrayList<String> calculateFriendInGroup(Group group){ /*took same approach as in AnalysisService*/
+        ArrayList<String> allMessages;
+        allMessages = calculateSingleGroup(root, group);
+
+        return allMessages;
+    }
+
+    public ArrayList<String> calculateSingleGroup(Person root, Group group){
+        this.root = root;
+        Collection<Person> friends = root.getFriends();
+        ArrayList<Float> friendsInGroup = new ArrayList<>();
+        ArrayList<Long> friendsInGroupID  = new ArrayList<>();
+        ArrayList<String> messages = new ArrayList<>();
+        float count = 0;
+        for(Person p : friends){
+            Long pID = p.getNodeID();
+            if(service.isMember(service.getGroup(group.getNodeID()), service.getPerson(p.getNodeID()))) {
+                count = count+1;
+            }
+            friendsInGroup.add(count);
+            friendsInGroupID.add(pID);
+        }
+
+        /*int GroupSize = service.getGroup(group.getNodeID()).getMembers().size();*/
+        float averageMPG = count/3;
+
+        double threshold = .25;
+
+        if(averageMPG < .26){
+            String msg = String.format("%s has a low number of friends that are members. SCORE: %.1f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(group.getNodeID()).getName(), count, averageMPG, threshold);
+            messages.add(msg);
+        }
+
+        else{
+            String msg = String.format("%s has a low number of friends that are members. SCORE: %.1f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(group.getNodeID()).getName(), count, averageMPG, threshold);
+            messages.add(msg);
+        }
+
+        return messages;
+    }
+
     public int mutualgroups(Person r, Person g){
         Collection<Group> rootGroups = r.getGroups();
         ArrayList<Long> rootLong = new ArrayList<>();
@@ -43,12 +88,6 @@ public class GroupAnalysisService {
         return rootLong.size();
     }
 
-    /**
-     * gets common groups between a friend and each friend in his friends list
-     * @param r
-     * @param p
-     * @return
-     */
     public int commonGroups(Person r, Person p){
 
         Collection<Group> rootGroups = null; //TODO: get groups
@@ -56,93 +95,5 @@ public class GroupAnalysisService {
 
         //TODO: implement me. Pay attention this is the normalized result
         return rootLong.size();
-
     }
-
-
-    /**
-     *  These methods detect Overlaps and containment within network users based on common attributes
-     *  between a person and persons in his network (friends and friends of friends).
-     *  This information is what we cannot directly pull but can infer
-     *  A good example on this is (WSU contains the CoE college which contains the CS department)
-     */
-
-    /**
-     * Users who went to the same high school to which you went
-     * @param p
-     * @return
-     */
-    public int detectHighSchoolFriends(Person p){
-
-        //TODO: Dishank: implement me
-    return 0;
-    }
-
-
-    /**
-     * Users who went to the same department in the same college in the same school you are/were at
-     * @param p
-     * @return
-     */
-    public int detectDepartmentFriends(Person p){
-
-        //TODO: Dishank: implement me
-        return 0;
-    }
-
-    /**
-     * Users who went to the same college at the same school where you study/studied
-     * @param p
-     * @return
-     */
-    public int detectCollegeFriends(Person p){
-
-        //TODO: Dishank: implement me
-        return 0;
-    }
-
-
-
-    /**
-     * Users who went to the same school to which you went
-     * @param p
-     * @return
-     */
-    public int detectSchoolFriends(Person p){
-
-        //TODO: Dishank: implement me
-        return 0;
-    }
-
-
-
-    /**
-     * The following methods find commonalities in privacy settings (for each of the above detected communities) then notify based on
-     * outliers.
-     * For all attributes in p's profile, if on average group members are conservative
-     * regarding attribute dk then whoever falls below this average is an outlier
-     * this should incorporate all privacy settings from p's profile including:
-     * privacy level, sensitivity, and visibility
-     * @return
-     */
-    public int detectHighSchoolFriendsPrivacyOutliers(Person p){
-
-        return 0;
-    }
-
-    public int detectDepartmentFriendsPrivacyOutliers(Person p){
-
-        return 0;
-    }
-
-    public int detectCollegeFriendsPrivacyOutliers(Person p){
-
-        return 0;
-    }
-
-    public int detectSchoolFriendsPrivacyOutliers(Person p){
-
-        return 0;
-    }
-
 }
