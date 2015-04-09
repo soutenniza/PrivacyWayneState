@@ -58,6 +58,10 @@ public class AnalysisService {
         return  privacyProfileAnalysisService.getPrivacyScore(personService.getPerson(p.getNodeID()));
     }
 
+    public double getThresholdRS(Person p){
+        return relationshipAnalysis.getThresholdRS(personService.getPerson(p.getNodeID()));
+    }
+
     public double getRelationshipStrength(Person r, Person friend){
         return relationshipAnalysis.calculateRelationshipStrength(personService.getPerson(r.getNodeID()), personService.getPerson(friend.getNodeID()));
     }

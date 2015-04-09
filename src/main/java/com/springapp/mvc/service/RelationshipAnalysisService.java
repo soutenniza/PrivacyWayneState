@@ -46,8 +46,8 @@ public class RelationshipAnalysisService {
 
     public double calculateRelationshipStrength(Person r, Person p){
         double RS = 0.0;
-        Collection<FriendRelationship> friendRelationships = root.getFriendRelationships();
-        Collection<Group> groupCollection = root.getGroups();
+        Collection<FriendRelationship> friendRelationships = r.getFriendRelationships();
+        Collection<Group> groupCollection = r.getGroups();
         ArrayList<Person> persons = new ArrayList<>();
         for(FriendRelationship f : friendRelationships){
             persons.add(f.getFriend());
@@ -180,6 +180,26 @@ public class RelationshipAnalysisService {
 
 
         return messaages;
+    }
+
+    public double getThresholdRS(Person r){
+        Collection<Person> friends = r.getFriends();
+        ArrayList<Double> relationshipstrengths = new ArrayList<>();
+        for(Person p : friends){
+            Long pID = p.getNodeID();
+            double rs = calculateRelationshipStrength(r, service.getPerson(p.getNodeID()));
+            relationshipstrengths.add(rs);
+        }
+
+        double threshold = 0;
+
+        for(int i = 0; i < relationshipstrengths.size(); i++){
+            threshold += relationshipstrengths.get(i);
+        }
+
+        threshold /= relationshipstrengths.size();
+        threshold = threshold + threshold/relationshipstrengths.size();
+        return threshold;
     }
 
     private ArrayList<String> calculateAllPrivacyScore(){
@@ -340,7 +360,7 @@ public class RelationshipAnalysisService {
     }
 
     public int mutualfriends(Person r, Person p){
-        Collection<Person> rootFriends = root.getFriends();
+        Collection<Person> rootFriends = r.getFriends();
         ArrayList<Long> rootLong = new ArrayList<>();
         for(Person person : rootFriends){
             if(person.getNodeID() != r.getNodeID()){
