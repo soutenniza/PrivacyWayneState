@@ -178,13 +178,7 @@ public class ContentGenService {
 
         for(Comment c : comments){
             if(count == rando){
-                if(service.likesComment(service.getComment(c.getNodeID()), service.getPerson(pid))){
-                    System.out.println("ContentGen: [WARN] Tried to like something more than once.");
-                }
-                else
-                {
-                    service.addLike(service.getComment(c.getNodeID()), service.getPerson(pid));
-                }
+                service.toggleLike(service.getPerson(pid), service.getComment(c.getNodeID()));
                 break;
             }
             count++;

@@ -176,9 +176,22 @@ public class PersonService {
     }
     // ----------------------------------------------------------- //
 
-    public void addLike(Comment c, Person p){
-        p.likes(c);
-        template.save(p);
+//    public void addLike(Comment c, Person p){
+//        p.likes(c);
+//        template.save(p);
+//    }
+
+    public void toggleLike(Person p, Comment c){
+        Collection<Comment> likes = getPerson(p.getNodeID()).getLikes();
+        c = getComment(c.getNodeID());
+        if(likes.contains(c)){
+            p.removeLike(c);
+            System.out.println("unliking comment");
+        }
+        else{
+            p.addLike(c);
+            System.out.println("liking comment");
+        }
     }
 
     public ArrayList<Person> getAllPersons(){
