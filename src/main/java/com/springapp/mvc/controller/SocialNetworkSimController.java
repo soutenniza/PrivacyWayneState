@@ -8,7 +8,9 @@ import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Comment;
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
+import com.springapp.mvc.service.AnalysisService;
 import com.springapp.mvc.service.PersonService;
+import com.springapp.mvc.service.PrivacyProfileAnalysisService;
 import edu.stanford.nlp.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +38,11 @@ public class SocialNetworkSimController {
 
     @Autowired
     PersonService service;
+
+    @Autowired
+    AnalysisService analysisService;
+
+
 
     @Autowired
     @Qualifier("personValidator")
@@ -79,8 +86,8 @@ public class SocialNetworkSimController {
         ModelAndView mav = new ModelAndView("snviewprofile");
 
         mav.addObject("user", service.getPerson(userId).getName());
-
         mav.addObject("username", service.getPerson(id).getName());
+        mav.addObject("privacy", mgenPrivacyScore(service.getPerson(id)));
         mav.addObject("attributes", mgenAttributeList(service.getPerson(id)));
         mav.addObject("friends", mgenFriendsList(service.getPerson(id)));
         mav.addObject("comments", mgenCommentsList(service.getPerson(id)));
@@ -192,6 +199,14 @@ public class SocialNetworkSimController {
 
     //============================================ MGEN ===============================================================//
 
+    public String mgenPrivacyScore(Person p){
+        String html = "";
+
+        double ps = analysisService.getPrivacyScore(service.getPerson(p.getNodeID()));
+        html = String.format("<h4>Privacy Score: %.2f</h4>", ps);
+        return html;
+    }
+
     public String mgenAttributeList(Person p){
         String html = "";
 
@@ -212,6 +227,7 @@ public class SocialNetworkSimController {
     }
 
     public String mgenFriendsList(Person p){
+        analysisService.setRoot(service.getPerson(p.getNodeID()));
         String html = "";
         Collection<Person> persons = p.getFriends();
         if(persons.isEmpty()){
@@ -221,7 +237,7 @@ public class SocialNetworkSimController {
             html = "<h3>Friends:</h3><br><div class=\"list-group\">";
             for(Person ap : persons){
                 Long pID = ap.getNodeID();
-                html = html.concat("<a href=\"" +  "/snviewprofile/?id=" + service.getPerson(pID).getNodeID() + "\" class= \"list-group-item\">" + service.getPerson(pID).getName() + "</a>");
+                html = html.concat("<a href=\"" +  "/snviewprofile/?id=" + service.getPerson(pID).getNodeID() + "\" class= \"list-group-item\">" + service.getPerson(pID).getName()  +"</a>");
             }
             html = html.concat("</div>");
         }
