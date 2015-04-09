@@ -29,6 +29,9 @@ public class AnalysisService {
     @Autowired
     GroupAnalysisService groupAnalysis;
 
+    @Autowired
+    PrivacyProfileAnalysisService privacyProfileAnalysisService;
+
 
     private Person root;
 
@@ -48,9 +51,15 @@ public class AnalysisService {
     public ArrayList<String> calculateSingleFriend(Person friend){
         ArrayList<String> allMessages;
         allMessages = relationshipAnalysis.calculateSingleFriend(root, friend);
-
-
         return allMessages;
+    }
+
+    public double getPrivacyScore(Person p){
+        return  privacyProfileAnalysisService.getPrivacyScore(personService.getPerson(p.getNodeID()));
+    }
+
+    public double getRelationshipStrength(Person r, Person friend){
+        return relationshipAnalysis.calculateRelationshipStrength(personService.getPerson(r.getNodeID()), personService.getPerson(friend.getNodeID()));
     }
 
 }

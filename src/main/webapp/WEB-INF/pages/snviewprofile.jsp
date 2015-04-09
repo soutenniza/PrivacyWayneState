@@ -62,6 +62,13 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <c:if test="${privacy != null}">
+                        ${privacy}
+                    </c:if>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <c:if test="${attributes != null}">
                         ${attributes}
                     </c:if>
