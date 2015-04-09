@@ -184,7 +184,7 @@ public class PersonService {
     public void toggleLike(Person p, Comment c){
         Collection<Comment> likes = getPerson(p.getNodeID()).getLikes();
         c = getComment(c.getNodeID());
-        if(likes.contains(c)){
+        if(likesComment(c,p)){
             p.removeLike(c);
             System.out.println("unliking comment");
         }
