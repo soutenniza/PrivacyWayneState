@@ -67,7 +67,7 @@ public class LikeCommentController {
         }
         else
         {
-            service.addLike(service.getComment(c), service.getPerson(p));
+            service.toggleLike(service.getPerson(p), service.getComment(c));
             String msg = service.getPerson(p).getName() + " likes the selected comment!";
             redirectAttributes.addFlashAttribute("message", msg);
         }
