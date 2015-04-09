@@ -71,6 +71,17 @@
                     <div class="col-md-12">
                         <h1>Relationships</h1>
                     </div>
+                    <h4>Relationship Strength</h4>
+                    <div class="col-md-12">
+                        <c:if test="${relationshipstrength != null}">
+                            ${relationshipstrength}
+                        </c:if>
+                        <c:if test="${relationshipstrengthok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${relationshipstrengthok}</b>
+                            </div>
+                        </c:if>
+                    </div>
                     <h4>Mutual Friends</h4>
                     <div class="col-md-12">
                         <c:if test="${relationships != null}">

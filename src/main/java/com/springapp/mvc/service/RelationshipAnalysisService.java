@@ -1,9 +1,6 @@
 package com.springapp.mvc.service;
 
-import com.springapp.mvc.model.FriendRelationship;
-import com.springapp.mvc.model.Group;
-import com.springapp.mvc.model.HasRelationship;
-import com.springapp.mvc.model.Person;
+import com.springapp.mvc.model.*;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,17 +46,26 @@ public class RelationshipAnalysisService {
 
     public double calculateRelationshipStrength(Person r, Person p){
         double RS = 0.0;
+        Collection<FriendRelationship> friendRelationships = root.getFriendRelationships();
+        Collection<Group> groupCollection = root.getGroups();
+        ArrayList<Person> persons = new ArrayList<>();
+        for(FriendRelationship f : friendRelationships){
+            persons.add(f.getFriend());
+        }
 
-//        Collection<FriendRelationship> friendRelationships = root.getFriendRelationships();
-//
-//        ArrayList<Person> persons = new ArrayList<>();
-//
-//        for(FriendRelationship f : friendRelationships){
-//            persons.add(f.getFriend());
-//        }
+        ArrayList<Group> groups =  new ArrayList<>();
+        groups.addAll(groupCollection);
 
-        RS = mutualfriends(r,p)+groupservice.commonGroups(r, p)+interactions(r,p);
+        int mutualFriends = mutualfriends(r,p);
+        int totalFriends = persons.size();
+        double mutualFriendsRS =  (double) mutualFriends / (double) totalFriends;
+        int commonGroups = groupservice.commonGroups(r,p);
+        int totalGroups = groups.size();
+        double commonGroupsRS = (double) commonGroups / (double) totalGroups;
 
+
+
+        RS = mutualFriendsRS + commonGroupsRS;
         return RS;
     }
 
@@ -105,6 +111,7 @@ public class RelationshipAnalysisService {
         ArrayList<Integer> privacyScores = new ArrayList<>();
         ArrayList<Integer> mutualfriends = new ArrayList<>();
         ArrayList<Integer> commonGroups = new ArrayList<>();
+        ArrayList<Double> relationshipStrength = new ArrayList<>();
         ArrayList<Long> privacyScoresID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
@@ -112,28 +119,41 @@ public class RelationshipAnalysisService {
             int ps = profileservice.getPrivacyScore(service.getPerson(pID));
             int mt = mutualfriends(root, service.getPerson(pID));
             int mg = groupservice.mutualgroups(root, service.getPerson(pID));
+            double rs = calculateRelationshipStrength(root, service.getPerson(pID));
             mutualfriends.add(mt);
             commonGroups.add(mg);
             privacyScores.add(ps);
+            relationshipStrength.add(rs);
             privacyScoresID.add(pID);
         }
 
         double thresholdPS = 0;
         double thresholdMT = 0;
         double thresholdMG = 0;
+        double thresholdRS = 0;
 
         for(int i = 0; i < privacyScores.size(); i++){
             thresholdPS += privacyScores.get(i);
             thresholdMT += mutualfriends.get(i);
             thresholdMG += commonGroups.get(i);
+            thresholdRS += relationshipStrength.get(i);
         }
 
         double avgPS = thresholdPS / privacyScores.size();
         double avgMT = thresholdMT / privacyScores.size();
         double avgMG = thresholdMG / privacyScores.size();
+        double avgRS = thresholdRS / privacyScores.size();
         thresholdPS = avgPS + avgPS/privacyScores.size();
         thresholdMT = avgMT - avgMT/privacyScores.size();
         thresholdMG = avgMG - avgMG/privacyScores.size();
+        thresholdRS = avgRS - avgRS/privacyScores.size();
+
+        for(int i = 0; i < relationshipStrength.size(); i++){
+            if(relationshipStrength.get(i) < thresholdRS){
+                String msg = String.format("%s has a low number of relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), relationshipStrength.get(i), avgRS, thresholdRS);
+                messaages.add(msg);
+            }
+        }
 
         for(int i = 0; i < privacyScores.size(); i++){
             if(privacyScores.get(i) > thresholdPS){
@@ -156,6 +176,8 @@ public class RelationshipAnalysisService {
                 messaages.add(msg);
             }
         }
+
+
 
         return messaages;
     }
@@ -269,28 +291,48 @@ public class RelationshipAnalysisService {
         Collection<Person> friends = root.getFriends();
         ArrayList<Integer> mutualFriends = new ArrayList<>();
         ArrayList<Long> mutualFriendID  = new ArrayList<>();
+        ArrayList<Double> relationshipStrength = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
             Long pID = p.getNodeID();
             int mt = mutualfriends(root, service.getPerson(pID));
+            double rs = calculateRelationshipStrength(root, service.getPerson(pID));
             mutualFriends.add(mt);
             mutualFriendID.add(pID);
+            relationshipStrength.add(rs);
         }
-        double threshold = 0;
+        double thresholdMT = 0;
+        double thresholdRS = 0;
 
 
 
         for(int i = 0; i < mutualFriends.size(); i++){
-            threshold += mutualFriends.get(i);
+            thresholdMT += mutualFriends.get(i);
         }
 
-        threshold /= mutualFriends.size();
-        double average = threshold;
-        threshold = threshold - threshold/mutualFriends.size();
+        for(int i = 0; i < relationshipStrength.size(); i++){
+            thresholdRS += relationshipStrength.get(i);
+        }
+
+        thresholdMT /= mutualFriends.size();
+        double avgMT = thresholdMT;
+        thresholdMT = thresholdMT - thresholdMT/mutualFriends.size();
+
+        thresholdRS /= relationshipStrength.size();
+        double avgRS = thresholdRS;
+        thresholdRS = thresholdRS - thresholdRS/relationshipStrength.size();
 
         int mt = mutualfriends(root, service.getPerson(friend.getNodeID()));
-        if(mt < threshold) {
-            String msg = String.format("%s has a low number of mutual friends. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(friend.getNodeID()).getName(), mt, average, threshold);
+        double rs = calculateRelationshipStrength(root, service.getPerson(friend.getNodeID()));
+
+
+        if(rs < thresholdRS){
+            String msg = String.format("%s has a low number of relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(friend.getNodeID()).getName(), rs, avgRS, thresholdRS);
+            messaages.add(msg);
+        }
+
+        if(mt < thresholdMT) {
+            String msg = String.format("%s has a low number of mutual friends. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(friend.getNodeID()).getName(), mt, avgMT, thresholdMT);
             messaages.add(msg);
         }
         return messaages;
