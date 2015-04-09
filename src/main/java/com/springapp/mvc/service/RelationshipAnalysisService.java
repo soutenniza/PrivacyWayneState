@@ -72,12 +72,7 @@ public class RelationshipAnalysisService {
 
 
     public int interactions(Person r, Person p){
-//        Collection<Comment> comments = r.getComments();
-//        for(Comment c :comments)
-//                if(c.getID()==p)
-//                    for (Like l: p.getLikes())
-//                            l.getComment().getID();
-        // Collection<Like> rootLikes (r,p);
+
         ArrayList<Long> rootLong = new ArrayList<>();
 
         //TODO: Zack: implement me
@@ -187,7 +182,7 @@ public class RelationshipAnalysisService {
         ArrayList<Double> relationshipstrengths = new ArrayList<>();
         for(Person p : friends){
             Long pID = p.getNodeID();
-            double rs = calculateRelationshipStrength(r, service.getPerson(p.getNodeID()));
+            double rs = calculateRelationshipStrength(r, service.getPerson(pID));
             relationshipstrengths.add(rs);
         }
 
@@ -198,7 +193,7 @@ public class RelationshipAnalysisService {
         }
 
         threshold /= relationshipstrengths.size();
-        threshold = threshold + threshold/relationshipstrengths.size();
+        threshold = threshold - threshold/relationshipstrengths.size();
         return threshold;
     }
 
