@@ -46,6 +46,7 @@ public class AnalysisController {
 
         redirectAttributes.addFlashAttribute("ran", "loaded");
 
+        String relationshipStrengthMsgs = "";
         String relationshipMsgs = "";
         String psMsgs = "";
         String mgpsMsgs = "";
@@ -57,9 +58,14 @@ public class AnalysisController {
 
         // sort messages
         for(String m : messages){
+
+            if(m.contains("relationship")){
+                relationshipStrengthMsgs = relationshipStrengthMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
             if(m.contains("mutual friends")){
                 relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
+
             if(m.contains("Privacy Score")){
                 psMsgs = psMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
@@ -69,7 +75,7 @@ public class AnalysisController {
             if(m.contains("association")){
                 ascMsgs = ascMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
-            if(m.contains("negitive comments")){
+            if(m.contains("negative comments")){
                 sentMsgs = sentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
             if(m.contains("gave the attribute")){
@@ -77,6 +83,7 @@ public class AnalysisController {
             }
         }
 
+        printRelationshipStrengths(redirectAttributes, relationshipStrengthMsgs);
         printRelationships(redirectAttributes, relationshipMsgs);
         printPS(redirectAttributes, psMsgs);
         printMgps(redirectAttributes, mgpsMsgs);
@@ -95,6 +102,16 @@ public class AnalysisController {
             peoples.put(people.get(i).getNodeID(), people.get(i).getName());
         }
         model.addAttribute("peopleList", peoples);
+    }
+
+    public void printRelationshipStrengths(RedirectAttributes r, String relationshipStrengthsMsgs){
+        if(relationshipStrengthsMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("relationshipstrengthok", msg);
+        }
+        else {
+            r.addFlashAttribute("relationshipstrength", relationshipStrengthsMsgs);
+        }
     }
 
     public void printRelationships(RedirectAttributes r, String relationshipMsgs){

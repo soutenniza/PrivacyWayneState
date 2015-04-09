@@ -102,6 +102,9 @@ public class AddFriendController {
             // sort messages
             // mutual friends
             for(String m : messages){
+                if(m.contains("relationship")){
+                    relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                }
                 if(m.contains("low number of mutual friends")){
                     relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
                 }
