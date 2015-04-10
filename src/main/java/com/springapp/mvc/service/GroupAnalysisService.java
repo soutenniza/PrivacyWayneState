@@ -28,21 +28,21 @@ public class GroupAnalysisService {
 
     public ArrayList<String> calculateFriendInGroup(Group group){ /*took same approach as in AnalysisService*/
         ArrayList<String> allMessages;
-        allMessages = calculateSingleGroup(root, group);
+        allMessages = FriendsInSingleGroup(root, group);
 
         return allMessages;
     }
 
-    public ArrayList<String> calculateSingleGroup(Person root, Group group){
+    public ArrayList<String> FriendsInSingleGroup(Person root, Group group){
         this.root = root;
-        Collection<Person> friends = root.getFriends();
+        Collection<Person> friends = root.getFriends(); /*Gets the list of friends of the selected user*/
         ArrayList<Float> friendsInGroup = new ArrayList<>();
         ArrayList<Long> friendsInGroupID  = new ArrayList<>();
         ArrayList<String> messages = new ArrayList<>();
         float count = 0;
-        for(Person p : friends){
+        for(Person p : friends){ /*iterating through the list of friends*/
             Long pID = p.getNodeID();
-            if(service.isMember(service.getGroup(group.getNodeID()), service.getPerson(p.getNodeID()))) {
+            if(service.isMember(service.getGroup(group.getNodeID()), service.getPerson(p.getNodeID()))) { /*see is the user's friends are in the selected group*/
                 count = count+1;
             }
             friendsInGroup.add(count);
@@ -50,19 +50,19 @@ public class GroupAnalysisService {
         }
 
         /*int GroupSize = service.getGroup(group.getNodeID()).getMembers().size();*/
-        float averageMPG = count/3;
+        float averageMPG = count/3; /*sub 3 with group size*/
 
         double threshold = .25;
 
         if(averageMPG < .26){
-            String msg = String.format("%s has a low number of friends that are members. SCORE: %.1f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(group.getNodeID()).getName(), count, averageMPG, threshold);
+            String msg = String.format("%s has a low number of friends that are members. Friends in Group: %.1f  Members of Group that are friends: %.2f THRESHOLD: %.2f", service.getPerson(group.getNodeID()).getName(), count, averageMPG, threshold);
             messages.add(msg);
         }
 
-        else{
-            String msg = String.format("%s has a low number of friends that are members. SCORE: %.1f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(group.getNodeID()).getName(), count, averageMPG, threshold);
+        /*else{
+            String msg = String.format("%s has a low number of friends that are members.  Friends in Group: %.1f  Members of Group that are friends: %.2f THRESHOLD: %.2f", service.getPerson(group.getNodeID()).getName(), count, averageMPG, threshold);
             messages.add(msg);
-        }
+        }*/
 
         return messages;
     }
