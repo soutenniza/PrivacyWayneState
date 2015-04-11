@@ -6,19 +6,36 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>PrivacyWayne</title>
+    <link  rel="shortcut icon" href="/resources/images/favicon.ico" type="image/x-icon" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Load c3.css -->
+    <link href="${pageContext.request.contextPath}/resources/c3/c3.css" rel="stylesheet" type="text/css">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
+
+    <!-- Load d3.js and c3.js -->
+    <script src="${pageContext.request.contextPath}/resources/c3/d3.v3.min.js" charset="utf-8"></script>
+    <script src="${pageContext.request.contextPath}/resources/c3/c3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/d3/d3.v3.min.js" charset="utf-8"></script>
+    <script src="${pageContext.request.contextPath}/resources/d3/d3.min.js"></script>
+
 </head>
 
 <body>
@@ -27,7 +44,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Reporting</h1>
+                <h1>Reporting</h1><br>
+                <h5><i>Get a full privacy report for a specific user</i></h5>
             </div>
         </div>
     </div>
@@ -35,70 +53,52 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <form class="form-horizontal" role="form">
+            <div class="col-md-6">
+                <form method="POST" action="/submitreport" class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label class="control-label">User</label>
                         </div>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Paul Jones</option>
-                                <option>John Smith</option>
-                                <option>Betty James</option>
-                            </select>
+                            <form:select path="inputPerson" class="form-control" name="inputPerson">
+                                <form:options items="${peopleList}"/>
+                            </form:select>
                         </div>
-                        <a class="btn btn-lg btn-primary">Submit</a>
                     </div>
+                    <input type="submit" value="Get Report" class="btn btn-success"/>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Score / Metric</th>
-                        <th>Target</th>
-                        <th>Current Value</th>
-                        <th>Threshold</th>
-                        <th>% Change</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Attribute Exposure</td>
-                        <td>25%</td>
-                        <td>32%</td>
-                        <td>45%</td>
-                        <td>-2%</td>
-                    </tr>
-                    <tr>
-                        <td>Privacy Score</td>
-                        <td>2.5</td>
-                        <td>2.23</td>
-                        <td>1.5</td>
-                        <td>+0.02%</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <img src="${pageContext.request.contextPath}/resources/images/img.png" class="center-block img-responsive">
-            </div>
-        </div>
-    </div>
-</div>
-</body>
+<br>
+<c:if test="${ran != null}">
+    <div class="section">
+        <div class="container">
+            <div class="jumbotron">
+                <h5>${user}</h5><br>
+                <h5>${pscore}</h5><br>
 
+                <c:if test="${psdata != null}">
+                    <div id="chart"></div>
+
+                    <script language="JavaScript">
+                        var chart = c3.generate({
+                            bindto: '#chart',
+                            data: {
+                                columns: [
+                                    ${psdata}
+                                ]
+                            }
+                        });
+                    </script>
+                </c:if>
+
+            </div>
+        </div>
+    </div>
+</c:if>
+
+
+</body>
 </html>

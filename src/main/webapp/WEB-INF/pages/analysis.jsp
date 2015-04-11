@@ -82,6 +82,17 @@
                             </div>
                         </c:if>
                     </div>
+                    <h4>Interactions</h4>
+                    <div class="col-md-12">
+                        <c:if test="${interactions != null}">
+                            ${interactions}
+                        </c:if>
+                        <c:if test="${interactionsok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${interactionsok}</b>
+                            </div>
+                        </c:if>
+                    </div>
                     <h4>Mutual Friends</h4>
                     <div class="col-md-12">
                         <c:if test="${relationships != null}">

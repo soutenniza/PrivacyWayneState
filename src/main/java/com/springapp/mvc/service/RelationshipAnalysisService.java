@@ -82,6 +82,48 @@ public class RelationshipAnalysisService {
 
     public double interactions(Person r, Person p){
         Collection<Comment> commentCollection = r.getComments();
+        Collection<Comment> friendCollection = p.getComments();
+        ArrayList<Long> rootComments = new ArrayList<>();
+        ArrayList<Long> personLikes = new ArrayList<>();
+        int totalComments = 0;
+
+        System.out.println(p.getName());
+        for(Comment c : commentCollection){
+            if(service.getComment(c.getNodeID()).isRoot()){
+                rootComments.addAll(getReplies(c.getNodeID()));
+            }
+        }
+        for(Comment c : friendCollection){
+            personLikes.add(c.getNodeID());
+        }
+        totalComments = rootComments.size();
+        rootComments.retainAll(personLikes);
+
+        double commentRatio = (double) rootComments.size() / (double) totalComments;
+        double ratio = commentRatio + getLikes(p,r);
+        System.out.println(ratio);
+        if(ratio > 9999)
+            return 0.0;
+        return ratio;
+    }
+
+    public ArrayList<Long> getReplies(Long nodeID){
+        ArrayList<Long> replies = new ArrayList<>();
+        replies.add(nodeID);
+
+        while(service.getComment(nodeID).hasChildren()){
+            Collection<Comment> childReplies = service.getComment(nodeID).getReplies();
+            for(Comment c : childReplies){
+                replies.addAll(getReplies(c.getNodeID()));
+            }
+            break;
+        }
+
+        return replies;
+    }
+
+    public double getLikes(Person r, Person p){
+        Collection<Comment> commentCollection = r.getComments();
         Collection<Comment> likeCollections = p.getLikes();
         ArrayList<Long> rootComments = new ArrayList<>();
         ArrayList<Long> personLikes = new ArrayList<>();
@@ -94,9 +136,12 @@ public class RelationshipAnalysisService {
         }
 
         personLikes.retainAll(rootComments);
-
+        double ratio = (double) personLikes.size() / (double) rootComments.size();
+        System.out.println(ratio);
+        if(ratio > 9999)
+            return 0.0;
         //TODO: Zack: implement me
-        return personLikes.size();
+        return ratio;
     }
 
     public double geographicLocation(){
@@ -177,8 +222,8 @@ public class RelationshipAnalysisService {
         }
 
         for(int i = 0; i < interactions.size(); i++){
-            if(true){
-                String msg = String.format("%s has a low NNNNumber of relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), interactions.get(i), avgIT, thresholdIT);
+            if(interactions.get(i) < thresholdIT){
+                String msg = String.format("%s has a low number of interactions. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), interactions.get(i), avgIT, thresholdIT);
                 messaages.add(msg);
             }
         }
