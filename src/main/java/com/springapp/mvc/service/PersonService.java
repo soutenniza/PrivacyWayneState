@@ -160,10 +160,6 @@ public class PersonService {
         p.addPrivacyScoreRecord(val);
         template.save(p);
     }
-    public void addToNetworkVisibilityRecord(double val, Long pid){
-        getPerson(pid).addNetworkVisibilityRecord(val);
-        template.save(getPerson(pid));
-    }
     public ArrayList<Integer> getPrivacyScoreRecord(Long pid) {
         return getPerson(pid).getPrivacyScoreRecord();
     }
@@ -173,6 +169,16 @@ public class PersonService {
         } else {
             return getPerson(pid).getPrivacyScoreRecord().get(getPerson(pid).getPrivacyScoreRecord().size()-1);
         }
+    }
+    public void addToAttData(Long pid, Long attid, String name, double val){
+        Person p = getPerson(pid);
+        p.addAttData(attid,name,val);
+        template.save(p);
+    }
+    public ArrayList<Double> getAttDataWithName(Long pid, Long attid, String name){
+        Person p = getPerson(pid);
+        ArrayList<Double> vals = p.getAttributeDataWithName(attid, name);
+        return  vals;
     }
     // ----------------------------------------------------------- //
 

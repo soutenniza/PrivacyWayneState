@@ -93,7 +93,7 @@ public class Person {
     public ArrayList<Double> getNetworkVisibilityRecord(){
         return networkVisibilityRecord;
     }
-
+    public void addAttData(Long attid, String name, double val){ attDatas.add(new AttData(attid, name, val)); }
     public ArrayList<Double> getAttributeDataWithName(Long attId, String name){
         ArrayList<Double> vals = new ArrayList<>();
         for(AttData ad : attDatas){
