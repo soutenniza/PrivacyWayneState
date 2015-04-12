@@ -48,6 +48,7 @@ public class AnalysisController {
 
         String relationshipStrengthMsgs = "";
         String relationshipMsgs = "";
+        String interactionMsgs = "";
         String psMsgs = "";
         String mgpsMsgs = "";
         String ascMsgs = "";
@@ -58,6 +59,10 @@ public class AnalysisController {
 
         // sort messages
         for(String m : messages){
+
+            if(m.contains("interactions")){
+                interactionMsgs = interactionMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
 
             if(m.contains("relationship")){
                 relationshipStrengthMsgs = relationshipStrengthMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
@@ -83,6 +88,8 @@ public class AnalysisController {
             }
         }
 
+
+        printInteractions(redirectAttributes, interactionMsgs);
         printRelationshipStrengths(redirectAttributes, relationshipStrengthMsgs);
         printRelationships(redirectAttributes, relationshipMsgs);
         printPS(redirectAttributes, psMsgs);
@@ -102,6 +109,16 @@ public class AnalysisController {
             peoples.put(people.get(i).getNodeID(), people.get(i).getName());
         }
         model.addAttribute("peopleList", peoples);
+    }
+
+    public void printInteractions(RedirectAttributes r, String interactionsMsgs){
+        if(interactionsMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("interactionsok", msg);
+        }
+        else {
+            r.addFlashAttribute("interactions", interactionsMsgs);
+        }
     }
 
     public void printRelationshipStrengths(RedirectAttributes r, String relationshipStrengthsMsgs){

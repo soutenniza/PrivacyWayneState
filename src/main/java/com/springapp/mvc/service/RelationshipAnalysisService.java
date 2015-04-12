@@ -2,11 +2,13 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.*;
 import com.springapp.mvc.service.PersonService;
+import org.apache.xalan.xsltc.compiler.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.transform.Templates;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -49,8 +51,13 @@ public class RelationshipAnalysisService {
         Collection<FriendRelationship> friendRelationships = r.getFriendRelationships();
         Collection<Group> groupCollection = r.getGroups();
         ArrayList<Person> persons = new ArrayList<>();
+        double maxIT = 0;
         for(FriendRelationship f : friendRelationships){
-            persons.add(f.getFriend());
+            Person pp = service.getPerson(f.getFriend().getNodeID());
+            persons.add(pp);
+            if(interactions(r,pp) > maxIT){
+                maxIT = interactions(r,pp);
+            }
         }
 
         ArrayList<Group> groups =  new ArrayList<>();
@@ -62,23 +69,80 @@ public class RelationshipAnalysisService {
         int commonGroups = groupservice.commonGroups(r,p);
         int totalGroups = groups.size();
         double commonGroupsRS = (double) commonGroups / (double) totalGroups;
+        double IT = interactions(service.getPerson(r.getNodeID()), service.getPerson(p.getNodeID()));
+        maxIT /= persons.size();
+        double interactionsRS = IT/maxIT;
 
 
-
-        RS = mutualFriendsRS + commonGroupsRS;
+        RS = mutualFriendsRS + commonGroupsRS + interactionsRS;
         return RS;
     }
 
 
 
-    public int interactions(Person r, Person p){
+    public double interactions(Person r, Person p){
+        Collection<Comment> commentCollection = r.getComments();
+        Collection<Comment> friendCollection = p.getComments();
+        ArrayList<Long> rootComments = new ArrayList<>();
+        ArrayList<Long> personLikes = new ArrayList<>();
+        int totalComments = 0;
 
-        ArrayList<Long> rootLong = new ArrayList<>();
+        System.out.println(p.getName());
+        for(Comment c : commentCollection){
+            if(service.getComment(c.getNodeID()).isRoot()){
+                rootComments.addAll(getReplies(c.getNodeID()));
+            }
+        }
+        for(Comment c : friendCollection){
+            personLikes.add(c.getNodeID());
+        }
+        totalComments = rootComments.size();
+        rootComments.retainAll(personLikes);
 
-        //TODO: Zack: implement me
-        return rootLong.size();
+        double commentRatio = (double) rootComments.size() / (double) totalComments;
+        double ratio = commentRatio + getLikes(p,r);
+        System.out.println(ratio);
+        if(ratio > 9999)
+            return 0.0;
+        return ratio;
     }
 
+    public ArrayList<Long> getReplies(Long nodeID){
+        ArrayList<Long> replies = new ArrayList<>();
+        replies.add(nodeID);
+
+        while(service.getComment(nodeID).hasChildren()){
+            Collection<Comment> childReplies = service.getComment(nodeID).getReplies();
+            for(Comment c : childReplies){
+                replies.addAll(getReplies(c.getNodeID()));
+            }
+            break;
+        }
+
+        return replies;
+    }
+
+    public double getLikes(Person r, Person p){
+        Collection<Comment> commentCollection = r.getComments();
+        Collection<Comment> likeCollections = p.getLikes();
+        ArrayList<Long> rootComments = new ArrayList<>();
+        ArrayList<Long> personLikes = new ArrayList<>();
+
+        for(Comment c : commentCollection){
+            rootComments.add(c.getNodeID());
+        }
+        for(Comment c : likeCollections){
+            personLikes.add(c.getNodeID());
+        }
+
+        personLikes.retainAll(rootComments);
+        double ratio = (double) personLikes.size() / (double) rootComments.size();
+        System.out.println(ratio);
+        if(ratio > 9999)
+            return 0.0;
+        //TODO: Zack: implement me
+        return ratio;
+    }
 
     public double geographicLocation(){
 
@@ -107,6 +171,7 @@ public class RelationshipAnalysisService {
         ArrayList<Integer> mutualfriends = new ArrayList<>();
         ArrayList<Integer> commonGroups = new ArrayList<>();
         ArrayList<Double> relationshipStrength = new ArrayList<>();
+        ArrayList<Double> interactions = new ArrayList<>();
         ArrayList<Long> privacyScoresID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
@@ -115,10 +180,12 @@ public class RelationshipAnalysisService {
             int mt = mutualfriends(root, service.getPerson(pID));
             int mg = groupservice.mutualgroups(root, service.getPerson(pID));
             double rs = calculateRelationshipStrength(root, service.getPerson(pID));
+            double it = interactions(root, service.getPerson(pID));
             mutualfriends.add(mt);
             commonGroups.add(mg);
             privacyScores.add(ps);
             relationshipStrength.add(rs);
+            interactions.add(it);
             privacyScoresID.add(pID);
         }
 
@@ -126,26 +193,37 @@ public class RelationshipAnalysisService {
         double thresholdMT = 0;
         double thresholdMG = 0;
         double thresholdRS = 0;
+        double thresholdIT = 0;
 
         for(int i = 0; i < privacyScores.size(); i++){
             thresholdPS += privacyScores.get(i);
             thresholdMT += mutualfriends.get(i);
             thresholdMG += commonGroups.get(i);
             thresholdRS += relationshipStrength.get(i);
+            thresholdIT += interactions.get(i);
         }
 
         double avgPS = thresholdPS / privacyScores.size();
         double avgMT = thresholdMT / privacyScores.size();
         double avgMG = thresholdMG / privacyScores.size();
         double avgRS = thresholdRS / privacyScores.size();
+        double avgIT = thresholdIT / privacyScores.size();
         thresholdPS = avgPS + avgPS/privacyScores.size();
         thresholdMT = avgMT - avgMT/privacyScores.size();
         thresholdMG = avgMG - avgMG/privacyScores.size();
         thresholdRS = avgRS - avgRS/privacyScores.size();
+        thresholdIT = avgIT - avgIT/privacyScores.size();
 
         for(int i = 0; i < relationshipStrength.size(); i++){
             if(relationshipStrength.get(i) < thresholdRS){
                 String msg = String.format("%s has a low number of relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), relationshipStrength.get(i), avgRS, thresholdRS);
+                messaages.add(msg);
+            }
+        }
+
+        for(int i = 0; i < interactions.size(); i++){
+            if(interactions.get(i) < thresholdIT){
+                String msg = String.format("%s has a low number of interactions. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), interactions.get(i), avgIT, thresholdIT);
                 messaages.add(msg);
             }
         }
