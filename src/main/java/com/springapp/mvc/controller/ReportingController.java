@@ -1,5 +1,6 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.AnalysisService;
 import com.springapp.mvc.service.PersonService;
@@ -58,6 +59,12 @@ public class ReportingController {
             redirectAttributes.addFlashAttribute("psdata", genPSDataLine("Privacy Score", p1));
         }
 
+        // construct attribute network visibility table
+        String netvisStr = getNetVis(p1);
+        redirectAttributes.addFlashAttribute("netvis", netvisStr);
+
+
+
         return "redirect:/reporting";
     }
 
@@ -83,6 +90,31 @@ public class ReportingController {
         }
         msg = msg + "],";
         return msg;
+    }
+
+    public String getNetVis(Long pid){
+        String html = "";
+        Collection<Attribute> atts = personService.getPerson(pid).getAttributes();
+
+        // add the values to the following loop when they become available
+
+        for(Attribute a : atts){
+            html = html + "<tr>";
+            // ATTRIBUTE NAME
+            html = html + "<td>" + personService.getAttributeWithId(a.getNodeID()).getLabel() +
+                    ": "
+                    + personService.getAttributeWithId(a.getNodeID()).getValue() + "</td>";
+            // NETWORK VISIBILITY
+            html = html + "<td>" + "12%" + "</td>";
+            // TARGET
+            html = html + "<td>" + "<20%" + "</td>";
+            // CHANGE
+            html = html + "<td>" + "+2%" + "</td>";
+
+            html = html + "</tr>";
+        }
+
+        return html;
     }
 
 }
