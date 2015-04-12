@@ -8,6 +8,7 @@ import com.springapp.mvc.model.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import netkit.classifiers.relational.*;
 
 /**
  * Created by narimanammar on 4/6/15.
@@ -146,6 +147,9 @@ public class OtherAnalyses {
         //You may need to map a neo4j Attribute to the corresponding netkit.graph.Attribute
         //mew Attribute(java.lang.String name, Type type)
 
+
+        ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
+        
 
         return null;
     }
