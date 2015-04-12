@@ -1,9 +1,12 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Attribute;
+import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.AnalysisService;
 import com.springapp.mvc.service.PersonService;
+import com.springapp.mvc.service.PrivacyProfileAnalysisService;
+import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,9 @@ public class ReportingController {
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    PrivacyProfileAnalysisService profileAnalysisService;
 
     @RequestMapping(value = "/reporting", method = RequestMethod.GET)
     public String displayAnalysisPage(Model model){
@@ -94,18 +100,23 @@ public class ReportingController {
 
     public String getNetVis(Long pid){
         String html = "";
-        Collection<Attribute> atts = personService.getPerson(pid).getAttributes();
+        Collection<HasRelationship> atts = personService.getPerson(pid).getAttributeRelationships();
 
         // add the values to the following loop when they become available
 
-        for(Attribute a : atts){
+        int totalsize = personService.getAllPersons().size();
+
+        for(HasRelationship a : atts){
             html = html + "<tr>";
             // ATTRIBUTE NAME
-            html = html + "<td>" + personService.getAttributeWithId(a.getNodeID()).getLabel() +
+            html = html + "<td>" + personService.getAttributeWithId(a.getEnd().getNodeID()).getLabel() +
                     ": "
-                    + personService.getAttributeWithId(a.getNodeID()).getValue() + "</td>";
+                    + personService.getAttributeWithId(a.getEnd().getNodeID()).getValue() + "</td>";
             // NETWORK VISIBILITY
-            html = html + "<td>" + "12%" + "</td>";
+            double percent = profileAnalysisService.getAttributeExposure(personService.getPerson(pid), personService.getHasRelationship(a.getId()), totalsize) * 100.0;
+            String vis = String.format("%.2f%%", percent );
+
+            html = html + "<td>" + vis + "</td>";
             // TARGET
             html = html + "<td>" + "<20%" + "</td>";
             // CHANGE
