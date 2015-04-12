@@ -93,6 +93,24 @@
                         });
                     </script>
                 </c:if>
+                <br>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Network Exposure</th>
+                            <th>Target</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${netvis}
+                    </tbody>
+                </table>
+
+
+
+
 
             </div>
         </div>
