@@ -87,7 +87,6 @@ public class RelationshipAnalysisService {
         ArrayList<Long> personLikes = new ArrayList<>();
         int totalComments = 0;
 
-        System.out.println(p.getName());
         for(Comment c : commentCollection){
             if(service.getComment(c.getNodeID()).isRoot()){
                 rootComments.addAll(getReplies(c.getNodeID()));
@@ -101,7 +100,6 @@ public class RelationshipAnalysisService {
 
         double commentRatio = (double) rootComments.size() / (double) totalComments;
         double ratio = commentRatio + getLikes(p,r);
-        System.out.println(ratio);
         if(ratio > 9999)
             return 0.0;
         return ratio;
@@ -137,7 +135,6 @@ public class RelationshipAnalysisService {
 
         personLikes.retainAll(rootComments);
         double ratio = (double) personLikes.size() / (double) rootComments.size();
-        System.out.println(ratio);
         if(ratio > 9999)
             return 0.0;
         //TODO: Zack: implement me
@@ -250,7 +247,16 @@ public class RelationshipAnalysisService {
             }
         }
 
-
+        ArrayList<HasRelationship> attributes = new ArrayList<>();
+        attributes.addAll(root.getAttributeRelationships());
+        int total = service.getAllPersons().size();
+        for(HasRelationship a : attributes){
+            System.out.println(profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
+            //service.addToAttData(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure", profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a));
+            //ArrayList<Double> data = service.getAttDataWithName(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure");
+            //System.out.println(a.getEnd().getLabel());
+            //System.out.println(data.get(data.size() - 1));
+        }
 
         return messaages;
     }

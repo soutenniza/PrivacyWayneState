@@ -4,14 +4,12 @@ package com.springapp.mvc.controller;
  * Created by Zack on 4/6/15.
  */
 
-import com.springapp.mvc.model.Attribute;
-import com.springapp.mvc.model.Comment;
-import com.springapp.mvc.model.Group;
-import com.springapp.mvc.model.Person;
+import com.springapp.mvc.model.*;
 import com.springapp.mvc.service.AnalysisService;
 import com.springapp.mvc.service.PersonService;
 import com.springapp.mvc.service.PrivacyProfileAnalysisService;
 import edu.stanford.nlp.util.StringUtils;
+import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -41,6 +39,9 @@ public class SocialNetworkSimController {
 
     @Autowired
     AnalysisService analysisService;
+
+    @Autowired
+    PrivacyProfileAnalysisService privacyProfileAnalysisService;
 
 
 
@@ -214,16 +215,25 @@ public class SocialNetworkSimController {
     public String mgenAttributeList(Person p){
         String html = "";
 
-        Collection<Attribute> atts = p.getAttributes();
+        Collection<HasRelationship> atts = p.getAttributeRelationships();
+        int total = service.getAllPersons().size();
         if(atts.isEmpty()){
             html = p.getName() + " somehow has no attributes. Something went terribly wrong. Please email me at zackrzot@gmail.com.";
         }
         else{
             html = "<h3>Attributes:</h3><br><ul class=\"list-group\">";
-            for(Attribute a : atts){
-                Long pID = a.getNodeID();
+            for(HasRelationship a : atts){
+                Long pID = a.getEnd().getNodeID();
+
                 Attribute aa = service.getAttributeWithId(pID);
-                html = html.concat("<li class=\"list-group-item\">" + normalizeString(aa.getLabel()) + ": " + aa.getValue() + "</li>");
+                html = html.concat("<li class=\"list-group-item\">" + normalizeString(aa.getLabel()) + ": " + aa.getValue());
+                double vis = privacyProfileAnalysisService.getAttributeExposure(service.getPerson(p.getNodeID()), a, total) * 100.0;
+                String format = String.format("%.2f%%", vis);
+                html = html.concat("<button " +
+                        "type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
+                        "  <span class=\"glyphicon glyphicons-eye-close\" aria-hidden=\"true\"></span> Network Exposure: " + format +
+                        "</button>");
+                html = html.concat("</li>");
             }
             html = html.concat("</ul>");
         }
