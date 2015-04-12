@@ -177,7 +177,7 @@ public class GroupAnalysisService {
     public int detectDepartmentFriends(Person p, String location){
 
         //TODO: Dishank: implement me
-        //TODO: Nariman: We have no data to do this. please delete
+        //TODO: Nariman: We have no possible way to get the data to do this. please delete
         return 0;
     }
 
@@ -266,22 +266,22 @@ public class GroupAnalysisService {
      * @return
      */
     public int detectHighSchoolFriendsPrivacyOutliers(Person p){
-
+        /*In progress*/
         return 0;
     }
 
     public int detectDepartmentFriendsPrivacyOutliers(Person p){
-
+        /*TODO: No data. please delete*/
         return 0;
     }
 
     public int detectCollegeFriendsPrivacyOutliers(Person p){
-
+        /*In progress*/
         return 0;
     }
 
     public int detectSchoolFriendsPrivacyOutliers(Person p) {
-
+        /*TODO: Same as College or HighSchool. please delete*/
         return 0;
     }
 }
