@@ -112,6 +112,12 @@ public class ReportingController {
             html = html + "<td>" + personService.getAttributeWithId(a.getEnd().getNodeID()).getLabel() +
                     ": "
                     + personService.getAttributeWithId(a.getEnd().getNodeID()).getValue() + "</td>";
+            // PV
+            html = html + "<td>" + personService.getHasRelationship(a.getId()).getPv() + "</td>";
+            // VV
+            html = html + "<td>" + personService.getHasRelationship(a.getId()).getVv() + "</td>";
+            // SV
+            html = html + "<td>" + personService.getHasRelationship(a.getId()).getSv() + "</td>";
             // NETWORK VISIBILITY
             double percent = profileAnalysisService.getAttributeExposure(personService.getPerson(pid), personService.getHasRelationship(a.getId()), totalsize) * 100.0;
             String vis = String.format("%.2f%%", percent );

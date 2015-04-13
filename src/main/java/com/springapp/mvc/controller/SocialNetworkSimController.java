@@ -295,9 +295,10 @@ public class SocialNetworkSimController {
 
         String likeStr = genLike(cid);
         String replyStr = genReplyBtn(cid);
+        String numLikes = genNumLikes(cid);
 
         String tabs = StringUtils.repeat(tab, depth);
-        html = html + "<div class= \"list-group-item\">" + tabs + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ": " + service.getComment(cid).getText() + replyStr + likeStr + "</div>";
+        html = html + "<div class= \"list-group-item\">" + tabs + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ": " + service.getComment(cid).getText() + numLikes + replyStr + likeStr + "</div>";
 
         while(service.getComment(cid).hasChildren()){
             Collection<Comment> replies = service.getComment(cid).getReplies();
@@ -364,6 +365,14 @@ public class SocialNetworkSimController {
                 " type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
                 "  <span class=\"glyphicon glyphicon-share-alt\" aria-hidden=\"true\"></span> REPLY" +
                 "</button>";
+        return html;
+    }
+
+    public String genNumLikes(Long cid){
+        String html = "";
+        html = html + "<button type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\"> " +
+        "<span class=\"glyphicon glyphicon-heart\" aria-hidden=\"true\"></span> " + service.getNumLikes(cid) +
+               "</button>";
         return html;
     }
 

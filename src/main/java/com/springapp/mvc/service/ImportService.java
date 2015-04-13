@@ -249,7 +249,7 @@ public class ImportService {
 
     public int getVal(){
         Random gen = new Random();
-        int i = gen.nextInt(4);
+        int i = gen.nextInt(5);
         return i;
     }
 }

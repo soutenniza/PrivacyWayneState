@@ -98,9 +98,12 @@
                     <thead>
                         <tr>
                             <th>Attribute</th>
-                            <th>Network Exposure</th>
-                            <th>Target</th>
-                            <th>Change</th>
+                            <th>Privacy Value</th>
+                            <th>Visibility Value</th>
+                            <th>Sensitivity Value</th>
+                            <th>Attribute Exposure: Actual</th>
+                            <th>Attribute Exposure: Target</th>
+                            <th>Attribute Exposure: Change</th>
                         </tr>
                     </thead>
                     <tbody>
