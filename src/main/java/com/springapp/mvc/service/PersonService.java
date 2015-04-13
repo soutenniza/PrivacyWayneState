@@ -200,6 +200,20 @@ public class PersonService {
         }
     }
 
+    public int getNumLikes(Long cid){
+        int numLikes = 0;
+        Collection<Person> allPersons = getAllPersons();
+        for(Person p : allPersons){
+            Collection<Comment> personsLikes = p.getLikes();
+            for(Comment lc : personsLikes){
+                if(cid.equals(lc.getNodeID())){
+                    numLikes = numLikes + 1;
+                }
+            }
+        }
+        return numLikes;
+    }
+
     public ArrayList<Person> getAllPersons(){
         ArrayList<Person> people = new ArrayList<Person>();
         people.addAll(personRepository.findAll().as(ArrayList.class));
