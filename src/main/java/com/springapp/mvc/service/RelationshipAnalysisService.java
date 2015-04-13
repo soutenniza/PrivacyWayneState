@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.*;
 import com.springapp.mvc.service.PersonService;
+import netkit.classifiers.relational.ClassDistribRelNeighbor;
 import org.apache.xalan.xsltc.compiler.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.xml.transform.Templates;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by Van on 3/29/2015.
@@ -488,6 +490,30 @@ public class RelationshipAnalysisService {
         double d =0.0;
         //TODO: Nariman: find a way to import timestamps
         return d;
+    }
+
+    /**
+     * relationship based attribute prediction
+     * for an attribute dk in p's profile, predict the value of that attribute based on the distribution
+     * of that attribute in the friends with which he has relations
+     * Based on RelationalClassifiers in NetKit. Pick your favourate classifier!
+     * @see http://netkit-srl.sourceforge.net/current/docs/
+     *  netkit.classifiers.relational.ClassDistribRelNeighbor
+     *  Contact Sofus A. Macskassy (sofmac@gmail.com) for clarifications
+     */
+    HashMap<Attribute,Double> predictAttributeFromRelations(Person p, Attribute dk){
+        //consider dk as the class label
+        //You may need to map a neo4j Attribute to the corresponding netkit.graph.Attribute
+        //mew Attribute(java.lang.String name, Type type)
+
+
+        ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
+        //Instances = new Instances ("")
+        //dk=age -->class label
+        //p=new node for which i want to predict a class label
+        //based on set of nodes (your direct friends or relations
+
+        return null;
     }
 
 }

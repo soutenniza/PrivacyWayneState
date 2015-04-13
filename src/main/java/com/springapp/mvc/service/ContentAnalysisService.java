@@ -159,4 +159,34 @@ public class ContentAnalysisService {
         return score;
     }
 
+    /**
+     * For a comment m on a person p's post c, predict the value of an attribute dk from his profile
+     * based on NLP Analysis of:
+     * 1. the text in the comment (look for keywords correlated with pronouns)
+     * 2. the person p2 who posted the comment
+     * 3. other related attributes e.g. date of the post or the comment (relate that with birthday
+     * @param p
+     * @param m
+     */
+    public void predictAttributeValueFromComment(Person p ,Comment m){
+        //TODO: Zack: implemet me
+
+        //case1: dk = age visibility = 0
+        //text in the comment: keyword = birthday, pronoun = your
+        //date of post = april 13
+        //if the year is hidden, do more analysis on other attributes e.g., what year they joined college or attended high school
+
+        //case2: dk=political view with visibility =0
+        // from text in comments in group discussions
+        //relate teh name of the group  (political)
+        //relate negative vs. positive sentiment
+        //names of politicians mentioned
+
+        //case3:  dk = location/address visibility 0
+        //text in POST : keword= Detroit, pronoun I am in
+        //text in comment : keword= Detroit, pronoun you are in, day: today
+        //date : over a time frame (you are visiting in summer vs. you live here)
+
+    }
+
 }

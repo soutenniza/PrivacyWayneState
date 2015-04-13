@@ -16,6 +16,9 @@ import netkit.classifiers.relational.*;
 @Service
 @Transactional
 public class OtherAnalyses {
+
+    private static final String JSON_PATH = "http://zackrzot.com/data.json";
+
     HashMap<String,Double> generateDirectRelationAttributeExposureMap(Person p){
 
         //TODO: get attributes from p
@@ -129,7 +132,7 @@ public class OtherAnalyses {
         //TODO: Dishank, Van based on the result of this method, if the accuracy is high, display a warning in both
         //group an relatioship what if analyses
         //WARNING: your membership in this groups predicts your attribute dk with high accuracy
-        //WARNING: your relationship network predicts your attribute dk with high accuracy
+        //WARNING: your relationship network predicts your attribute dk with high accuracy base on a cutoff or threshold
         return 0;
     }
 
@@ -149,7 +152,10 @@ public class OtherAnalyses {
 
 
         ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
-        
+        //Instances = new Instances ("")
+        //dk=age -->class label
+        //p=new node for which i want to predict a class label
+        //based on set of nodes (your direct friends or relations
 
         return null;
     }
