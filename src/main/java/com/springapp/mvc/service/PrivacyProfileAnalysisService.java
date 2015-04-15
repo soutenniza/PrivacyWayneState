@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Created by narimanammar on 4/7/15.
@@ -53,7 +54,10 @@ public class PrivacyProfileAnalysisService {
     public double getAttributeExposure(Person p, HasRelationship r, int total){
         int visibility = service.getHasRelationship(r.getId()).getVv();
         int networksize = total;
-        int networkvisibility = getNumberOfFriends(service.getPerson(p.getNodeID()), visibility);
+        int networkvisibility = getNumberOfPeople(service.getPerson(p.getNodeID()), visibility);
+        System.out.println(visibility);
+        System.out.printf("Name: %s, %d, %d\n", service.getAttributeWithId(r.getEnd().getNodeID()), networkvisibility, networksize);
+
         if(networkvisibility == 0){
             return 0.0;
         }else{
@@ -62,7 +66,7 @@ public class PrivacyProfileAnalysisService {
 
     }
 
-    public int getNumberOfFriends(Person p, int visibility){
+    public int getNumberOfPeople(Person p, int visibility){
         if(visibility == 0) {
             return 0;
         }
@@ -77,27 +81,27 @@ public class PrivacyProfileAnalysisService {
         if(visibility == 1) {
             return nodeFriends.size();
         }
-
+        ArrayList<Person> fofFriends = new ArrayList<>();
         for(int i =0; i < nodeFriends.size(); i++){
-            ArrayList<Person> fofFriends = new ArrayList<>();
             fofFriends.addAll(service.getPerson(nodeFriends.get(i)).getFriends());
-            for(Person pp : friends) {
-                if(!nodeFriends.contains(pp.getNodeID())){
-                    nodeFriends.add(pp.getNodeID());
-                }
+
+        }
+        for(Person pp : fofFriends) {
+            if(!nodeFriends.contains(pp.getNodeID())){
+                nodeFriends.add(pp.getNodeID());
             }
         }
         if(visibility == 2) {
             return nodeFriends.size();
         }
 
+        fofFriends.clear();
         for(int i =0; i < nodeFriends.size(); i++){
-            ArrayList<Person> fofFriends = new ArrayList<>();
             fofFriends.addAll(service.getPerson(nodeFriends.get(i)).getFriends());
-            for(Person pp : friends) {
-                if(!nodeFriends.contains(pp.getNodeID())){
-                    nodeFriends.add(pp.getNodeID());
-                }
+        }
+        for(Person pp : fofFriends) {
+            if(!nodeFriends.contains(pp.getNodeID())){
+                nodeFriends.add(pp.getNodeID());
             }
         }
         if(visibility == 3) {

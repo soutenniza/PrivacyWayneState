@@ -231,7 +231,7 @@ public class SocialNetworkSimController {
                 String format = String.format("%.2f%%", vis);
                 html = html.concat("<button " +
                         "type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
-                        "  <span class=\"glyphicon glyphicons-eye-close\" aria-hidden=\"true\"></span> Network Exposure: " + format +
+                        "  <span class=\"glyphicon\" aria-hidden=\"true\"></span>Attribute Exposure: " + format +
                         "</button>");
                 html = html.concat("</li>");
             }

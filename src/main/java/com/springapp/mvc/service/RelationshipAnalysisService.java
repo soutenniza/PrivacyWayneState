@@ -254,7 +254,7 @@ public class RelationshipAnalysisService {
         int total = service.getAllPersons().size();
         for(HasRelationship a : attributes){
             System.out.println(profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
-            //service.addToAttData(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure", profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a));
+            //service.addToAttData(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure", profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
             //ArrayList<Double> data = service.getAttDataWithName(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure");
             //System.out.println(a.getEnd().getLabel());
             //System.out.println(data.get(data.size() - 1));
