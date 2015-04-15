@@ -170,22 +170,15 @@ public class PersonService {
             return getPerson(pid).getPrivacyScoreRecord().get(getPerson(pid).getPrivacyScoreRecord().size()-1);
         }
     }
-    public void addToAttData(Long pid, Long attid, String name, double val){
-        Person p = getPerson(pid);
-        p.addAttData(attid,name,val);
-        template.save(p);
+    public void addToAttVisRec(HasRelationship h, double val){
+        HasRelationship r = getHasRelationship(h.getId());
+        r.addToAttVisRecord(val);
+        hasRepository.save(r);
     }
-    public ArrayList<Double> getAttDataWithName(Long pid, Long attid, String name){
-        Person p = getPerson(pid);
-        ArrayList<Double> vals = p.getAttributeDataWithName(attid, name);
-        return  vals;
+    public ArrayList<Double> getAttVisRecord(HasRelationship h){
+        return  getHasRelationship(h.getId()).getAttVisibilityRecord();
     }
     // ----------------------------------------------------------- //
-
-//    public void addLike(Comment c, Person p){
-//        p.likes(c);
-//        template.save(p);
-//    }
 
     public void toggleLike(Person p, Comment c){
         Collection<Comment> likes = getPerson(p.getNodeID()).getLikes();

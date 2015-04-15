@@ -5,6 +5,8 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
 import org.springframework.data.neo4j.annotation.StartNode;
 
+import java.util.ArrayList;
+
 /**
  * Created by Zack on 3/28/15.
  */
@@ -17,6 +19,7 @@ public class HasRelationship {
     private int pv; // privacy value
     private int vv; // visibility value
     private int sv; // sensitivity value
+    private ArrayList<Double> attVisibilityRecord = new ArrayList<>();
 
     @StartNode
     Person user;
@@ -25,7 +28,6 @@ public class HasRelationship {
     Attribute attribute;
 
     public HasRelationship(){
-        //null
     }
 
     public HasRelationship(Person user, Attribute attribute, int pv, int vv, int sv){
@@ -34,7 +36,15 @@ public class HasRelationship {
         this.pv = pv;
         this.vv = vv;
         this.sv = sv;
+        this.attVisibilityRecord.add(0.0);
     }
+
+    public ArrayList<Double> getAttVisibilityRecord(){
+        return this.attVisibilityRecord; }
+
+    public void addToAttVisRecord(double val){
+        System.out.println("adding to attvisrec: "+ val);
+        this.attVisibilityRecord.add(val); }
 
     public int getPv(){
         return pv;
