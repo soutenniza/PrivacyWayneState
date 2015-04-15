@@ -3,13 +3,12 @@ package com.springapp.mvc.service;
 import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Group;
 import com.springapp.mvc.model.Person;
-import netkit.classifiers.relational.ClassDistribRelNeighbor;
+//import netkit.classifiers.relational.ClassDistribRelNeighbor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -135,6 +134,7 @@ public class GroupAnalysisService {
     public ArrayList<String> detectHighSchoolFriends(Person p, String location){
         Collection<Person> friends = p.getFriends(); /*Gets the list of friends of the selected user*/
         ArrayList<String> messages = new ArrayList<>();
+        ArrayList<Person> highschoolFriends = new ArrayList<>();
         String findCity = null;
 
         for(Person person : friends) {
@@ -160,6 +160,7 @@ public class GroupAnalysisService {
                         String city = (service.getAttributeWithId(aID).getValue());
                         if (location.equals(city)) {
                             System.out.println(service.getPerson(person.getNodeID()).getName() + " attended the same HighSchool as " + service.getPerson(p.getNodeID()).getName());
+                            highschoolFriends.add(person);
                         } else {
                             System.out.println(service.getPerson(person.getNodeID()).getName() + " did not attend the same HighSchool as " + service.getPerson(p.getNodeID()).getName());
                         }
@@ -167,6 +168,11 @@ public class GroupAnalysisService {
                 }
             }
         }
+
+        for (Person highschoolFriend : highschoolFriends){
+            detectHighSchoolFriendsPrivacyOutliers(root, highschoolFriend);
+        }
+
         return messages;
     }
 
@@ -190,6 +196,7 @@ public class GroupAnalysisService {
      */
     public ArrayList<String> detectCollegeFriends(Person p, String location){
         Collection<Person> friends = p.getFriends(); /*Gets the list of friends of the selected user*/
+        ArrayList<Person> collegeFriends = new ArrayList<>();
         ArrayList<String> messages = new ArrayList<>();
         String findCity = null;
 
@@ -204,6 +211,7 @@ public class GroupAnalysisService {
                     } else {
                         findCity = "False";
                         System.out.println(service.getPerson(person.getNodeID()).getName() + " did not attend the same College as " + service.getPerson(p.getNodeID()).getName());
+
                     }
                 }
             }
@@ -216,6 +224,7 @@ public class GroupAnalysisService {
                         String city = (service.getAttributeWithId(aID).getValue());
                         if (location.equals(city)) {
                             System.out.println(service.getPerson(person.getNodeID()).getName() + " attended the same College as " + service.getPerson(p.getNodeID()).getName());
+                            collegeFriends.add(person);
                         } else {
                             System.out.println(service.getPerson(person.getNodeID()).getName() + " did not attend the same College as " + service.getPerson(p.getNodeID()).getName());
                         }
@@ -223,22 +232,12 @@ public class GroupAnalysisService {
                 }
             }
         }
-            /*Long pID = person.getNodeID();
-            Collection<Person> friendsOfFriends = service.getPerson(pID).getFriends();
 
-            for(Person person1: friendsOfFriends){
-                System.out.println("PERSON BLOCK");
-                System.out.println(service.getPerson(person1.getNodeID()).getName());
+        for (Person collegeFriend : collegeFriends){
+            detectCollegeFriendsPrivacyOutliers(root, collegeFriend);
+        }
 
-                Collection<Attribute> atts = service.getPerson(person1.getNodeID()).getAttributes();
-                for(Attribute att : atts) {
-                    Long aID = att.getNodeID();
-                    System.out.println("Attribute Block");
-                    System.out.println(service.getAttribute("education", "4-year degree"));
-                    System.out.println(service.getAttributeWithId(aID).getLabel());
-                    System.out.println(service.getAttributeWithId(aID).getValue());
-                }
-            }*/
+
         return messages;
     }
 
@@ -267,8 +266,35 @@ public class GroupAnalysisService {
      * privacy level, sensitivity, and visibility
      * @return
      */
-    public int detectHighSchoolFriendsPrivacyOutliers(Person p){
-        /*In progress*/
+    public int detectHighSchoolFriendsPrivacyOutliers(Person p, Person s){
+        ArrayList<Integer> pScore = service.getPerson(p.getNodeID()).getPrivacyScoreRecord();
+        ArrayList<Integer> sScore = service.getPerson(s.getNodeID()).getPrivacyScoreRecord();
+
+        /*System.out.println("detectCollegeFriendsPricvacyOutliers");
+        System.out.println(service.getPerson(p.getNodeID()).getName());
+        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());
+        System.out.println(service.getPerson(s.getNodeID()).getName());
+        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());*/
+
+        int pSum = 0;
+        int sSum = 0;
+        float pAvg;
+        float sAvg;
+
+        for (Integer score :pScore){
+            pSum += score;
+        }
+        pAvg = pSum/pScore.size();
+
+        for (Integer score :sScore){
+            sSum += score;
+        }
+        sAvg = sSum/sScore.size();
+        if (pAvg > sAvg ){
+            System.out.println( service.getPerson(s.getNodeID()).getName() + " is an outlier");
+        }
+        /*System.out.println(pAvg +"= p" + "   " + sAvg +"= s");*/
+
         return 0;
     }
 
@@ -277,8 +303,35 @@ public class GroupAnalysisService {
         return 0;
     }
 
-    public int detectCollegeFriendsPrivacyOutliers(Person p){
-        /*In progress*/
+    public int detectCollegeFriendsPrivacyOutliers(Person p, Person s){
+        ArrayList<Integer> pScore = service.getPerson(p.getNodeID()).getPrivacyScoreRecord();
+        ArrayList<Integer> sScore = service.getPerson(s.getNodeID()).getPrivacyScoreRecord();
+
+        /*System.out.println("detectCollegeFriendsPricvacyOutliers");
+        System.out.println(service.getPerson(p.getNodeID()).getName());
+        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());
+        System.out.println(service.getPerson(s.getNodeID()).getName());
+        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());*/
+
+        int pSum = 0;
+        int sSum = 0;
+        float pAvg;
+        float sAvg;
+
+        for (Integer score :pScore){
+            pSum += score;
+        }
+        pAvg = pSum/pScore.size();
+
+        for (Integer score :sScore){
+            sSum += score;
+        }
+        sAvg = sSum/sScore.size();
+        if (pAvg > sAvg ){
+            System.out.println( service.getPerson(s.getNodeID()).getName() + " is an outlier");
+        }
+        /*System.out.println(pAvg +"= p" + "   " + sAvg +"= s");*/
+
         return 0;
     }
 
@@ -363,7 +416,7 @@ public class GroupAnalysisService {
         //mew Attribute(java.lang.String name, Type type)
 
 
-        ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
+        //ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
         //Instances = new Instances ("")
         //dk=age -->class label
         //p=new node for which i want to predict a class label
