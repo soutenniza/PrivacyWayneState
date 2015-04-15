@@ -52,16 +52,12 @@ public class Person {
 
     ArrayList<Double> networkVisibilityRecord;
 
-    ArrayList<AttData> attDatas;
-
     public Person() {}
 
     public Person(String name) {
         this.name = name;
         privacyScoreRecord = new ArrayList<>();
         privacyScoreRecord.add(0);
-        attDatas = new ArrayList<>();
-        attDatas.add(new AttData(Long.valueOf(0),"null",0)); // init
     }
 
     public String getName(){
@@ -92,18 +88,6 @@ public class Person {
     }
     public ArrayList<Double> getNetworkVisibilityRecord(){
         return networkVisibilityRecord;
-    }
-    public void addAttData(Long attid, String name, double val){ attDatas.add(new AttData(attid, name, val)); }
-    public ArrayList<Double> getAttributeDataWithName(Long attId, String name){
-        ArrayList<Double> vals = new ArrayList<>();
-        for(AttData ad : attDatas){
-            if(ad.getDataName().equals(name)){
-                if(ad.getAttID().equals(attId)){
-                    vals.add(ad.getDatVal());
-                }
-            }
-        }
-        return vals;
     }
     // ---------------------------------------------------------- //
 
@@ -155,13 +139,6 @@ public class Person {
         this.likes.add(c);
     }
 
-//    public LikesRelationship likes(Comment c){
-//        final LikesRelationship likesRelationship = new LikesRelationship(c, this);
-//        likes.add(c);
-//        likesRelationships.add(likesRelationship);
-//        return likesRelationship;
-//    }
-
     public Collection<Comment> getComments(){
         return comments;
     }
@@ -191,10 +168,5 @@ public class Person {
     public Collection<OwnsRelationship> getCommentRelationships() {
         return ownsRelationships;
     }
-
-//    public Collection<LikesRelationship> getLikesRelationships() {
-//        return likesRelationships;
-//    }
-
 
 }

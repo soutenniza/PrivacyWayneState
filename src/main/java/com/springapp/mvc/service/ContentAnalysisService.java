@@ -189,4 +189,45 @@ public class ContentAnalysisService {
 
     }
 
+    public double getRootOutgoingVal(Long pid, Long fid){
+        double val = 0;
+        double totalInterations = 0;
+        for(Comment c1 : service.getPerson(pid).getLikes()){
+            for(Comment c2 : service.getPerson(fid).getLikes()) {
+                if(service.getComment(c1.getNodeID()).getNodeID().equals(service.getComment(c2.getNodeID()).getNodeID())){
+                    totalInterations = totalInterations + 1;
+                    val = val + 1;
+                }
+            }
+        }
+        for(Comment c1 : service.getPerson(fid).getLikes()){
+            for(Comment c2 : service.getPerson(pid).getLikes()) {
+                if(service.getComment(c1.getNodeID()).getNodeID().equals(service.getComment(c2.getNodeID()).getNodeID())){
+                    totalInterations = totalInterations + 1;
+                }
+            }
+        }
+        for(Comment c1 : service.getPerson(pid).getComments()){
+            for(Comment c2 : service.getPerson(fid).getComments()) {
+                if(!service.getComment(c1.getNodeID()).isRoot()){
+                    if(service.getComment(service.getComment(c1.getNodeID()).getParentID()).getNodeID().equals(service.getComment(c2.getNodeID()).getNodeID())){
+                        totalInterations = totalInterations + 1;
+                        val = val + 1;
+                    }
+                }
+            }
+        }
+        for(Comment c1 : service.getPerson(fid).getComments()){
+            for(Comment c2 : service.getPerson(pid).getComments()) {
+                if(!service.getComment(c1.getNodeID()).isRoot()) {
+                    if (service.getComment(service.getComment(c1.getNodeID()).getParentID()).getNodeID().equals(service.getComment(c2.getNodeID()).getNodeID())) {
+                        totalInterations = totalInterations + 1;
+                    }
+                }
+            }
+        }
+        val = val / totalInterations;
+        return val;
+    }
+
 }

@@ -4,6 +4,7 @@ import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.AnalysisService;
+import com.springapp.mvc.service.ContentAnalysisService;
 import com.springapp.mvc.service.PersonService;
 import com.springapp.mvc.service.PrivacyProfileAnalysisService;
 import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
@@ -31,6 +32,9 @@ public class ReportingController {
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    ContentAnalysisService contentAnalysis;
 
     @Autowired
     PrivacyProfileAnalysisService profileAnalysisService;
@@ -69,6 +73,11 @@ public class ReportingController {
         String netvisStr = getNetVis(p1);
         redirectAttributes.addFlashAttribute("netvis", netvisStr);
 
+        // add attribute visibility over time chart
+        redirectAttributes.addFlashAttribute("asdata", genASDataLine(p1));
+
+        // incoming vs outgoing communications
+        redirectAttributes.addFlashAttribute("cfdata", genCFData(p1));
 
 
         return "redirect:/reporting";
@@ -95,6 +104,27 @@ public class ReportingController {
             }
         }
         msg = msg + "],";
+        return msg;
+    }
+
+    public String genASDataLine(Long pid){
+        Person p = personService.getPerson(pid);
+        Collection<HasRelationship> rels = p.getAttributeRelationships();
+        String msg= "";
+        for(HasRelationship h : rels){
+            h = personService.getHasRelationship(h.getId());
+            msg = msg + "['"+personService.getAttributeWithId(h.getEnd().getNodeID()).getLabel()+": "+  personService.getAttributeWithId(h.getEnd().getNodeID()).getValue()+ "', ";
+            ArrayList<Double> vals = h.getAttVisibilityRecord();
+            if(vals.size()==1){
+                return "['No History']";
+            }
+            else{
+                for(double x : vals){
+                    msg = msg + Double.toString(x) + ", ";
+                }
+            }
+            msg = msg + "],";
+        }
         return msg;
     }
 
@@ -132,6 +162,46 @@ public class ReportingController {
         }
 
         return html;
+    }
+
+    public String genCFData(Long pid){
+        String msg = "<c>";
+        int counter = 0;
+        String id;
+        Collection<Person> friends = personService.getPerson(pid).getFriends();
+        for(Person friend : friends){
+            friend = personService.getPerson(friend.getNodeID());
+            double outgoing = contentAnalysis.getRootOutgoingVal(pid, friend.getNodeID());
+            System.out.println("outval:" + outgoing);
+            id = "cfid"+Integer.toString(counter);
+            counter = counter + 1;
+            if(Double.isNaN(outgoing)){
+                msg = msg + "No interactions have been made with the friend" +  friend.getName() + " as of yet!";
+            }
+            else {
+                msg = msg + "<div id=\"chart" + id + "\"></div>" +
+                        "<script language=\"JavaScript\">" +
+                        "var chart" + id + " = c3.generate({\n" +
+                        "bindto: '#chart" + id + "'," +
+                        "    data: {\n" +
+                        "        columns: [\n" +
+                        "            ['Outgoing', " + Double.toString(outgoing) + "],\n" +
+                        "            ['Incoming', " + Double.toString(1.0 - outgoing) + "],\n" +
+                        "        ],\n" +
+                        "        type : 'donut',\n" +
+                        "        onclick: function (d, i) { console.log(\"onclick\", d, i); },\n" +
+                        "        onmouseover: function (d, i) { console.log(\"onmouseover\", d, i); },\n" +
+                        "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
+                        "    },\n" +
+                        "    donut: {\n" +
+                        "        title: \"" + friend.getName() + "\"\n" +
+                        "    }\n" +
+                        "});" +
+                        "</script>";
+            }
+        }
+        msg = msg + "</c>";
+        return msg;
     }
 
 }

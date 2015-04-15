@@ -58,12 +58,18 @@ public class PrivacyProfileAnalysisService {
         System.out.println(visibility);
         System.out.printf("Name: %s, %d, %d\n", service.getAttributeWithId(r.getEnd().getNodeID()), networkvisibility, networksize);
 
+        double vis;
+
         if(networkvisibility == 0){
-            return 0.0;
+            vis = 0.0;
         }else{
-            return (double) networkvisibility / (double) networksize;
+            vis = (double) networkvisibility / (double) networksize;
         }
 
+        // add to vis record
+        service.addToAttVisRec(service.getHasRelationship(r.getId()), vis);
+
+        return vis;
     }
 
     public int getNumberOfPeople(Person p, int visibility){

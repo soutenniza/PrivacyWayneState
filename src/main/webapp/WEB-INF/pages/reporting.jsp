@@ -12,7 +12,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>PrivacyWayne</title>
     <link  rel="shortcut icon" href="/resources/images/favicon.ico" type="image/x-icon" />
@@ -78,13 +77,12 @@
             <div class="jumbotron">
                 <h5>${user}</h5><br>
                 <h5>${pscore}</h5><br>
-
                 <c:if test="${psdata != null}">
-                    <div id="chart"></div>
+                    <div id="chartps"></div>
 
                     <script language="JavaScript">
-                        var chart = c3.generate({
-                            bindto: '#chart',
+                        var chartps = c3.generate({
+                            bindto: '#chartps',
                             data: {
                                 columns: [
                                     ${psdata}
@@ -110,8 +108,26 @@
                         ${netvis}
                     </tbody>
                 </table>
+                <br>
+                <h5>Attribute Visibility Over Time</h5><br>
+                <c:if test="${asdata != null}">
+                    <div id="chart2"></div>
 
-
+                    <script language="JavaScript">
+                        var chart = c3.generate({
+                            bindto: '#chart2',
+                            data: {
+                                columns: [
+                                    ${asdata}
+                                ]
+                            }
+                        });
+                    </script>
+                </c:if>
+                <br>
+                <h5>Communication Flow: </h5><i><h6> Incoming verses outgoing interaction between your friends:</h6></i><br>
+                ${cfdata}
+                <br>
 
 
 
