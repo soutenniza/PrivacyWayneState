@@ -156,7 +156,7 @@ public class ReportingController {
             // TARGET
             html = html + "<td>" + "<20%" + "</td>";
             // CHANGE
-            html = html + "<td>" + "+2%" + "</td>";
+            html = html + "<td>" + genChangeStr(personService.getHasRelationship(a.getId()).getAttVisibilityRecord()) + "</td>";
 
             html = html + "</tr>";
         }
@@ -165,43 +165,82 @@ public class ReportingController {
     }
 
     public String genCFData(Long pid){
-        String msg = "<c>";
+        String msg = "";
+        String nomsg = "<c>";
         int counter = 0;
         String id;
-        Collection<Person> friends = personService.getPerson(pid).getFriends();
-        for(Person friend : friends){
-            friend = personService.getPerson(friend.getNodeID());
-            double outgoing = contentAnalysis.getRootOutgoingVal(pid, friend.getNodeID());
-            System.out.println("outval:" + outgoing);
-            id = "cfid"+Integer.toString(counter);
-            counter = counter + 1;
-            if(Double.isNaN(outgoing)){
-                msg = msg + "No interactions have been made with the friend" +  friend.getName() + " as of yet!";
-            }
-            else {
-                msg = msg + "<div id=\"chart" + id + "\"></div>" +
-                        "<script language=\"JavaScript\">" +
-                        "var chart" + id + " = c3.generate({\n" +
-                        "bindto: '#chart" + id + "'," +
-                        "    data: {\n" +
-                        "        columns: [\n" +
-                        "            ['Outgoing', " + Double.toString(outgoing) + "],\n" +
-                        "            ['Incoming', " + Double.toString(1.0 - outgoing) + "],\n" +
-                        "        ],\n" +
-                        "        type : 'donut',\n" +
-                        "        onclick: function (d, i) { console.log(\"onclick\", d, i); },\n" +
-                        "        onmouseover: function (d, i) { console.log(\"onmouseover\", d, i); },\n" +
-                        "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
-                        "    },\n" +
-                        "    donut: {\n" +
-                        "        title: \"" + friend.getName() + "\"\n" +
-                        "    }\n" +
-                        "});" +
-                        "</script>";
+        Collection<Person> persons = personService.getAllPersons();
+        for(Person person : persons){
+            if(!(person.getNodeID().equals(pid))) {
+                person = personService.getPerson(person.getNodeID());
+                double outgoing = contentAnalysis.getRootOutgoingVal(pid, person.getNodeID());
+                System.out.println("outval:" + outgoing);
+                id = "cfid" + Integer.toString(counter);
+                counter = counter + 1;
+                if (Double.isNaN(outgoing)) {
+                    nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet!<br>";
+                } else {
+                    msg = msg + "<div id=\"chart" + id + "\"></div>" +
+                            "<script language=\"JavaScript\">" +
+                            "var chart" + id + " = c3.generate({\n" +
+                            "bindto: '#chart" + id + "'," +
+                            "    data: {\n" +
+                            "        columns: [\n" +
+                            "            ['Outgoing', " + Double.toString(outgoing) + "],\n" +
+                            "            ['Incoming', " + Double.toString(1.0 - outgoing) + "],\n" +
+                            "        ],\n" +
+                            "        type : 'donut',\n" +
+                            "        onclick: function (d, i) { console.log(\"onclick\", d, i); },\n" +
+                            "        onmouseover: function (d, i) { console.log(\"onmouseover\", d, i); },\n" +
+                            "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
+                            "    },\n" +
+                            "    donut: {\n" +
+                            "        title: \"" + person.getName() + "\"\n" +
+                            "    }\n" +
+                            "});" +
+                            "</script>";
+                }
             }
         }
-        msg = msg + "</c>";
+
+        msg = nomsg + msg + "</c>";
         return msg;
     }
+
+    public String genChangeStr(ArrayList<Double> vals){
+        String msg = "";
+        if(vals.size()!=1){
+            Double val1 = vals.get(vals.size()-1);
+            Double val2 = vals.get(vals.size()-2);
+            if(val1.equals(val2)){
+                msg = "0%";
+            }
+            else {
+                // positive growth
+                if (val1 > val2) {
+                    Double growth = val2 / val1;
+                    String valnum = Double.toString(growth);
+                    if(valnum.length()>6) {
+                        valnum = "+" + Double.toString(growth*100).substring(0, 5) + "%";
+                    }
+                    msg = "+"+valnum+"%";
+                } else {
+                    Double growth = val1 / val2;
+                    String valnum = Double.toString(growth*100);
+                    if(valnum.length()>6){
+                        valnum = Double.toString(growth).substring(0,5);
+                    }
+                    msg = "-"+valnum+"%";
+                }
+            }
+        }
+        else{
+            msg = msg + "0%";
+        }
+
+        return msg;
+    }
+
+
 
 }
