@@ -125,7 +125,7 @@
                     </script>
                 </c:if>
                 <br>
-                <h5>Communication Flow: </h5><i><h6> Incoming verses outgoing interaction between your friends:</h6></i><br>
+                <h5>Communication Flow: </h5><i><h6> Incoming verses outgoing interactions between people on this network:</h6></i><br>
                 ${cfdata}
                 <br>
 

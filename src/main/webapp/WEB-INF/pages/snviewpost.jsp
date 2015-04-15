@@ -49,7 +49,6 @@
             </div>
             <br>
             <input type="submit" name = "reply" value="reply" class="btn btn-success"/>
-            <input type="submit" name = "whatif" value="Run What-If Analysis" class="btn btn-warning"/>
         </form>
     </div>
 </div>
