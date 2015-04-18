@@ -33,8 +33,21 @@
                 <div class="jumbotron">
                     <h1>Welcome</h1>
                     <p>to PrivacyWayne</p>
-                    <a href="/createuser" class="btn btn-lg btn-primary">Admin</a>
-                    <a href="/snviewhome" class="btn btn-lg btn-primary">User</a>
+                    <div class="col-md-6">
+                        <img src="http://i.imgur.com/wZXMf4l.png"
+                             class="img-responsive">
+                        <a href="/createuser" class="btn btn-lg btn-primary">Admin</a>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="http://i.imgur.com/NLdW3dz.png"
+                             class="img-responsive">
+                        <a href="/snviewlogin" class="btn btn-lg btn-primary">User</a>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="http://i.imgur.com/33owvM4.png"
+                             class="img-responsive">
+                        <a href="/help" class="btn btn-lg btn-primary">Help</a>
+                    </div>
                 </div>
             </div>
         </div>

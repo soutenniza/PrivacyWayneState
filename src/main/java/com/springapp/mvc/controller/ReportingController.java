@@ -166,7 +166,7 @@ public class ReportingController {
 
     public String genCFData(Long pid){
         String msg = "";
-        String nomsg = "<c>";
+        String nomsg = "<center>";
         int counter = 0;
         String id;
         Collection<Person> persons = personService.getAllPersons();
@@ -177,8 +177,15 @@ public class ReportingController {
                 System.out.println("outval:" + outgoing);
                 id = "cfid" + Integer.toString(counter);
                 counter = counter + 1;
+                String friendStr = "";
+                if(personService.areFriends(person, personService.getPerson(pid))){
+                    friendStr = "[FRIEND]";
+                }
+                else{
+                    friendStr = "[NOT A FRIEND]";
+                }
                 if (Double.isNaN(outgoing)) {
-                    nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet!<br>";
+                    nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
                 } else {
                     msg = msg + "<div id=\"chart" + id + "\"></div>" +
                             "<script language=\"JavaScript\">" +
@@ -195,15 +202,15 @@ public class ReportingController {
                             "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
                             "    },\n" +
                             "    donut: {\n" +
-                            "        title: \"" + person.getName() + "\"\n" +
+                            "        title: \"" + person.getName()+ "\"\n" +
                             "    }\n" +
                             "});" +
-                            "</script>";
+                            "</script>" + friendStr;
                 }
             }
         }
 
-        msg = nomsg + msg + "</c>";
+        msg = nomsg + msg + "</center>";
         return msg;
     }
 
@@ -219,16 +226,16 @@ public class ReportingController {
                 // positive growth
                 if (val1 > val2) {
                     Double growth = val2 / val1;
-                    String valnum = Double.toString(growth);
+                    String valnum = Double.toString((growth*100));
                     if(valnum.length()>6) {
-                        valnum = "+" + Double.toString(growth*100).substring(0, 5) + "%";
+                        valnum = "+" + Double.toString((growth*100)).substring(0, 5) + "%";
                     }
                     msg = "+"+valnum+"%";
                 } else {
                     Double growth = val1 / val2;
-                    String valnum = Double.toString(growth*100);
+                    String valnum = Double.toString((growth*100));
                     if(valnum.length()>6){
-                        valnum = Double.toString(growth).substring(0,5);
+                        valnum = Double.toString((growth*100)).substring(0,5);
                     }
                     msg = "-"+valnum+"%";
                 }
