@@ -54,12 +54,16 @@ public class AnalysisController {
         String ascMsgs = "";
         String sentMsgs = "";
         String contentMsgs = "";
+        String distanceMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
 
         // sort messages
         for(String m : messages){
 
+            if(m.contains("distance")){
+                distanceMsgs = distanceMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
             if(m.contains("interactions")){
                 interactionMsgs = interactionMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
@@ -88,7 +92,7 @@ public class AnalysisController {
             }
         }
 
-
+        printDistances(redirectAttributes, distanceMsgs);
         printInteractions(redirectAttributes, interactionMsgs);
         printRelationshipStrengths(redirectAttributes, relationshipStrengthMsgs);
         printRelationships(redirectAttributes, relationshipMsgs);
@@ -109,6 +113,16 @@ public class AnalysisController {
             peoples.put(people.get(i).getNodeID(), people.get(i).getName());
         }
         model.addAttribute("peopleList", peoples);
+    }
+
+    public void printDistances(RedirectAttributes r, String distanceMsgs){
+        if(distanceMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("distancesok", msg);
+        }
+        else {
+            r.addFlashAttribute("distances", distanceMsgs);
+        }
     }
 
     public void printInteractions(RedirectAttributes r, String interactionsMsgs){

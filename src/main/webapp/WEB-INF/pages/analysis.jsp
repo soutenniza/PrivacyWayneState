@@ -82,6 +82,17 @@
                             </div>
                         </c:if>
                     </div>
+                    <h4>Friend's Privacy Scores</h4>
+                    <div class="col-md-12">
+                        <c:if test="${fps != null}">
+                            ${fps}
+                        </c:if>
+                        <c:if test="${fpsok != null}">
+                            <div id="message" class="alert alert-success">
+                                <b>${fpsok}</b>
+                            </div>
+                        </c:if>
+                    </div>
                     <h4>Interactions</h4>
                     <div class="col-md-12">
                         <c:if test="${interactions != null}">
@@ -104,17 +115,18 @@
                             </div>
                         </c:if>
                     </div>
-                    <h4>Friend's Privacy Scores</h4>
+                    <h4>Social Distance</h4>
                     <div class="col-md-12">
-                        <c:if test="${fps != null}">
-                            ${fps}
+                        <c:if test="${distances != null}">
+                            ${distances}
                         </c:if>
-                        <c:if test="${fpsok != null}">
+                        <c:if test="${distancesok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${fpsok}</b>
+                                <b>${distancesok}</b>
                             </div>
                         </c:if>
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">

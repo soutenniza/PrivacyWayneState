@@ -72,9 +72,8 @@ public class RelationshipAnalysisService {
         double interactionsRS = IT/maxIT;
 
         double socialDistance = socialDistance(service.getPerson(r.getNodeID()), service.getPerson(p.getNodeID()));
-
         //Social distance is opposite of others, so it needs to be reversed
-        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + (3 - socialDistance)/3;
+        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + (5.0 - socialDistance)/5.0;
 
         return RS;
     }
@@ -102,6 +101,8 @@ public class RelationshipAnalysisService {
         double commentRatio = (double) rootComments.size() / (double) totalComments;
         double ratio = commentRatio + getLikes(p,r);
         if(ratio > 9999)
+            return 0.0;
+        if(Double.isNaN(ratio))
             return 0.0;
         return ratio;
     }
@@ -170,6 +171,7 @@ public class RelationshipAnalysisService {
         ArrayList<Integer> commonGroups = new ArrayList<>();
         ArrayList<Double> relationshipStrength = new ArrayList<>();
         ArrayList<Double> interactions = new ArrayList<>();
+        ArrayList<Double> socialDistances = new ArrayList<>();
         ArrayList<Long> privacyScoresID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
@@ -179,12 +181,14 @@ public class RelationshipAnalysisService {
             int mg = groupservice.mutualgroups(root, service.getPerson(pID));
             double rs = calculateRelationshipStrength(root, service.getPerson(pID));
             double it = interactions(root, service.getPerson(pID));
+            double sd = socialDistance(root, service.getPerson(pID));
             mutualfriends.add(mt);
             commonGroups.add(mg);
             privacyScores.add(ps);
             relationshipStrength.add(rs);
             interactions.add(it);
             privacyScoresID.add(pID);
+            socialDistances.add(sd);
         }
 
         double thresholdPS = 0;
@@ -192,6 +196,7 @@ public class RelationshipAnalysisService {
         double thresholdMG = 0;
         double thresholdRS = 0;
         double thresholdIT = 0;
+        double thresholdSD = 0;
 
         for(int i = 0; i < privacyScores.size(); i++){
             thresholdPS += privacyScores.get(i);
@@ -199,6 +204,7 @@ public class RelationshipAnalysisService {
             thresholdMG += commonGroups.get(i);
             thresholdRS += relationshipStrength.get(i);
             thresholdIT += interactions.get(i);
+            thresholdSD += socialDistances.get(i);
         }
 
         double avgPS = thresholdPS / privacyScores.size();
@@ -206,15 +212,24 @@ public class RelationshipAnalysisService {
         double avgMG = thresholdMG / privacyScores.size();
         double avgRS = thresholdRS / privacyScores.size();
         double avgIT = thresholdIT / privacyScores.size();
+        double avgSD = thresholdSD / privacyScores.size();
         thresholdPS = avgPS + avgPS/privacyScores.size();
         thresholdMT = avgMT - avgMT/privacyScores.size();
         thresholdMG = avgMG - avgMG/privacyScores.size();
         thresholdRS = avgRS - avgRS/privacyScores.size();
         thresholdIT = avgIT - avgIT/privacyScores.size();
+        thresholdSD = avgSD + avgSD/privacyScores.size();
+
+        for(int i = 0; i < socialDistances.size(); i++){
+            if(socialDistances.get(i) > thresholdSD){
+                String msg = String.format("%s has a high social distance. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), socialDistances.get(i), avgSD, thresholdSD);
+                messaages.add(msg);
+            }
+        }
 
         for(int i = 0; i < relationshipStrength.size(); i++){
             if(relationshipStrength.get(i) < thresholdRS){
-                String msg = String.format("%s has a low number of relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), relationshipStrength.get(i), avgRS, thresholdRS);
+                String msg = String.format("%s has a low relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), relationshipStrength.get(i), avgRS, thresholdRS);
                 messaages.add(msg);
             }
         }
@@ -252,11 +267,7 @@ public class RelationshipAnalysisService {
         attributes.addAll(root.getAttributeRelationships());
         int total = service.getAllPersons().size();
         for(HasRelationship a : attributes){
-            System.out.println(profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
-            //service.addToAttData(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure", profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
-            //ArrayList<Double> data = service.getAttDataWithName(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure");
-            //System.out.println(a.getEnd().getLabel());
-            //System.out.println(data.get(data.size() - 1));
+            profileservice.getAttributeExposure(root, service.getHasRelationship(a.getId()), total);
         }
 
         return messaages;
@@ -280,110 +291,6 @@ public class RelationshipAnalysisService {
         threshold /= relationshipstrengths.size();
         threshold = threshold - threshold/relationshipstrengths.size();
         return threshold;
-    }
-
-    private ArrayList<String> calculateAllPrivacyScore(){
-        Collection<Person> friends = root.getFriends();
-        ArrayList<Integer> privacyScores = new ArrayList<>();
-        ArrayList<Long> privacyScoresID  = new ArrayList<>();
-        ArrayList<String> messaages = new ArrayList<>();
-        for(Person p : friends){
-            Long pID = p.getNodeID();
-            int ps = profileservice.getPrivacyScore(service.getPerson(pID));
-            privacyScores.add(ps);
-            privacyScoresID.add(pID);
-        }
-
-        double threshold = 0;
-
-        for(int i = 0; i < privacyScores.size(); i++){
-            threshold += privacyScores.get(i);
-        }
-
-        threshold /= privacyScores.size();
-        double avg = threshold;
-        threshold = threshold + threshold/privacyScores.size();
-
-        for(int i = 0; i < privacyScores.size(); i++){
-            if(privacyScores.get(i) > threshold){
-                String msg = String.format("%s has a high Privacy Score. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), privacyScores.get(i), avg, threshold);
-                messaages.add(msg);
-            }
-        }
-
-        return messaages;
-    }
-
-
-
-    private ArrayList<String> calculateAllMutualFriends() {
-        Collection<Person> friends = root.getFriends();
-        ArrayList<Integer> mutualFriends = new ArrayList<>();
-        ArrayList<Long> mutualFriendID  = new ArrayList<>();
-        ArrayList<String> messaages = new ArrayList<>();
-        for(Person p : friends){
-            Long pID = p.getNodeID();
-            int mt = mutualfriends(root, service.getPerson(pID));
-            mutualFriends.add(mt);
-            mutualFriendID.add(pID);
-        }
-        double threshold = 0;
-
-
-
-        for(int i = 0; i < mutualFriends.size(); i++){
-            threshold += mutualFriends.get(i);
-        }
-
-        threshold /= mutualFriends.size();
-        double average = threshold;
-        threshold = threshold - threshold/mutualFriends.size();
-
-        for(int i = 0; i < mutualFriends.size(); i++){
-            if(mutualFriends.get(i) < threshold){
-                String msg = String.format("%s has a low number of mutual friends. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(mutualFriendID.get(i)).getName(), mutualFriends.get(i), average, threshold);
-                messaages.add(msg);
-                //System.out.println(msg);
-            }
-        }
-        return messaages;
-    }
-
-    private ArrayList<String> calculateAllMutualGroups() {
-        Collection<Person> friends = root.getFriends();
-        ArrayList<Integer> mutualGroups = new ArrayList<>();
-        ArrayList<Long> mutualGroupID  = new ArrayList<>();
-        ArrayList<String> messaages = new ArrayList<>();
-        for(Person p : friends){
-            Long pID = p.getNodeID();
-            int mt = groupservice.mutualgroups(root, service.getPerson(pID));
-            mutualGroups.add(mt);
-            mutualGroupID.add(pID);
-        }
-        double threshold = 0;
-
-
-
-        for(int i = 0; i < mutualGroups.size(); i++){
-            threshold += mutualGroups.get(i);
-        }
-
-
-        /**
-         * Nariman: Assumption: heuristic based for now; we assume that the threshold is based on what the
-         * average number of mutual friends in friend j's list.
-         */
-        threshold /= mutualGroups.size();
-        double average = threshold;
-        threshold = threshold - threshold/mutualGroups.size();
-
-        for(int i = 0; i < mutualGroups.size(); i++){
-            if(mutualGroups.get(i) < threshold){
-                String msg = String.format("%s has a low number of mutual groups. SCORE: %d  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(mutualGroupID.get(i)).getName(), mutualGroups.get(i), average, threshold);
-                messaages.add(msg);
-            }
-        }
-        return messaages;
     }
 
     public ArrayList<String> calculateSingleFriend(Person root, Person friend){
@@ -484,6 +391,10 @@ public class RelationshipAnalysisService {
         String pGender = "";
         String rEducation = "";
         String pEducation = "";
+        String rPolitical = "";
+        String pPolitical = "";
+        String rWork = "";
+        String pWork = "";
 
         //Get values from attributes to put into variables
         for(HasRelationship h : rootAttributes){
@@ -496,6 +407,12 @@ public class RelationshipAnalysisService {
             }
             if(a.getLabel().equals("education")){
                 rEducation = a.getValue();
+            }
+            if(a.getLabel().equals("political view")){
+                rPolitical = a.getValue();
+            }
+            if(a.getLabel().equals("work")){
+                rWork = a.getValue();
             }
         }
 
@@ -510,38 +427,151 @@ public class RelationshipAnalysisService {
             if(a.getLabel().equals("education")){
                 pEducation = a.getValue();
             }
+            if(a.getLabel().equals("political view")){
+                pPolitical = a.getValue();
+            }
+            if(a.getLabel().equals("work")){
+                pWork = a.getValue();
+            }
         }
 
 
         //Call calculation functions
         double socialdistance = 0.0;
-        double politicalAffiliationDistance;
+        double politicalAffiliationDistance = calculatePoliticalDistance(rPolitical,pPolitical);
         double ethnicDistance;
         double gender = calculateGenderRatio(rGender, pGender);
         double educationLevelDistance = calculateEducationDistance(rEducation, pEducation);
-        double occupationDistance;
+        double occupationDistance = calculateOccuptionDistance(rWork, pWork);
         double ageParity = calculateAgeParity(rAge, pAge);
-        socialdistance = ageParity + gender + educationLevelDistance;
-
-        System.out.printf("\nRoot: %s - %.2f", rEducation, educationToDouble(rEducation));
-        System.out.printf("\nPerson: %s - %.2f", pEducation, educationToDouble(pEducation));
-        System.out.printf("\nDistance: %.2f", educationLevelDistance);
-        System.out.printf("\nSocial Distance: %.2f", socialdistance);
+        socialdistance = ageParity + gender + educationLevelDistance + politicalAffiliationDistance + occupationDistance;
 
         return socialdistance;
 
     }
 
-    public double calculateEducationDistance(String r, String p){
-        double rValue = educationToDouble(r);
-        double pValue = educationToDouble(p);
+    public double calculateOccuptionDistance(String r, String p){
+        double rWork = workToDouble(r);
+        double pWork = workToDouble(p);
+        double ratio = 0.0;
+
+        if(rWork > pWork){
+            ratio = rWork - pWork;
+        }else{
+            ratio = pWork - rWork;
+        }
+
+        ratio = 3.0 - ratio;
+        ratio = ratio / 3.0;
+
+        return 1.0 - ratio;
+    }
+
+    public double workToDouble(String e){
+        if(e.equalsIgnoreCase("Unemployed")
+                || e.equalsIgnoreCase("Charity and Voluntary")
+                || e.equalsIgnoreCase("Leisure, Sport and Tourism")
+                || e.equalsIgnoreCase("Retail")
+                || e.equalsIgnoreCase("Sales")
+                || e.equalsIgnoreCase("Transport and Logistics")){
+            return 1.0;
+        }
+
+        if(e.equalsIgnoreCase("Environment and Agriculture")
+                || e.equalsIgnoreCase("Hospitality")
+                || e.equalsIgnoreCase("Media and Internet")
+                || e.equalsIgnoreCase("Law Enforcement and Security")
+                || e.equalsIgnoreCase("Creative Arts And Design")
+                || e.equalsIgnoreCase("Information Technology")
+                || e.equalsIgnoreCase("Property and Security")
+                || e.equalsIgnoreCase("Recruitment and HR")
+                || e.equalsIgnoreCase("Social Care")
+                || e.equalsIgnoreCase("Public Services and Admin")){
+            return 2.0;
+        }
+
+
+        if(e.equalsIgnoreCase("Law")
+                || e.equalsIgnoreCase("Energy and Utilities")
+                || e.equalsIgnoreCase("Accountancy, Banking and Finance")
+                || e.equalsIgnoreCase("Marketing, Advertising and PR")
+                || e.equalsIgnoreCase("Business, Consulting and Management")){
+            return 3.0;
+        }
+
+        if(e.equalsIgnoreCase("Science and Pharmaceuticals")
+                || e.equalsIgnoreCase("Teaching and Education")
+                || e.equalsIgnoreCase("Engineering and Manufacturing")
+                || e.equalsIgnoreCase("Healthcare")
+                || e.equalsIgnoreCase("Business, Consulting and Management")){
+            return 4.0;
+        }
+
+        return 1.0;
+    }
+
+    public double calculatePoliticalDistance(String r, String p){
+        double rValue = politicalToDouble(r);
+        double pValue = politicalToDouble(p);
+
+        double ratio = 0.0;
 
         //Gets ratio from smaller divided by larger value;
         if(rValue > pValue){
-            return 1.0 - (pValue / rValue);
+            ratio = rValue - pValue;
         }else{
-            return 1.0 - (rValue / pValue);
+            ratio = pValue - rValue;
         }
+
+        ratio = 8.0 - ratio;
+        ratio /= 8.0;
+        return 1 - ratio;
+    }
+
+    public double politicalToDouble(String e){
+        if(e.equalsIgnoreCase("Extreme right")){
+            return 1.0;
+        }
+        if(e.equalsIgnoreCase("Far right")){
+            return 2.0;
+        }
+        if(e.equalsIgnoreCase("Right")){
+            return 3.0;
+        }
+        if(e.equalsIgnoreCase("Center right")){
+            return 4.0;
+        }
+        if(e.equalsIgnoreCase("Center")){
+            return 5.0;
+        }
+        if(e.equalsIgnoreCase("Center Left")){
+            return 6.0;
+        }
+        if(e.equalsIgnoreCase("Left")){
+            return 7.0;
+        }if(e.equalsIgnoreCase("Far Left")){
+            return 8.0;
+        }if(e.equalsIgnoreCase("Extreme Left")){
+            return 9.0;
+        }
+        return 1.0;
+    }
+
+    public double calculateEducationDistance(String r, String p){
+        double rValue = educationToDouble(r);
+        double pValue = educationToDouble(p);
+        double ratio = 0.0;
+
+        //Gets ratio from 6 - difference +
+        if(rValue > pValue){
+            ratio = rValue - pValue;
+        }else{
+            ratio = pValue - rValue;
+        }
+
+        ratio = 5.0 - ratio;
+        ratio /= 5.0;
+        return 1.0 - ratio;
 
     }
 
@@ -579,12 +609,19 @@ public class RelationshipAnalysisService {
     }
 
     public double calculateAgeParity(int r, int p){
-        //Formula for age parity is smaller age / higher age;
+        double ratio = 0.0;
+        //Formula for age parity is highest age - difference / higher age
         if(r > p){
-            return 1 - ((double) p / (double) r);
+            ratio = (double) r - (double) p;
+            ratio = (double) r - ratio;
+            ratio = ratio / (double) r;
         }else{
-            return 1 - ((double) r / (double) p);
+            ratio = (double) p - (double) r;
+            ratio = (double) p - ratio;
+            ratio = ratio / (double) p;
         }
+
+        return 1.0 - ratio;
 
     }
 
