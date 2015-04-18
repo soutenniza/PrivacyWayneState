@@ -477,8 +477,8 @@ public class RelationshipAnalysisService {
         Collection<HasRelationship> personAttributes = service.getPerson(p.getNodeID()).getAttributeRelationships();
         int rAge = 0;
         int pAge = 0;
-        String rGender;
-        String pGender;
+        String rGender = "";
+        String pGender = "";
 
 
         for(HasRelationship h : rootAttributes){
@@ -506,15 +506,15 @@ public class RelationshipAnalysisService {
         double socialdistance = 0.0;
         double politicalAffiliationDistance;
         double ethnicDistance;
-        double gender;
+        double gender = calculateGenderRatio(rGender, pGender);
         double educationLevelDistance;
         double occupationDistance;
         double ageParity = calculateAgeParity(rAge, pAge);
-        socialdistance = ageParity;
+        socialdistance = ageParity + gender;
 
-        System.out.printf("\nRoot AGE: %d", rAge);
-        System.out.printf("\nPerson AGE: %d", pAge);
-        System.out.printf("\nAge Parity: %.2f", ageParity);
+        System.out.printf("\nRoot AGE: %s", rGender);
+        System.out.printf("\nPerson AGE: %s", pGender);
+        System.out.printf("\nAge Parity: %.2f", gender);
 
         return socialdistance;
 
@@ -523,8 +523,9 @@ public class RelationshipAnalysisService {
     public double calculateGenderRatio(String r, String p){
         if(r.equals(p)){
             return 1.0;
+        }else {
+            return 0.0;
         }
-        return 0.0;
     }
 
     public double calculateAgeParity(int r, int p){
