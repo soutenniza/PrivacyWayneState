@@ -72,9 +72,8 @@ public class RelationshipAnalysisService {
         double interactionsRS = IT/maxIT;
 
         double socialDistance = socialDistance(service.getPerson(r.getNodeID()), service.getPerson(p.getNodeID()));
-
         //Social distance is opposite of others, so it needs to be reversed
-        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + (3 - socialDistance)/3;
+        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + (5.0 - socialDistance)/5.0;
 
         return RS;
     }
@@ -102,6 +101,8 @@ public class RelationshipAnalysisService {
         double commentRatio = (double) rootComments.size() / (double) totalComments;
         double ratio = commentRatio + getLikes(p,r);
         if(ratio > 9999)
+            return 0.0;
+        if(Double.isNaN(ratio))
             return 0.0;
         return ratio;
     }
@@ -170,6 +171,7 @@ public class RelationshipAnalysisService {
         ArrayList<Integer> commonGroups = new ArrayList<>();
         ArrayList<Double> relationshipStrength = new ArrayList<>();
         ArrayList<Double> interactions = new ArrayList<>();
+        ArrayList<Double> socialDistances = new ArrayList<>();
         ArrayList<Long> privacyScoresID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
         for(Person p : friends){
@@ -179,12 +181,14 @@ public class RelationshipAnalysisService {
             int mg = groupservice.mutualgroups(root, service.getPerson(pID));
             double rs = calculateRelationshipStrength(root, service.getPerson(pID));
             double it = interactions(root, service.getPerson(pID));
+            double sd = socialDistance(root, service.getPerson(pID));
             mutualfriends.add(mt);
             commonGroups.add(mg);
             privacyScores.add(ps);
             relationshipStrength.add(rs);
             interactions.add(it);
             privacyScoresID.add(pID);
+            socialDistances.add(sd);
         }
 
         double thresholdPS = 0;
@@ -192,6 +196,7 @@ public class RelationshipAnalysisService {
         double thresholdMG = 0;
         double thresholdRS = 0;
         double thresholdIT = 0;
+        double thresholdSD = 0;
 
         for(int i = 0; i < privacyScores.size(); i++){
             thresholdPS += privacyScores.get(i);
@@ -199,6 +204,7 @@ public class RelationshipAnalysisService {
             thresholdMG += commonGroups.get(i);
             thresholdRS += relationshipStrength.get(i);
             thresholdIT += interactions.get(i);
+            thresholdSD += socialDistances.get(i);
         }
 
         double avgPS = thresholdPS / privacyScores.size();
@@ -206,15 +212,24 @@ public class RelationshipAnalysisService {
         double avgMG = thresholdMG / privacyScores.size();
         double avgRS = thresholdRS / privacyScores.size();
         double avgIT = thresholdIT / privacyScores.size();
+        double avgSD = thresholdSD / privacyScores.size();
         thresholdPS = avgPS + avgPS/privacyScores.size();
         thresholdMT = avgMT - avgMT/privacyScores.size();
         thresholdMG = avgMG - avgMG/privacyScores.size();
         thresholdRS = avgRS - avgRS/privacyScores.size();
         thresholdIT = avgIT - avgIT/privacyScores.size();
+        thresholdSD = avgSD + avgSD/privacyScores.size();
+
+        for(int i = 0; i < socialDistances.size(); i++){
+            if(socialDistances.get(i) > thresholdSD){
+                String msg = String.format("%s has a high social distance. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), socialDistances.get(i), avgSD, thresholdSD);
+                messaages.add(msg);
+            }
+        }
 
         for(int i = 0; i < relationshipStrength.size(); i++){
             if(relationshipStrength.get(i) < thresholdRS){
-                String msg = String.format("%s has a low number of relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), relationshipStrength.get(i), avgRS, thresholdRS);
+                String msg = String.format("%s has a low relationship strength. SCORE: %.2f  AVERAGE: %.2f THRESHOLD: %.2f", service.getPerson(privacyScoresID.get(i)).getName(), relationshipStrength.get(i), avgRS, thresholdRS);
                 messaages.add(msg);
             }
         }
@@ -252,11 +267,7 @@ public class RelationshipAnalysisService {
         attributes.addAll(root.getAttributeRelationships());
         int total = service.getAllPersons().size();
         for(HasRelationship a : attributes){
-            System.out.println(profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
-            //service.addToAttData(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure", profileservice.getAttributeExposure(service.getPerson(root.getNodeID()), a, total));
-            //ArrayList<Double> data = service.getAttDataWithName(root.getNodeID(), a.getEnd().getNodeID(), "attribute_exposure");
-            //System.out.println(a.getEnd().getLabel());
-            //System.out.println(data.get(data.size() - 1));
+            profileservice.getAttributeExposure(root, service.getHasRelationship(a.getId()), total);
         }
 
         return messaages;
@@ -382,6 +393,8 @@ public class RelationshipAnalysisService {
         String pEducation = "";
         String rPolitical = "";
         String pPolitical = "";
+        String rWork = "";
+        String pWork = "";
 
         //Get values from attributes to put into variables
         for(HasRelationship h : rootAttributes){
@@ -397,6 +410,9 @@ public class RelationshipAnalysisService {
             }
             if(a.getLabel().equals("political view")){
                 rPolitical = a.getValue();
+            }
+            if(a.getLabel().equals("work")){
+                rWork = a.getValue();
             }
         }
 
@@ -414,6 +430,9 @@ public class RelationshipAnalysisService {
             if(a.getLabel().equals("political view")){
                 pPolitical = a.getValue();
             }
+            if(a.getLabel().equals("work")){
+                pWork = a.getValue();
+            }
         }
 
 
@@ -423,29 +442,90 @@ public class RelationshipAnalysisService {
         double ethnicDistance;
         double gender = calculateGenderRatio(rGender, pGender);
         double educationLevelDistance = calculateEducationDistance(rEducation, pEducation);
-        double occupationDistance;
+        double occupationDistance = calculateOccuptionDistance(rWork, pWork);
         double ageParity = calculateAgeParity(rAge, pAge);
-        socialdistance = ageParity + gender + educationLevelDistance + politicalAffiliationDistance;
-
-        System.out.printf("\nRoot: %s - %.2f", rPolitical, politicalToDouble(rPolitical));
-        System.out.printf("\nPerson: %s - %.2f", pPolitical, politicalToDouble(pPolitical));
-        System.out.printf("\nDistance: %.2f", politicalAffiliationDistance);
-        System.out.printf("\nSocial Distance: %.2f", socialdistance);
+        socialdistance = ageParity + gender + educationLevelDistance + politicalAffiliationDistance + occupationDistance;
 
         return socialdistance;
 
+    }
+
+    public double calculateOccuptionDistance(String r, String p){
+        double rWork = workToDouble(r);
+        double pWork = workToDouble(p);
+        double ratio = 0.0;
+
+        if(rWork > pWork){
+            ratio = rWork - pWork;
+        }else{
+            ratio = pWork - rWork;
+        }
+
+        ratio = 3.0 - ratio;
+        ratio = ratio / 3.0;
+
+        return 1.0 - ratio;
+    }
+
+    public double workToDouble(String e){
+        if(e.equalsIgnoreCase("Unemployed")
+                || e.equalsIgnoreCase("Charity and Voluntary")
+                || e.equalsIgnoreCase("Leisure, Sport and Tourism")
+                || e.equalsIgnoreCase("Retail")
+                || e.equalsIgnoreCase("Sales")
+                || e.equalsIgnoreCase("Transport and Logistics")){
+            return 1.0;
+        }
+
+        if(e.equalsIgnoreCase("Environment and Agriculture")
+                || e.equalsIgnoreCase("Hospitality")
+                || e.equalsIgnoreCase("Media and Internet")
+                || e.equalsIgnoreCase("Law Enforcement and Security")
+                || e.equalsIgnoreCase("Creative Arts And Design")
+                || e.equalsIgnoreCase("Information Technology")
+                || e.equalsIgnoreCase("Property and Security")
+                || e.equalsIgnoreCase("Recruitment and HR")
+                || e.equalsIgnoreCase("Social Care")
+                || e.equalsIgnoreCase("Public Services and Admin")){
+            return 2.0;
+        }
+
+
+        if(e.equalsIgnoreCase("Law")
+                || e.equalsIgnoreCase("Energy and Utilities")
+                || e.equalsIgnoreCase("Accountancy, Banking and Finance")
+                || e.equalsIgnoreCase("Marketing, Advertising and PR")
+                || e.equalsIgnoreCase("Business, Consulting and Management")){
+            return 3.0;
+        }
+
+        if(e.equalsIgnoreCase("Science and Pharmaceuticals")
+                || e.equalsIgnoreCase("Teaching and Education")
+                || e.equalsIgnoreCase("Engineering and Manufacturing")
+                || e.equalsIgnoreCase("Healthcare")
+                || e.equalsIgnoreCase("Business, Consulting and Management")){
+            return 4.0;
+        }
+
+        return 1.0;
     }
 
     public double calculatePoliticalDistance(String r, String p){
         double rValue = politicalToDouble(r);
         double pValue = politicalToDouble(p);
 
+        double ratio = 0.0;
+
         //Gets ratio from smaller divided by larger value;
         if(rValue > pValue){
-            return 1.0 - (pValue / rValue);
+            ratio = rValue - pValue;
         }else{
-            return 1.0 - (rValue / pValue);
+            ratio = pValue - rValue;
         }
+
+        ratio = 8.0 - ratio;
+        ratio /= 8.0;
+        return 1 - ratio;
     }
 
     public double politicalToDouble(String e){
@@ -480,13 +560,18 @@ public class RelationshipAnalysisService {
     public double calculateEducationDistance(String r, String p){
         double rValue = educationToDouble(r);
         double pValue = educationToDouble(p);
+        double ratio = 0.0;
 
-        //Gets ratio from smaller divided by larger value;
+        //Gets ratio from 6 - difference +
         if(rValue > pValue){
-            return 1.0 - (pValue / rValue);
+            ratio = rValue - pValue;
         }else{
-            return 1.0 - (rValue / pValue);
+            ratio = pValue - rValue;
         }
+
+        ratio = 5.0 - ratio;
+        ratio /= 5.0;
+        return 1.0 - ratio;
 
     }
 
@@ -524,12 +609,19 @@ public class RelationshipAnalysisService {
     }
 
     public double calculateAgeParity(int r, int p){
-        //Formula for age parity is smaller age / higher age;
+        double ratio = 0.0;
+        //Formula for age parity is highest age - difference / higher age
         if(r > p){
-            return 1 - ((double) p / (double) r);
+            ratio = (double) r - (double) p;
+            ratio = (double) r - ratio;
+            ratio = ratio / (double) r;
         }else{
-            return 1 - ((double) r / (double) p);
+            ratio = (double) p - (double) r;
+            ratio = (double) p - ratio;
+            ratio = ratio / (double) p;
         }
+
+        return 1.0 - ratio;
 
     }
 
