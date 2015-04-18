@@ -75,8 +75,9 @@ public class RelationshipAnalysisService {
         maxIT /= persons.size();
         double interactionsRS = IT/maxIT;
 
+        double socialDistance = socialDistance(service.getPerson(r.getNodeID()), service.getPerson(p.getNodeID()));
 
-        RS = mutualFriendsRS + commonGroupsRS + interactionsRS;
+        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + socialDistance;
         return RS;
     }
 
@@ -471,19 +472,72 @@ public class RelationshipAnalysisService {
      * @param p
      * @return
      */
-    public double SocialDistance(Person r, Person p){
+    public double socialDistance(Person r, Person p){
+        Collection<HasRelationship> rootAttributes = service.getPerson(r.getNodeID()).getAttributeRelationships();
+        Collection<HasRelationship> personAttributes = service.getPerson(p.getNodeID()).getAttributeRelationships();
+        int rAge = 0;
+        int pAge = 0;
+        String rGender;
+        String pGender;
 
-        //TODO: Nariman: Add a more concrete definition
+
+        for(HasRelationship h : rootAttributes){
+            Attribute a = service.getAttributeWithId(h.getEnd().getNodeID());
+            if(a.getLabel().equals("age")){
+                rAge = Integer.valueOf(a.getValue());
+            }
+            if(a.getLabel().equals("gender")){
+                rGender = a.getValue();
+            }
+        }
+
+        for(HasRelationship h : personAttributes){
+            Attribute a = service.getAttributeWithId(h.getEnd().getNodeID());
+            if(a.getLabel().equals("age")) {
+                pAge = Integer.valueOf(a.getValue());
+            }
+            if(a.getLabel().equals("gender")){
+                pGender = a.getValue();
+            }
+        }
+
+
+
         double socialdistance = 0.0;
         double politicalAffiliationDistance;
         double ethnicDistance;
-        boolean samegender;
+        double gender;
         double educationLevelDistance;
         double occupationDistance;
-        int ageParity;
+        double ageParity = calculateAgeParity(rAge, pAge);
+        socialdistance = ageParity;
+
+        System.out.printf("\nRoot AGE: %d", rAge);
+        System.out.printf("\nPerson AGE: %d", pAge);
+        System.out.printf("\nAge Parity: %.2f", ageParity);
 
         return socialdistance;
 
+    }
+
+    public double calculateGenderRatio(String r, String p){
+        if(r.equals(p)){
+            return 1.0;
+        }
+        return 0.0;
+    }
+
+    public double calculateAgeParity(int r, int p){
+        int ageDifference = r - p;
+        if(ageDifference < 0){
+            ageDifference *= -1;
+        }
+
+        double ratio = (double) r - (double) ageDifference;
+        ratio = ratio / (double) r;
+
+
+        return ratio;
     }
 
     public double Duration(Person r, Person p){

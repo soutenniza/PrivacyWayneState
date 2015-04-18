@@ -199,7 +199,7 @@ public class ContentGenService {
     }
 
     public void addLikes(Long pid){
-        int numLikes = (getVal(3)+1);
+        int numLikes = (getVal(10)+1);
         for(int x = 0; x < numLikes; x++){
             addLike(pid);
         }
@@ -207,7 +207,7 @@ public class ContentGenService {
     }
 
     public void addReplies(Long pid){
-        int numReplies = (getVal(3)+1);
+        int numReplies = (getVal(6)+1);
         for(int x = 0; x < numReplies; x++){
             addReply(pid);
         }
