@@ -1,15 +1,11 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.*;
-import com.springapp.mvc.service.PersonService;
 import netkit.classifiers.relational.ClassDistribRelNeighbor;
-import org.apache.xalan.xsltc.compiler.Template;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.transform.Templates;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -77,7 +73,9 @@ public class RelationshipAnalysisService {
 
         double socialDistance = socialDistance(service.getPerson(r.getNodeID()), service.getPerson(p.getNodeID()));
 
-        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + socialDistance;
+        //Social distance is opposite of others, so it needs to be reversed
+        RS = mutualFriendsRS + commonGroupsRS + interactionsRS + (3 - socialDistance)/3;
+
         return RS;
     }
 
@@ -444,6 +442,7 @@ public class RelationshipAnalysisService {
     public int mutualfriends(Person r, Person p){
         Collection<Person> rootFriends = r.getFriends();
         ArrayList<Long> rootLong = new ArrayList<>();
+        //Get root's friends
         for(Person person : rootFriends){
             if(person.getNodeID() != r.getNodeID()){
                 rootLong.add(person.getNodeID());
@@ -451,12 +450,15 @@ public class RelationshipAnalysisService {
         }
         Collection<Person> pFriends = p.getFriends();
         ArrayList<Long> pLong = new ArrayList<>();
+        //Get Person's Friends
         for(Person person : pFriends){
             if(person.getNodeID() != p.getNodeID()){
                 pLong.add(person.getNodeID());
             }
 
         }
+
+        //Use intersection to find same people
         rootLong.retainAll(pLong);
 
         return rootLong.size();
@@ -473,14 +475,17 @@ public class RelationshipAnalysisService {
      * @return
      */
     public double socialDistance(Person r, Person p){
+        //Getting all the values and variables
         Collection<HasRelationship> rootAttributes = service.getPerson(r.getNodeID()).getAttributeRelationships();
         Collection<HasRelationship> personAttributes = service.getPerson(p.getNodeID()).getAttributeRelationships();
         int rAge = 0;
         int pAge = 0;
         String rGender = "";
         String pGender = "";
+        String rEducation = "";
+        String pEducation = "";
 
-
+        //Get values from attributes to put into variables
         for(HasRelationship h : rootAttributes){
             Attribute a = service.getAttributeWithId(h.getEnd().getNodeID());
             if(a.getLabel().equals("age")){
@@ -488,6 +493,9 @@ public class RelationshipAnalysisService {
             }
             if(a.getLabel().equals("gender")){
                 rGender = a.getValue();
+            }
+            if(a.getLabel().equals("education")){
+                rEducation = a.getValue();
             }
         }
 
@@ -499,46 +507,85 @@ public class RelationshipAnalysisService {
             if(a.getLabel().equals("gender")){
                 pGender = a.getValue();
             }
+            if(a.getLabel().equals("education")){
+                pEducation = a.getValue();
+            }
         }
 
 
-
+        //Call calculation functions
         double socialdistance = 0.0;
         double politicalAffiliationDistance;
         double ethnicDistance;
         double gender = calculateGenderRatio(rGender, pGender);
-        double educationLevelDistance;
+        double educationLevelDistance = calculateEducationDistance(rEducation, pEducation);
         double occupationDistance;
         double ageParity = calculateAgeParity(rAge, pAge);
-        socialdistance = ageParity + gender;
+        socialdistance = ageParity + gender + educationLevelDistance;
 
-        System.out.printf("\nRoot AGE: %s", rGender);
-        System.out.printf("\nPerson AGE: %s", pGender);
-        System.out.printf("\nAge Parity: %.2f", gender);
+        System.out.printf("\nRoot: %s - %.2f", rEducation, educationToDouble(rEducation));
+        System.out.printf("\nPerson: %s - %.2f", pEducation, educationToDouble(pEducation));
+        System.out.printf("\nDistance: %.2f", educationLevelDistance);
+        System.out.printf("\nSocial Distance: %.2f", socialdistance);
 
         return socialdistance;
 
     }
 
-    public double calculateGenderRatio(String r, String p){
-        if(r.equals(p)){
+    public double calculateEducationDistance(String r, String p){
+        double rValue = educationToDouble(r);
+        double pValue = educationToDouble(p);
+
+        //Gets ratio from smaller divided by larger value;
+        if(rValue > pValue){
+            return 1.0 - (pValue / rValue);
+        }else{
+            return 1.0 - (rValue / pValue);
+        }
+
+    }
+
+    public double educationToDouble(String e){
+        //This changes string to double so calculations can be done.
+        if(e.equals("None")){
             return 1.0;
-        }else {
+        }
+        if(e.equals("GED")){
+            return 2.0;
+        }
+        if(e.equals("Associates")){
+            return 3.0;
+        }
+        if(e.equals("4-year Degree")){
+            return 4.0;
+        }
+        if(e.equals("Masters")){
+            return 5.0;
+        }
+        if(e.equals("PHD")){
+            return 6.0;
+        }
+        return 1.0;
+
+    }
+
+    public double calculateGenderRatio(String r, String p){
+        //If gender is same then ratio is 1.0
+        if(r.equals(p)){
             return 0.0;
+        }else {
+            return 1.0;
         }
     }
 
     public double calculateAgeParity(int r, int p){
-        int ageDifference = r - p;
-        if(ageDifference < 0){
-            ageDifference *= -1;
+        //Formula for age parity is smaller age / higher age;
+        if(r > p){
+            return 1 - ((double) p / (double) r);
+        }else{
+            return 1 - ((double) r / (double) p);
         }
 
-        double ratio = (double) r - (double) ageDifference;
-        ratio = ratio / (double) r;
-
-
-        return ratio;
     }
 
     public double Duration(Person r, Person p){

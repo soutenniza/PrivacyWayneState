@@ -192,6 +192,9 @@ public class ReportingController {
                             "var chart" + id + " = c3.generate({\n" +
                             "bindto: '#chart" + id + "'," +
                             "    data: {\n" +
+                            "        selection: {" +
+                            "           enabled: true" +
+                            "        }," +
                             "        columns: [\n" +
                             "            ['Outgoing', " + Double.toString(outgoing) + "],\n" +
                             "            ['Incoming', " + Double.toString(1.0 - outgoing) + "],\n" +
@@ -202,10 +205,14 @@ public class ReportingController {
                             "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
                             "    },\n" +
                             "    donut: {\n" +
-                            "        title: \"" + person.getName()+ "\"\n" +
+                            "        title: \"" + person.getName() + "\"\n" +
                             "    }\n" +
-                            "});" +
-                            "</script>" + friendStr;
+                            "});\n" +
+                            "var label = d3.select('#chart" + id + "').select('text.c3-chart-arcs-title');\n" +
+                            "label.html('');\n" +
+                            "label.insert('tspan').text('" + person.getName() + "').attr('dy',0).attr('x', 0).attr('class','big-font');\n" +
+                            "label.insert('tspan').text('" + friendStr + "').attr('dy',20).attr('x', 0).attr('class','small-font');\n" +
+                            "</script>";
                 }
             }
         }

@@ -11,6 +11,15 @@
  * Based on Bootstrap
 */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+.big-font {
+    font-size:15px;
+}
+
+.small-font {
+    font-size: 10px;
+}
+
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
