@@ -191,7 +191,12 @@ public class ContentGenService {
         int count = 0;
         for(Comment c : comments){
             if(count == rando){
-                service.createReply(service.getPerson(pid).getNodeID(), service.getComment(c.getNodeID()).getNodeID(), getRep());
+                if(getVal(4) != 0){
+                    service.createReply(service.getPerson(pid).getNodeID(), service.getComment(c.getNodeID()).getNodeID(), getRep());
+                }
+                else{
+                    service.createReply(service.getPerson(pid).getNodeID(), service.getComment(c.getNodeID()).getNodeID(), getAttReply(c.getOwnerID()));
+                }
                 break;
             }
             count++;
@@ -211,5 +216,30 @@ public class ContentGenService {
         for(int x = 0; x < numReplies; x++){
             addReply(pid);
         }
+    }
+
+    public String getAttReply(Long oid){
+        String msg = "";
+        Collection<Attribute> atts = service.getPerson(oid).getAttributes();
+        int rando = getVal(atts.size());
+        int count = 0;
+        String attStrL = "";
+        String attStrV = "";
+        for(Attribute a : atts){
+            if(count == rando){
+                attStrL = service.getAttributeWithId(a.getNodeID()).getLabel();
+                attStrV = service.getAttributeWithId(a.getNodeID()).getValue();
+                break;
+            }
+            count++;
+        }
+        if(getVal(1) != 0){
+            msg = "Hey, I was just thinking about you. I want to talk about your " + attStrL +" and other things.";
+        }
+        else{
+            msg = "Hey, I was just thinking deeply about you. Do you want to talk about the significance of " + attStrV + " and what it means to you as an individual in society?";
+        }
+
+        return msg;
     }
 }
