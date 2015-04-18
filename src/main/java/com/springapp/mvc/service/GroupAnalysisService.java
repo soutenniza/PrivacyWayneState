@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.Group;
+import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
 //import netkit.classifiers.relational.ClassDistribRelNeighbor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -267,33 +268,43 @@ public class GroupAnalysisService {
      * @return
      */
     public int detectHighSchoolFriendsPrivacyOutliers(Person p, Person s){
-        ArrayList<Integer> pScore = service.getPerson(p.getNodeID()).getPrivacyScoreRecord();
-        ArrayList<Integer> sScore = service.getPerson(s.getNodeID()).getPrivacyScoreRecord();
+        int threshold = 6;
+        int counter = 0;
+        int counter2 = 0;
 
-        /*System.out.println("detectCollegeFriendsPricvacyOutliers");
-        System.out.println(service.getPerson(p.getNodeID()).getName());
-        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());
-        System.out.println(service.getPerson(s.getNodeID()).getName());
-        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());*/
+        Long ppid = p.getNodeID();
+        Long spid = s.getNodeID();
+        Collection<HasRelationship> pAtts = service.getPerson(ppid).getAttributeRelationships();
+        Collection<HasRelationship> sAtts = service.getPerson(spid).getAttributeRelationships();
 
-        int pSum = 0;
-        int sSum = 0;
-        float pAvg;
-        float sAvg;
-
-        for (Integer score :pScore){
-            pSum += score;
+        for (HasRelationship a : pAtts) {
+            int total = 0;
+            a = service.getHasRelationship(a.getId());
+            /*System.out.println(service.getAttributeWithId(a.getEnd().getNodeID()).getLabel() + " " +
+                    service.getAttributeWithId(a.getEnd().getNodeID()).getValue());
+            System.out.println("pv" + a.getPv() + "sv" +a.getSv() + "vv" + a.getVv());*/
+            total = ((a.getPv())  + (a.getSv()) + (a.getVv()));
+            if (total >= 6){
+                counter = counter + 1;
+            }
         }
-        pAvg = pSum/pScore.size();
 
-        for (Integer score :sScore){
-            sSum += score;
+        for (HasRelationship b : sAtts) {
+            int total2 = 0;
+            b = service.getHasRelationship(b.getId());
+
+            /*System.out.println(service.getAttributeWithId(b.getEnd().getNodeID()).getLabel() + " " +
+                    service.getAttributeWithId(b.getEnd().getNodeID()).getValue());
+            System.out.println("pv" + b.getPv() + "sv" + b.getSv() + "vv" + b.getVv());*/
+            total2 = ((b.getPv()) + (b.getSv()) + (b.getVv()));
+            if (total2 >=6){
+                counter2 = counter2 + 1;
+            }
         }
-        sAvg = sSum/sScore.size();
-        if (pAvg > sAvg ){
-            System.out.println( service.getPerson(s.getNodeID()).getName() + " is an outlier");
+
+        if (counter < counter2){
+            System.out.println(service.getPerson(spid).getName() + " is an outlier.");
         }
-        /*System.out.println(pAvg +"= p" + "   " + sAvg +"= s");*/
 
         return 0;
     }
@@ -304,33 +315,43 @@ public class GroupAnalysisService {
     }
 
     public int detectCollegeFriendsPrivacyOutliers(Person p, Person s){
-        ArrayList<Integer> pScore = service.getPerson(p.getNodeID()).getPrivacyScoreRecord();
-        ArrayList<Integer> sScore = service.getPerson(s.getNodeID()).getPrivacyScoreRecord();
+        int threshold = 6;
+        int counter = 0;
+        int counter2 = 0;
 
-        /*System.out.println("detectCollegeFriendsPricvacyOutliers");
-        System.out.println(service.getPerson(p.getNodeID()).getName());
-        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());
-        System.out.println(service.getPerson(s.getNodeID()).getName());
-        System.out.println(service.getPerson(p.getNodeID()).getPrivacyScoreRecord());*/
+        Long ppid = p.getNodeID();
+        Long spid = s.getNodeID();
+        Collection<HasRelationship> pAtts = service.getPerson(ppid).getAttributeRelationships();
+        Collection<HasRelationship> sAtts = service.getPerson(spid).getAttributeRelationships();
 
-        int pSum = 0;
-        int sSum = 0;
-        float pAvg;
-        float sAvg;
-
-        for (Integer score :pScore){
-            pSum += score;
+        for (HasRelationship a : pAtts) {
+            int total = 0;
+            a = service.getHasRelationship(a.getId());
+            /*System.out.println(service.getAttributeWithId(a.getEnd().getNodeID()).getLabel() + " " +
+                    service.getAttributeWithId(a.getEnd().getNodeID()).getValue());
+            System.out.println("pv" + a.getPv() + "sv" +a.getSv() + "vv" + a.getVv());*/
+            total = ((a.getPv())  + (a.getSv()) + (a.getVv()));
+            if (total >= 6){
+                counter = counter + 1;
+            }
         }
-        pAvg = pSum/pScore.size();
 
-        for (Integer score :sScore){
-            sSum += score;
+        for (HasRelationship b : sAtts) {
+            int total2 = 0;
+            b = service.getHasRelationship(b.getId());
+
+            /*System.out.println(service.getAttributeWithId(b.getEnd().getNodeID()).getLabel() + " " +
+                    service.getAttributeWithId(b.getEnd().getNodeID()).getValue());
+            System.out.println("pv" + b.getPv() + "sv" + b.getSv() + "vv" + b.getVv());*/
+            total2 = ((b.getPv()) + (b.getSv()) + (b.getVv()));
+            if (total2 >=6){
+                counter2 = counter2 + 1;
+            }
         }
-        sAvg = sSum/sScore.size();
-        if (pAvg > sAvg ){
-            System.out.println( service.getPerson(s.getNodeID()).getName() + " is an outlier");
+
+        if (counter < counter2){
+            System.out.println(service.getPerson(spid).getName() + " is an outlier.");
         }
-        /*System.out.println(pAvg +"= p" + "   " + sAvg +"= s");*/
 
         return 0;
     }
