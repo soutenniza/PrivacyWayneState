@@ -129,6 +129,7 @@ public class ImportService {
                     Long p1 = service.getPersonByName(name);
                     if(p1 != null){
                         contentService.addComments(p1);
+                        contentService.addComments(p1);
                         System.out.println("Import: Comment added.");
                     }
                     else{
@@ -230,8 +231,9 @@ public class ImportService {
                 // add likes(s) and replies
                 Long p1 = service.getPersonByName(nameS);
                 if(p1 != null){
-                    contentService.addLikes(p1);
                     contentService.addReplies(p1);
+                    contentService.addLikes(p1);
+
                 }
                 else{
                     System.out.println("Import: [ERROR] Unable to identify name for likes/replies. p1 invalid.");
