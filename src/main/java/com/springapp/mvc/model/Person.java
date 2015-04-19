@@ -37,20 +37,14 @@ public class Person {
 //    Collection<LikesRelationship> likesRelationships;
 
     Collection<Comment> comments;
-
     Collection<Person> friends;
-
     Collection<Attribute> attributes;
-
     Collection<Group> groups;
-
     Collection<Comment> likes;
-
     Collection<Comment> tempCommentCollection;
-
     ArrayList<Integer> privacyScoreRecord;
-
     ArrayList<Double> networkVisibilityRecord;
+    String communicationCharts;
 
     public Person() {}
 
@@ -58,6 +52,7 @@ public class Person {
         this.name = name;
         privacyScoreRecord = new ArrayList<>();
         privacyScoreRecord.add(0);
+        communicationCharts = "";
     }
 
     public String getName(){
@@ -89,6 +84,8 @@ public class Person {
     public ArrayList<Double> getNetworkVisibilityRecord(){
         return networkVisibilityRecord;
     }
+    public void setCommunicationCharts(String html){ communicationCharts = html; }
+    public String getCommunicationCharts(){ return communicationCharts; }
     // ---------------------------------------------------------- //
 
     public FriendRelationship friends(Person friend){

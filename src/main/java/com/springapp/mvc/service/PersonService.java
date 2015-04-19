@@ -158,10 +158,22 @@ public class PersonService {
     // --------------------- record keeping ---------------------- //
     public void addToPrivacyScoreRecord(int val, Long pid){
         Person p = getPerson(pid);
-        System.out.println(val);
+        //System.out.println(val);
         p.addPrivacyScoreRecord(val);
         template.save(p);
     }
+
+    public void setCommunicationCharts(Long pid, String html){
+        Person p = getPerson(pid);
+        p.setCommunicationCharts(html);
+        template.save(p);
+    }
+
+    public String getCommunicationCharts(Long pid){
+        Person p = getPerson(pid);
+        return p.getCommunicationCharts();
+    }
+
     public ArrayList<Integer> getPrivacyScoreRecord(Long pid) {
         return getPerson(pid).getPrivacyScoreRecord();
     }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collection;
+
 /**
  * Created by Zachary on 3/16/2015.
  */
@@ -77,10 +79,20 @@ public class ImportController {
     public String allAnalysis(@RequestParam(value = "pass") String s, @RequestParam(value = "inputNum") String n, final RedirectAttributes redirectAttributes){
         if(s.equals("Erfan")){
             redirectAttributes.addFlashAttribute("pass", "Analysis for everyone done!");
-            for(Person p : service.getAllPersons()){
+            System.out.println("Starting analysis for all users.");
+            Collection<Person> persons = service.getAllPersons();
+            int numPeople = 0;
+            for(Person p : persons){
+                numPeople = numPeople + 1;
+            }
+            int counter = 1;
+            for(Person p : persons){
+                System.out.println("Running analysis for user " + Integer.toString(counter) + " of " + Integer.toString(numPeople)+".");
                 analysisService.setRoot(service.getPerson(p.getNodeID()));
                 analysisService.fullAnalysis();
+                counter = counter + 1;
             }
+            System.out.println("MEGAANALYSIS complete without critical error..");
         }
         else
         {
