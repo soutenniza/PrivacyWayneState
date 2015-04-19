@@ -33,23 +33,38 @@
                 <div class="jumbotron">
                     <h1>Welcome</h1>
                     <p>to PrivacyWayne</p>
-                    <div class="col-md-6">
-                        <img src="http://i.imgur.com/wZXMf4l.png"
-                             class="img-responsive">
-                        <a href="/createuser" class="btn btn-lg btn-primary">Admin</a>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="http://i.imgur.com/NLdW3dz.png"
-                             class="img-responsive">
-                        <a href="/snviewlogin" class="btn btn-lg btn-primary">User</a>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="http://i.imgur.com/33owvM4.png"
-                             class="img-responsive">
-                        <a href="/help" class="btn btn-lg btn-primary">Help</a>
-                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <table width="100%" border="0">
+                <tr>
+                    <td><center><img src="http://i.imgur.com/wZXMf4l.png"
+                                     class="img-responsive"></center></td>
+                    <td>     </td>
+                    <td><center><img src="http://i.imgur.com/NLdW3dz.png"
+                                     class="img-responsive"></center></td>
+                    <td>     </td>
+                    <td><center><img src="http://i.imgur.com/33owvM4.png"
+                                     class="img-responsive"></center></td>
+                </tr>
+                <tr>
+                    <td><center><a href="/createuser" class="btn btn-lg btn-primary">Admin</a></center></td>
+                    <td>     </td>
+                    <td><center><a href="/snviewlogin" class="btn btn-lg btn-primary">User</a></center></td>
+                    <td>     </td>
+                    <td><center><a href="/help" class="btn btn-lg btn-primary">Help</a></center></td>
+                </tr>
+                <tr>
+                    <td><center><p>Click the ADMIN button for a more high-level experience.</p></center></td>
+                    <td>     </td>
+                    <td><center><p>Click the USER button for a more user-perspective experience.</p></center></td>
+                    <td>     </td>
+                    <td><center><p>Click the HELP button if you have no idea what is going on or what any of this means.</p></center></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
