@@ -171,7 +171,7 @@ public class GroupAnalysisService {
         }
 
         for (Person highschoolFriend : highschoolFriends){
-            detectHighSchoolFriendsPrivacyOutliers(root, highschoolFriend);
+            messages.add(detectHighSchoolFriendsPrivacyOutliers(root, highschoolFriend));
         }
 
         return messages;
@@ -235,7 +235,7 @@ public class GroupAnalysisService {
         }
 
         for (Person collegeFriend : collegeFriends){
-            detectCollegeFriendsPrivacyOutliers(root, collegeFriend);
+            messages.add(detectCollegeFriendsPrivacyOutliers(root, collegeFriend));
         }
 
 
@@ -267,7 +267,8 @@ public class GroupAnalysisService {
      * privacy level, sensitivity, and visibility
      * @return
      */
-    public int detectHighSchoolFriendsPrivacyOutliers(Person p, Person s){
+    public String detectHighSchoolFriendsPrivacyOutliers(Person p, Person s){
+        String msg = "";
         int threshold = 6;
         int counter = 0;
         int counter2 = 0;
@@ -302,11 +303,13 @@ public class GroupAnalysisService {
             }
         }
 
+        System.out.println("detectHighSchoolFriendsPrivacyOutliers");
         if (counter < counter2){
+            msg = service.getPerson(spid).getName() + " is an outlier.";
             System.out.println(service.getPerson(spid).getName() + " is an outlier.");
         }
 
-        return 0;
+        return msg;
     }
 
     public int detectDepartmentFriendsPrivacyOutliers(Person p){
@@ -314,7 +317,8 @@ public class GroupAnalysisService {
         return 0;
     }
 
-    public int detectCollegeFriendsPrivacyOutliers(Person p, Person s){
+    public String detectCollegeFriendsPrivacyOutliers(Person p, Person s){
+        String msg = "";
         int threshold = 6;
         int counter = 0;
         int counter2 = 0;
@@ -350,10 +354,10 @@ public class GroupAnalysisService {
         }
 
         if (counter < counter2){
-            System.out.println(service.getPerson(spid).getName() + " is an outlier.");
+            msg = service.getPerson(spid).getName() + " is an outlier.";
         }
 
-        return 0;
+        return msg;
     }
 
     public int detectSchoolFriendsPrivacyOutliers(Person p) {
