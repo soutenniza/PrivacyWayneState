@@ -223,11 +223,11 @@ public class SocialNetworkSimController {
         else{
             html = "<h3>Attributes:</h3><br><ul class=\"list-group\">";
             for(HasRelationship a : atts){
+                ArrayList<Double> expData = a.getAttVisibilityRecord();
                 Long pID = a.getEnd().getNodeID();
-
                 Attribute aa = service.getAttributeWithId(pID);
                 html = html.concat("<li class=\"list-group-item\">" + normalizeString(aa.getLabel()) + ": " + aa.getValue());
-                double vis = privacyProfileAnalysisService.getAttributeExposure(service.getPerson(p.getNodeID()), a, total) * 100.0;
+                double vis = expData.get(expData.size() - 1) * 100.0;
                 String format = String.format("%.2f%%", vis);
                 html = html.concat("<button " +
                         "type=\"button\" class=\"btn btn-default btn-sm\" style=\"float: right;\">" +
@@ -243,16 +243,17 @@ public class SocialNetworkSimController {
     public String mgenFriendsList(Person p){
         analysisService.setRoot(service.getPerson(p.getNodeID()));
         String html = "";
-        Collection<Person> persons = p.getFriends();
+        Collection<FriendRelationship> persons = p.getFriendRelationships();
         if(persons.isEmpty()){
             html = p.getName() + " has no friends..  :( ";
         }
         else{
             html = "<h3>Friends:</h3><br><div class=\"list-group\">";
             double thresholdRS = analysisService.getThresholdRS(service.getPerson(p.getNodeID()));
-            for(Person ap : persons){
-                Long pID = ap.getNodeID();
-                double rs = analysisService.getRelationshipStrength(service.getPerson(p.getNodeID()), service.getPerson(pID));
+            for(FriendRelationship ap : persons){
+                ArrayList<Double> arrayRS = service.getRelationshipStrengthRecord(service.getFriendRelationship(ap.getNodeID()));
+                Long pID = ap.getFriend().getNodeID();
+                double rs = arrayRS.get(arrayRS.size() - 1);
                 html = html.concat("<a href=\"" +  "/snviewprofile/?id=" + service.getPerson(pID).getNodeID() + "\" class= \"list-group-item\">" + service.getPerson(pID).getName());
                 String format = String.format("%.2f", rs);
                 html = html + "<button " + "type=\"button\" " + "class=\"btn btn-sm ";

@@ -11,8 +11,11 @@
 
 <head>
     <title>PrivacyWayne</title>
+    <link  rel="shortcut icon" href="/resources/images/favicon.ico" type="image/x-icon" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -39,8 +42,8 @@
     </div>
 </div>
 <center>
-    <object data="http://privacywayne.sb02.stations.graphenedb.com:24789/" width="1280" height="720">
-        <embed src="http://privacywayne.sb02.stations.graphenedb.com:24789/" width="1280" height="020">
+    <object data="http://privacywayneneo4j.zapto.org/" width="1280" height="720">
+        <embed src="http://privacywayneneo4j.zapto.org/" width="1280" height="020">
     </object>
 </center>
 </body>
