@@ -1,0 +1,1050 @@
+{
+    "user": [
+        {
+            "name": "Odiljon Akhmedov",
+            "gender": "Male",
+            "age": "25",
+            "birthday": "09/19/1991",
+            "political_view": "Extreme Right",
+            "location": "Austin",
+            "phone": "14424878544",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Cats"
+            ],
+            "groups": [
+                "Urban Science Project"
+            ],
+            "friends": [
+                "Mohammad Anwar",
+                "Samuel Arseneault",
+                "Alpeshkumar Patel",
+                "Summer Sandhu",
+                "Idlir Peshkepia"
+            ]
+        },
+        {
+            "name": "Mohammad Anwar",
+            "gender": "Male",
+            "age": "21",
+            "birthday": "02/14/1994",
+            "political_view": "Extreme Right",
+            "location": "Detroit",
+            "phone": "12497589584",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Soccer",
+                "Sports",
+                "Music",
+                "Dance",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "GM Big Data"
+            ],
+            "friends": [
+                "Samuel Arseneault",
+                "Andrew Browning",
+                "Joshua Davis",
+                "Sravan Nerella",
+                "Zaid Nackasha",
+                "Alexander Czarnik",
+                "Maria Ferreria"
+            ]
+        },
+        {
+            "name": "Samuel Arseneault",
+            "gender": "Male",
+            "age": "23",
+            "birthday": "04/19/1993",
+            "political_view": "Extreme Right",
+            "location": "Detroit",
+            "phone": "12494578563",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Books",
+                "Movies",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "Math Learning Ipad App"
+            ],
+            "friends": [
+                "Andrew Browning",
+                "Frank Bryant",
+                "John Luu",
+                "Kelly Markaity"
+            ]
+        },
+        {
+            "name": "Andrew Browning",
+            "gender": "Male",
+            "age": "29",
+            "birthday": "12/04/1986",
+            "political_view": "Far Right",
+            "location": "Ann Arbor",
+            "phone": "17455484512",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Books",
+                "Movies",
+                "Politics",
+                "Stocks"
+            ],
+            "groups": [
+                "3rd Grade - Iphone App"
+            ],
+            "friends": [
+                "Frank Bryant",
+                "Thomas Burke",
+                "Adam Serruys",
+                "Alyssa Wilkins",
+                "Fadi Farah",
+                "Alaa Tolba"
+            ]
+        },
+        {
+            "name": "Frank Bryant",
+            "gender": "Male",
+            "age": "21",
+            "birthday": "09/24/1994",
+            "political_view": "Far Right",
+            "location": "Ann Arbor",
+            "phone": "17454784754",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Books",
+                "Movies",
+                "Music",
+                "Sports"
+            ],
+            "groups": [
+                "Unreal Engine Game Development"
+            ],
+            "friends": [
+                "Thomas Burke",
+                "Alexander Czarnik",
+                "William Hamlett",
+                "Dawud Haugabook"
+            ]
+        },
+        {
+            "name": "Thomas Burke",
+            "gender": "Not Specified",
+            "age": "25",
+            "birthday": "08/20/1990",
+            "political_view": "Far Right",
+            "location": "Ann Arbor",
+            "phone": "17453245754",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Books",
+                "Movies",
+                "Music",
+                "Science"
+            ],
+            "groups": [
+                "Unity Game Development"
+            ],
+            "friends": [
+                "Alexander Czarnik",
+                "Joshua Davis",
+                "Anthony, Jamora",
+                "Jonathan Nabors"
+            ]
+        },
+        {
+            "name": "Alexander Czarnik",
+            "gender": "Male",
+            "age": "22",
+            "birthday": "07/23/1991",
+            "political_view": "Far Right",
+            "location": "Ferndale",
+            "phone": "12478785421",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Soccer",
+                "Sports",
+                "Music",
+                "Dance",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "GM Big Data"
+            ],
+            "friends": [
+                "Joshua Davis",
+                "Mary Desjarlais",
+                "Joshua Davis",
+                "Sravan Nerella",
+                "Zaid Nackasha",
+                "Mohammad Anwar",
+                "Maria Ferreria"
+            ]
+        },
+        {
+            "name": "Joshua Davis",
+            "gender": "Male",
+            "age": "22",
+            "birthday": "09/26/1992",
+            "political_view": "Far Right",
+            "location": "Ferndale",
+            "phone": "12474578542",
+            "education": "4-Year Degree",
+            "work": "Healthcare",
+            "interests": [
+                "Movies",
+                "Music",
+                "Books",
+                "Sports"
+            ],
+            "groups": [
+                "GM Big Data"
+            ],
+            "friends": [
+                "Mary Desjarlais",
+                "Mahmoud Eraqi",
+                "Mohammad Anwar",
+                "Sravan Nerella",
+                "Zaid Nackasha",
+                "Alexander Czarnik",
+                "Maria Ferreria"
+            ]
+        },
+        {
+            "name": "Mary Desjarlais",
+            "gender": "Male",
+            "age": "24",
+            "birthday": "09/26/1989",
+            "political_view": "Right",
+            "location": "Ferndale",
+            "phone": "12474578963",
+            "education": "Masters",
+            "work": "Hospitality",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "Virtual Reality"
+            ],
+            "friends": [
+                "Mahmoud Eraqi",
+                "Fadi Farah",
+                "Michael Simons"
+            ]
+        },
+        {
+            "name": "Mahmoud Eraqi",
+            "gender": "Male",
+            "age": "45",
+            "birthday": "04/26/1979",
+            "political_view": "Right",
+            "location": "Lansing",
+            "phone": "18985642532",
+            "education": "Masters",
+            "work": "Hospitality",
+            "interests": [
+                "Scotch"
+            ],
+            "groups": [
+                "Virtual Reality"
+            ],
+            "friends": [
+                "Fadi Farah",
+                "Andre Farah",
+                "Mary Desjarlais",
+                "Michael Simons"
+            ]
+        },
+        {
+            "name": "Fadi Farah",
+            "gender": "Male",
+            "age": "31",
+            "birthday": "04/24/1984",
+            "political_view": "Right",
+            "location": "Lansing",
+            "phone": "18984587887",
+            "education": "Masters",
+            "work": "Hospitality",
+            "interests": [
+                "Cars",
+                "Trucks",
+                "Sports"
+            ],
+            "groups": [
+                "3rd Grade - Iphone App"
+            ],
+            "friends": [
+                "Andre Farah",
+                "Marc Fennell",
+                "Adam Serruys",
+                "Alyssa Wilkins"
+            ]
+        },
+        {
+            "name": "Andre Farah",
+            "gender": "Male",
+            "age": "30",
+            "birthday": "02/24/1985",
+            "political_view": "Right",
+            "location": "Lansing",
+            "phone": "18984587542",
+            "education": "Masters",
+            "work": "Hospitality",
+            "interests": [
+                "Cars",
+                "Trucks",
+                "Books"
+            ],
+            "groups": [
+                "EMS"
+            ],
+            "friends": [
+                "Marc Fennell",
+                "Maria Ferreria",
+                "Amney Iskandar",
+                "Alaa Serhan"
+            ]
+        },
+        {
+            "name": "Marc Fennell",
+            "gender": "Male",
+            "age": "32",
+            "birthday": "01/04/1983",
+            "political_view": "Right",
+            "location": "Lansing",
+            "phone": "18984523698",
+            "education": "Masters",
+            "work": "Hospitality",
+            "interests": [
+                "Cars",
+                "Trucks",
+                "Sports",
+                "Books"
+            ],
+            "groups": [
+                "CS Department Estimation Tool"
+            ],
+            "friends": [
+                "Maria Ferreria",
+                "Jason Garrison",
+                "Takida Robinson",
+                "Matthew Tunesi"
+            ]
+        },
+        {
+            "name": "Maria Ferreria",
+            "gender": "Female",
+            "age": "24",
+            "birthday": "01/04/1991",
+            "political_view": "Center Right",
+            "location": "Flint",
+            "phone": "14478745214",
+            "education": "Masters",
+            "work": "Hospitality",
+            "interests": [
+                "Books",
+                "Cars",
+                "Bikes",
+                "Math",
+                "Space",
+                "Food",
+                "Television"
+            ],
+            "groups": [
+                "GM Big Data"
+            ],
+            "friends": [
+                "Jason Garrison",
+                "William Hamlett",
+                "Joshua Davis",
+                "Sravan Nerella",
+                "Zaid Nackasha",
+                "Alexander Czarnik",
+                "Mohammad Anwar"
+            ]
+        },
+        {
+            "name": "Jason Garrison",
+            "gender": "Male",
+            "age": "40",
+            "birthday": "07/04/1974",
+            "political_view": "Center Right",
+            "location": "Flint",
+            "phone": "14474875421",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Books",
+                "Math",
+                "Space",
+                "Food",
+                "Television"
+            ],
+            "groups": [
+                "WordPress Web Development"
+            ],
+            "friends": [
+                "William Hamlett",
+                "Dawud Haugabook",
+                "Mohini Patel"
+            ]
+        },
+        {
+            "name": "Wiliam Hamlett",
+            "gender": "Male",
+            "age": "49",
+            "birthday": "02/14/1966",
+            "political_view": "Center Right",
+            "location": "Flint",
+            "phone": "14474258975",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Books",
+                "Math",
+                "Space",
+                "Food",
+                "Education"
+            ],
+            "groups": [
+                "Unreal Engine Game Development"
+            ],
+            "friends": [
+                "Dawud Haugabook",
+                "Amney Iskandar",
+                "Frank Bryant"
+            ]
+        },
+        {
+            "name": "Dawud Haugabook",
+            "gender": "Female",
+            "age": "22",
+            "birthday": "03/02/1993",
+            "political_view": "Center Right",
+            "location": "Flint",
+            "phone": "14473658654",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Food"
+            ],
+            "groups": [
+                "Unreal Engine Game Development"
+            ],
+            "friends": [
+                "Amney Iskandar",
+                "Anthony Jamora",
+                "Frank Bryant",
+                "William Hamlett"
+            ]
+        },
+        {
+            "name": "Amney Iskandar",
+            "gender": "Male",
+            "age": "25",
+            "birthday": "05/14/1989",
+            "political_view": "Center",
+            "location": "Flint",
+            "phone": "14471256874",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Food",
+                "Science"
+            ],
+            "groups": [
+                "EMS"
+            ],
+            "friends": [
+                "Anthony Jamora",
+                "Simul Kadakia",
+                "Andrew Farah",
+                "Alaa Serhan"
+            ]
+        },
+        {
+            "name": "Anthony Jamora",
+            "gender": "Male",
+            "age": "23",
+            "birthday": "12/14/1991",
+            "political_view": "Center",
+            "location": "Novi",
+            "phone": "17589654782",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Music",
+                "Books",
+                "Science",
+                "Education",
+                "Sports"
+            ],
+            "groups": [
+                "Unity Game Development"
+            ],
+            "friends": [
+                "Simul Kadakia",
+                "John Luu",
+                "Thomas Burke",
+                "Jonathan Nabors"
+            ]
+        },
+        {
+            "name": "Simul Kadakia",
+            "gender": "Male",
+            "age": "25",
+            "birthday": "2/14/1990",
+            "political_view": "Center",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "CompuTech"
+            ],
+            "friends": [
+                "John Luu",
+                "Kelly Markaity",
+                "Wesley Trescott",
+                "Gagandeep Singh"
+            ]
+        },
+        {
+            "name": "John Luu",
+            "gender": "Male",
+            "age": "32",
+            "birthday": "11/21/1982",
+            "political_view": "Center Left",
+            "location": "Saginaw",
+            "phone": "19685647844",
+            "education": "Masters",
+            "work": "Media and Internet",
+            "interests": [
+                "Music",
+                "Sports",
+                "Boating",
+                "Trucks",
+                "Camping",
+                "Politics",
+                "Running"
+            ],
+            "groups": [
+                "Math Learning Ipad App"
+            ],
+            "friends": [
+                "Kelly Markaity",
+                "Jonathan Nabors",
+                "Samuel Arseneault"
+            ]
+        },
+        {
+            "name": "Kelly Markaity",
+            "gender": "Not Specified",
+            "age": "25",
+            "birthday": "2/14/1990",
+            "political_view": "Center Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "Masters",
+            "work": "Unemployed",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "Math Learning Ipad App"
+            ],
+            "friends": [
+                "Jonathan Nabors",
+                "Zaid Nackasha",
+                "John Luu",
+                "Samuel Arseneault"
+            ]
+        },
+        {
+            "name": "Jonathan Nabors",
+            "gender": "Male",
+            "age": "35",
+            "birthday": "2/14/1980",
+            "political_view": "Center Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "Masters",
+            "work": "Unemployed",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "Unity Game Development"
+            ],
+            "friends": [
+                "Zaid Nachasha",
+                "Sravan Nerella",
+                "Anthony Jamora",
+                "Thomas Burke"
+            ]
+        },
+        {
+            "name": "Zaid Nachasha",
+            "gender": "Male",
+            "age": "27",
+            "birthday": "5/14/1991",
+            "political_view": "Center Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Unemployed",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "GM Big Data"
+            ],
+            "friends": [
+                "Sravan Nerella",
+                "Van Nguyen",
+                "Joshua Davis",
+                "Mohammad Anwar",
+                "Alexander Czarnik",
+                "Maria Ferreria"
+            ]
+        },
+        {
+            "name": "Sravan Nerella",
+            "gender": "Male",
+            "age": "25",
+            "birthday": "2/14/1990",
+            "political_view": "Center Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Unemployed",
+            "interests": [
+                "Soccer",
+                "Sports",
+                "Music",
+                "Dance",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "GM Big Data"
+            ],
+            "friends": [
+                "Van Nguyen",
+                "Dishank Patel",
+                "Joshua Davis",
+                "Mohammad Anwar",
+                "Zaid Nackasha",
+                "Alexander Czarnik",
+                "Maria Ferreria"
+            ]
+        },
+        {
+            "name": "Van Nguyen",
+            "gender": "Not Specified",
+            "age": "25",
+            "birthday": "2/14/1991",
+            "political_view": "Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Unemployed",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "Privacy"
+            ],
+            "friends": [
+                "Dishank Patel",
+                "Alpeshkumar Patel",
+                "Zachary Rzotkiewicz"
+            ]
+        },
+        {
+            "name": "Dishank Patel",
+            "gender": "Male",
+            "age": "22",
+            "birthday": "1/2/1993",
+            "political_view": "Left",
+            "location": "Novi",
+            "phone": "12482523698",
+            "education": "PHD",
+            "work": "Unemployed",
+            "interests": [
+                "Soccer",
+                "Sports",
+                "Music",
+                "Dance",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "Privacy"
+            ],
+            "friends": [
+                "Alpeshkumar Patel",
+                "Mohini Patel",
+                "Van Nguyen",
+                "Zachary Rzotkiewicz"
+            ]
+        },
+        {
+            "name": "Alpeshkumar Patel",
+            "gender": "Male",
+            "age": "22",
+            "birthday": "5/24/1992",
+            "political_view": "Left",
+            "phone": "17581236587",
+            "location": "Novi",
+            "education": "PHD",
+            "work": "Law",
+            "interests": [
+                "Music",
+                "Sports"
+            ],
+            "groups": [
+                "Urban Science Project"
+            ],
+            "friends": [
+                "Mohini Patel",
+                "Idlir Peshkepia",
+                "Summer Sandhu",
+                "Odiljon Akhmedov"
+            ]
+        },
+        {
+            "name": "Mohini Patel",
+            "gender": "Female",
+            "age": "24",
+            "birthday": "8/12/1990",
+            "political_view": "Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Law",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "WordPress Web Development"
+            ],
+            "friends": [
+                "Idlir Peshkepia",
+                "Takida Robinson",
+                "Jason Garrison"
+            ]
+        },
+        {
+            "name": "Idlir Peshkepia",
+            "gender": "Male",
+            "age": "30",
+            "birthday": "1/30/1985",
+            "political_view": "Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Law",
+            "interests": [
+                "Scotch"
+            ],
+            "groups": [
+                "Urban Science Project"
+            ],
+            "friends": [
+                "Takida Robinson",
+                "Zachary Rzotkiewicz",
+                "Summer Sandhu",
+                "Alpeshkumar Patel",
+                "Odiljon Akhmedov"
+            ]
+        },
+        {
+            "name": "Takida Robinson",
+            "gender": "Male",
+            "age": "20",
+            "birthday": "5/134/1994",
+            "political_view": "Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Law",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "CS Department Estimation Tool"
+            ],
+            "friends": [
+                "Zachary Rzotkiewicz",
+                "Summer Sandhu",
+                "Mark Fennell",
+                "Matthew Tunesi"
+            ]
+        },
+        {
+            "name": "Zachary Rzotkiewicz",
+            "gender": "Male",
+            "age": "35",
+            "birthday": "2/14/1980",
+            "political_view": "Far Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Law",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "Privacy"
+            ],
+            "friends": [
+                "Summer Sandhu",
+                "Alaa Serhan",
+                "Van Nguyen",
+                "Dishank Patel"
+            ]
+        },
+        {
+            "name": "Summer Sandhu",
+            "gender": "Female",
+            "age": "24",
+            "birthday": "8/22/1990",
+            "political_view": "Far Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "PHD",
+            "work": "Law",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "Urban Science Project"
+            ],
+            "friends": [
+                "Alaa Serhan",
+                "Adam Serruys",
+                "Idlir Peshkepia",
+                "Alpeshkumar Patel",
+                "Odiljon Akhmedov"
+            ]
+        },
+        {
+            "name": "Alaa Serhan",
+            "gender": "Female",
+            "age": "25",
+            "birthday": "12/14/1989",
+            "political_view": "Far Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Engineering and Manufacturing",
+            "interests": [
+                "Music"
+            ],
+            "groups": [
+                "EMS"
+            ],
+            "friends": [
+                "Adam Serruys",
+                "Michael Simons",
+                "Amney Iskandar",
+                "Andre Farah"
+            ]
+        },
+        {
+            "name": "Adam Serruys",
+            "gender": "Male",
+            "age": "21",
+            "birthday": "7/15/1993",
+            "political_view": "Far Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Engineering and Manufacturing",
+            "interests": [
+                "Movies",
+                "Books"
+            ],
+            "groups": [
+                "3rd Grade - Iphone App"
+            ],
+            "friends": [
+                "Michael Simons",
+                "Gagandeep Singh",
+                "Alyssa Wilkins",
+                "Fadi Farah"
+            ]
+        },
+        {
+            "name": "Michael Simons",
+            "gender": "Male",
+            "age": "23",
+            "birthday": "6/4/1991",
+            "political_view": "Far Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Engineering and Manufacturing",
+            "interests": [
+                "Movies",
+                "Music",
+                "Books",
+                "Sports"
+            ],
+            "groups": [
+                "Virtual Reality"
+            ],
+            "friends": [
+                "Gagandeep Singh",
+                "Alaa Tolba",
+                "Mahmoud Eraqi",
+                "Mary Desjarlais"
+            ]
+        },
+        {
+            "name": "Gagandeep Singh",
+            "gender": "Male",
+            "age": "27",
+            "birthday": "1/1/1988",
+            "political_view": "Far Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Engineering and Manufacturing",
+            "interests": [
+                "Books",
+                "Movies",
+                "Politics"
+            ],
+            "groups": [
+                "CompuTech"
+            ],
+            "friends": [
+                "Alaa Tolba",
+                "Wesley Trescott",
+                "Simul Kadakia"
+            ]
+        },
+        {
+            "name": "Alaa Tolba",
+            "gender": "Female",
+            "age": "26",
+            "birthday": "12/14/1989",
+            "political_view": "Extreme Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Creative Arts and Design",
+            "interests": [
+                "Books",
+                "Movies",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "3rd Grade - Iphone App"
+            ],
+            "friends": [
+                "Wesley Trescott",
+                "Matthew Tunesi",
+                "Adam Serruys",
+                "Alyssa Wilkins",
+                "Fadi Farah",
+                "Andrew Browning"
+            ]
+        },
+        {
+            "name": "Wesley Trescott",
+            "gender": "Female",
+            "age": "22",
+            "birthday": "5/14/1992",
+            "political_view": "Extreme Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Creative Arts and Design",
+            "interests": [
+                "Books",
+                "Movies",
+                "Politics",
+                "Art"
+            ],
+            "groups": [
+                "CompuTech"
+            ],
+            "friends": [
+                "Matthew Tunesi",
+                "Alyssa Wilkins",
+                "Gagandeep Singh",
+                "Simul Kadakia"
+            ]
+        },
+        {
+            "name": "Matthew Tunesi",
+            "gender": "Male",
+            "age": "23",
+            "birthday": "1/4/1991",
+            "political_view": "Extreme Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Retail",
+            "interests": [
+                "Movies",
+                "Books",
+                "Sports"
+            ],
+            "groups": [
+                "CS Department Estimation Tool"
+            ],
+            "friends": [
+                "Alyssa Wilkins",
+                "Odiljon Akhmedov",
+                "Takida Robinson",
+                "Marc Fennell"
+            ]
+        },
+        {
+            "name": "Alyssa Wilkins",
+            "gender": "Female",
+            "age": "25",
+            "birthday": "2/14/1990",
+            "political_view": "Extreme Left",
+            "location": "Novi",
+            "phone": "17581236587",
+            "education": "GED",
+            "work": "Retail",
+            "interests": [
+                "Books",
+                "Movies",
+                "Art"
+            ],
+            "groups": [
+                "3rd Grade - Iphone App"
+            ],
+            "friends": [
+                "Odiljon Akhmedov",
+                "Mohammad Anwar",
+                "Adam Serruys",
+                "Fadi Farah",
+                "Andrew Browning",
+                "Alaa Tolba"
+            ]
+        }
+    ]
+}
