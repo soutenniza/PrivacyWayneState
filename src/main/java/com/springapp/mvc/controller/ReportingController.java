@@ -55,6 +55,7 @@ public class ReportingController {
 
         redirectAttributes.addFlashAttribute("ran", "loaded");
         redirectAttributes.addFlashAttribute("user", "<i>Privacy report for the user " + personService.getPerson(p1).getName() + ":</i>");
+        redirectAttributes.addFlashAttribute("user2", "<i>How Privacy Score is calculated for " + personService.getPerson(p1).getName() + ":</i>");
 
 
         System.out.println(personService.getLatestPrivacyScore(p1));
@@ -68,6 +69,7 @@ public class ReportingController {
         else{
             redirectAttributes.addFlashAttribute("pscore", "Privacy score: " + pscore);
             redirectAttributes.addFlashAttribute("psdata", genPSDataLine("Privacy Score", p1));
+            redirectAttributes.addFlashAttribute("pspdata", genPSPieData(p1));
         }
 
         // construct attribute network visibility table
@@ -83,6 +85,7 @@ public class ReportingController {
         redirectAttributes.addFlashAttribute("fddata", genFriendDataLine(p1));
 
 
+
         return "redirect:/reporting";
     }
 
@@ -93,6 +96,19 @@ public class ReportingController {
             peoples.put(people.get(i).getNodeID(), people.get(i).getName());
         }
         model.addAttribute("peopleList", peoples);
+    }
+
+    public String genPSPieData(Long pid){
+        String msg = "";
+        for(HasRelationship r : personService.getPerson(pid).getAttributeRelationships()){
+            HasRelationship h = personService.getHasRelationship(r.getId());
+            Attribute a = personService.getAttributeWithId(h.getEnd().getNodeID());
+            int v = h.getVv();
+            int s = h.getSv();
+            String name = a.getLabel() + " : Visibility(" + Integer.toString(v) + ")*Sensivitity(" + Integer.toString(s) +")";
+            msg = msg + "['" + name + "', " + Integer.toString(v*s) + "],";
+        }
+        return msg;
     }
 
     public String genPSDataLine(String name, Long pid){
@@ -236,7 +252,7 @@ public class ReportingController {
 
         data = "['Mutual Friends', " + String.format("%.2f", mtRatio) + "], ";
         data = data + "['Common Groups', " + String.format("%.2f", cgRatio) + "], ";
-        data = data + "['Interactions', " + String.format("%.2f", it.get(it.size() - 1)/10.0) + "], ";
+        data = data + "['Interactions', " + String.format("%.2f", it.get(it.size() - 1)) + "], ";
         double sdRatio = (5.0 - sd.get(sd.size() - 1)) / 5.0;
         data = data + "['Social Distance', " + String.format("%.2f", sdRatio) + "], ";
         return data;
