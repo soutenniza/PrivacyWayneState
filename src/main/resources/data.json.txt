@@ -5,22 +5,22 @@
             "gender": "Male",
             "age": "25",
             "birthday": "09/19/1991",
-            "political_view": "Extreme Right",
+            "political_view": "Center Left",
             "location": "Austin",
             "phone": "14424878544",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "None",
+            "work": "Unemployed",
             "interests": [
                 "Cats"
             ],
             "groups": [
-                "Urban Science Project"
+                "Urban Science Project",
+                "Potluck Fridays Society",
+                "Craft Beer Lover's Group"
             ],
             "friends": [
                 "Mohammad Anwar",
                 "Samuel Arseneault",
-                "Alpeshkumar Patel",
-                "Summer Sandhu",
                 "Idlir Peshkepia"
             ]
         },
@@ -29,11 +29,11 @@
             "gender": "Male",
             "age": "21",
             "birthday": "02/14/1994",
-            "political_view": "Extreme Right",
+            "political_view": "Right",
             "location": "Detroit",
             "phone": "12497589584",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "GED",
+            "work": "Unemployed",
             "interests": [
                 "Soccer",
                 "Sports",
@@ -43,15 +43,14 @@
                 "Art"
             ],
             "groups": [
-                "GM Big Data"
+                "GM Big Data",
+                "Asian Society of Asians",
+                "Chocolate Anonymonous"
             ],
             "friends": [
-                "Samuel Arseneault",
-                "Andrew Browning",
                 "Joshua Davis",
                 "Sravan Nerella",
                 "Zaid Nackasha",
-                "Alexander Czarnik",
                 "Maria Ferreria"
             ]
         },
@@ -60,11 +59,11 @@
             "gender": "Male",
             "age": "23",
             "birthday": "04/19/1993",
-            "political_view": "Extreme Right",
+            "political_view": "Far Right",
             "location": "Detroit",
             "phone": "12494578563",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "Associates",
+            "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Books",
                 "Movies",
@@ -72,12 +71,12 @@
                 "Art"
             ],
             "groups": [
-                "Math Learning Ipad App"
+                "Math Learning Ipad App",
+                "NPR Fan Club",
+                "PC Master Race"
             ],
             "friends": [
                 "Andrew Browning",
-                "Frank Bryant",
-                "John Luu",
                 "Kelly Markaity"
             ]
         },
@@ -86,11 +85,11 @@
             "gender": "Male",
             "age": "29",
             "birthday": "12/04/1986",
-            "political_view": "Far Right",
+            "political_view": "Center Left",
             "location": "Ann Arbor",
             "phone": "17455484512",
             "education": "4-Year Degree",
-            "work": "Healthcare",
+            "work": "Accountancy, Banking and Finance0",
             "interests": [
                 "Books",
                 "Movies",
@@ -98,12 +97,10 @@
                 "Stocks"
             ],
             "groups": [
-                "3rd Grade - Iphone App"
+                "3rd Grade - Iphone App",
+                "Bouldering Club"
             ],
             "friends": [
-                "Frank Bryant",
-                "Thomas Burke",
-                "Adam Serruys",
                 "Alyssa Wilkins",
                 "Fadi Farah",
                 "Alaa Tolba"
@@ -114,11 +111,11 @@
             "gender": "Male",
             "age": "21",
             "birthday": "09/24/1994",
-            "political_view": "Far Right",
+            "political_view": "Center",
             "location": "Ann Arbor",
             "phone": "17454784754",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "None",
+            "work": "Unemployed",
             "interests": [
                 "Books",
                 "Movies",
@@ -126,13 +123,13 @@
                 "Sports"
             ],
             "groups": [
-                "Unreal Engine Game Development"
+                "Unreal Engine Game Development",
+                "Asian Society of Asians",
+                "Chocolate Anonymonous "
             ],
             "friends": [
                 "Thomas Burke",
-                "Alexander Czarnik",
-                "William Hamlett",
-                "Dawud Haugabook"
+                "Alexander Czarnik"
             ]
         },
         {
@@ -140,11 +137,11 @@
             "gender": "Not Specified",
             "age": "25",
             "birthday": "08/20/1990",
-            "political_view": "Far Right",
+            "political_view": "Center Right",
             "location": "Ann Arbor",
             "phone": "17453245754",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "Associates",
+            "work": "Charity and Voluntary",
             "interests": [
                 "Books",
                 "Movies",
@@ -152,11 +149,11 @@
                 "Science"
             ],
             "groups": [
-                "Unity Game Development"
+                "Unity Game Development",
+                "Bouldering Club",
+                "PC Master Race"
             ],
             "friends": [
-                "Alexander Czarnik",
-                "Joshua Davis",
                 "Anthony, Jamora",
                 "Jonathan Nabors"
             ]
@@ -166,11 +163,11 @@
             "gender": "Male",
             "age": "22",
             "birthday": "07/23/1991",
-            "political_view": "Far Right",
+            "political_view": "Extreme Right",
             "location": "Ferndale",
             "phone": "12478785421",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "PHD",
+            "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Soccer",
                 "Sports",
@@ -180,15 +177,14 @@
                 "Art"
             ],
             "groups": [
-                "GM Big Data"
+                "GM Big Data",
+                "NPR Fan Club",
+                "Gluten-Free Free Club"
             ],
             "friends": [
                 "Joshua Davis",
                 "Mary Desjarlais",
                 "Joshua Davis",
-                "Sravan Nerella",
-                "Zaid Nackasha",
-                "Mohammad Anwar",
                 "Maria Ferreria"
             ]
         },
@@ -200,8 +196,8 @@
             "political_view": "Far Right",
             "location": "Ferndale",
             "phone": "12474578542",
-            "education": "4-Year Degree",
-            "work": "Healthcare",
+            "education": "None",
+            "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Movies",
                 "Music",
@@ -209,13 +205,11 @@
                 "Sports"
             ],
             "groups": [
-                "GM Big Data"
+                "GM Big Data",
+                "Craft Beer Lover's Group",
+                "PC Master Race"
             ],
             "friends": [
-                "Mary Desjarlais",
-                "Mahmoud Eraqi",
-                "Mohammad Anwar",
-                "Sravan Nerella",
                 "Zaid Nackasha",
                 "Alexander Czarnik",
                 "Maria Ferreria"
@@ -226,19 +220,20 @@
             "gender": "Male",
             "age": "24",
             "birthday": "09/26/1989",
-            "political_view": "Right",
+            "political_view": "Center Left",
             "location": "Ferndale",
             "phone": "12474578963",
-            "education": "Masters",
-            "work": "Hospitality",
+            "education": "GED",
+            "work": "Unemployed",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "Virtual Reality"
+                "Virtual Reality",
+                "Potluck Fridays Society",
+                "Chocolate Anonymonous "
             ],
             "friends": [
-                "Mahmoud Eraqi",
                 "Fadi Farah",
                 "Michael Simons"
             ]
@@ -248,11 +243,11 @@
             "gender": "Male",
             "age": "45",
             "birthday": "04/26/1979",
-            "political_view": "Right",
+            "political_view": "Extreme Right",
             "location": "Lansing",
             "phone": "18985642532",
-            "education": "Masters",
-            "work": "Hospitality",
+            "education": "None",
+            "work": "Unemployed",
             "interests": [
                 "Scotch"
             ],
@@ -260,9 +255,6 @@
                 "Virtual Reality"
             ],
             "friends": [
-                "Fadi Farah",
-                "Andre Farah",
-                "Mary Desjarlais",
                 "Michael Simons"
             ]
         },
@@ -274,20 +266,20 @@
             "political_view": "Right",
             "location": "Lansing",
             "phone": "18984587887",
-            "education": "Masters",
-            "work": "Hospitality",
+            "education": "4-Year Degree",
+            "work": "Energy and Utilities",
             "interests": [
                 "Cars",
                 "Trucks",
                 "Sports"
             ],
             "groups": [
-                "3rd Grade - Iphone App"
+                "3rd Grade - Iphone App",
+                "Bouldering Club",
+                "Ping Pong Society"
             ],
             "friends": [
                 "Andre Farah",
-                "Marc Fennell",
-                "Adam Serruys",
                 "Alyssa Wilkins"
             ]
         },
@@ -296,23 +288,23 @@
             "gender": "Male",
             "age": "30",
             "birthday": "02/24/1985",
-            "political_view": "Right",
+            "political_view": "Far Right",
             "location": "Lansing",
             "phone": "18984587542",
-            "education": "Masters",
-            "work": "Hospitality",
+            "education": "PHD",
+            "work": "Unemployed",
             "interests": [
                 "Cars",
                 "Trucks",
                 "Books"
             ],
             "groups": [
-                "EMS"
+                "EMS",
+                "Ping Pong Society",
+                "Gluten-Free Free Club"
             ],
             "friends": [
                 "Marc Fennell",
-                "Maria Ferreria",
-                "Amney Iskandar",
                 "Alaa Serhan"
             ]
         },
@@ -321,10 +313,10 @@
             "gender": "Male",
             "age": "32",
             "birthday": "01/04/1983",
-            "political_view": "Right",
+            "political_view": "Extreme Right",
             "location": "Lansing",
             "phone": "18984523698",
-            "education": "Masters",
+            "education": "4-Year Degree",
             "work": "Hospitality",
             "interests": [
                 "Cars",
@@ -333,12 +325,11 @@
                 "Books"
             ],
             "groups": [
-                "CS Department Estimation Tool"
+                "CS Department Estimation Tool",
+                "NPR Fan Club",
+                "Reague of Regends Society"
             ],
             "friends": [
-                "Maria Ferreria",
-                "Jason Garrison",
-                "Takida Robinson",
                 "Matthew Tunesi"
             ]
         },
@@ -347,11 +338,11 @@
             "gender": "Female",
             "age": "24",
             "birthday": "01/04/1991",
-            "political_view": "Center Right",
+            "political_view": "Right",
             "location": "Flint",
             "phone": "14478745214",
-            "education": "Masters",
-            "work": "Hospitality",
+            "education": "None",
+            "work": "Unemployed",
             "interests": [
                 "Books",
                 "Cars",
@@ -362,14 +353,11 @@
                 "Television"
             ],
             "groups": [
-                "GM Big Data"
+                "GM Big Data",
+                "Asian Society of Asians",
+                "Bouldering Club"
             ],
             "friends": [
-                "Jason Garrison",
-                "William Hamlett",
-                "Joshua Davis",
-                "Sravan Nerella",
-                "Zaid Nackasha",
                 "Alexander Czarnik",
                 "Mohammad Anwar"
             ]
@@ -379,11 +367,11 @@
             "gender": "Male",
             "age": "40",
             "birthday": "07/04/1974",
-            "political_view": "Center Right",
+            "political_view": "Extreme Left",
             "location": "Flint",
             "phone": "14474875421",
-            "education": "Masters",
-            "work": "Media and Internet",
+            "education": "GED",
+            "work": "Environment and Agriculture",
             "interests": [
                 "Books",
                 "Math",
@@ -392,11 +380,11 @@
                 "Television"
             ],
             "groups": [
-                "WordPress Web Development"
+                "WordPress Web Development",
+                "Game of Game of Thrones Community",
+                "Chocolate Anonymonous "
             ],
             "friends": [
-                "William Hamlett",
-                "Dawud Haugabook",
                 "Mohini Patel"
             ]
         },
@@ -405,11 +393,11 @@
             "gender": "Male",
             "age": "49",
             "birthday": "02/14/1966",
-            "political_view": "Center Right",
+            "political_view": "Center Left",
             "location": "Flint",
             "phone": "14474258975",
-            "education": "Masters",
-            "work": "Media and Internet",
+            "education": "None",
+            "work": "Charity and Voluntary",
             "interests": [
                 "Books",
                 "Math",
@@ -418,11 +406,12 @@
                 "Education"
             ],
             "groups": [
-                "Unreal Engine Game Development"
+                "Unreal Engine Game Development",
+                "Game of Game of Thrones Community",
+                "Bouldering Club"
             ],
             "friends": [
                 "Dawud Haugabook",
-                "Amney Iskandar",
                 "Frank Bryant"
             ]
         },
@@ -431,20 +420,19 @@
             "gender": "Female",
             "age": "22",
             "birthday": "03/02/1993",
-            "political_view": "Center Right",
+            "political_view": "Far Left",
             "location": "Flint",
             "phone": "14473658654",
             "education": "Masters",
-            "work": "Media and Internet",
+            "work": "Charity and Voluntary",
             "interests": [
                 "Food"
             ],
             "groups": [
-                "Unreal Engine Game Development"
+                "Unreal Engine Game Development",
+                "Potluck Fridays Society"
             ],
             "friends": [
-                "Amney Iskandar",
-                "Anthony Jamora",
                 "Frank Bryant",
                 "William Hamlett"
             ]
@@ -454,22 +442,22 @@
             "gender": "Male",
             "age": "25",
             "birthday": "05/14/1989",
-            "political_view": "Center",
+            "political_view": "Far Right",
             "location": "Flint",
             "phone": "14471256874",
-            "education": "Masters",
-            "work": "Media and Internet",
+            "education": "PHD",
+            "work": "Unemployed",
             "interests": [
                 "Food",
                 "Science"
             ],
             "groups": [
-                "EMS"
+                "EMS",
+                "Craft Beer Lover's Group",
+                "Ping Pong Society"
             ],
             "friends": [
                 "Anthony Jamora",
-                "Simul Kadakia",
-                "Andrew Farah",
                 "Alaa Serhan"
             ]
         },
@@ -478,11 +466,11 @@
             "gender": "Male",
             "age": "23",
             "birthday": "12/14/1991",
-            "political_view": "Center",
+            "political_view": "Left",
             "location": "Novi",
             "phone": "17589654782",
-            "education": "Masters",
-            "work": "Media and Internet",
+            "education": "GED",
+            "work": "Hospitality",
             "interests": [
                 "Music",
                 "Books",
@@ -491,12 +479,12 @@
                 "Sports"
             ],
             "groups": [
-                "Unity Game Development"
+                "Unity Game Development",
+                "Game of Game of Thrones Community",
+                "Death Metal Vegans"
             ],
             "friends": [
                 "Simul Kadakia",
-                "John Luu",
-                "Thomas Burke",
                 "Jonathan Nabors"
             ]
         },
@@ -505,21 +493,20 @@
             "gender": "Male",
             "age": "25",
             "birthday": "2/14/1990",
-            "political_view": "Center",
+            "political_view": "Center Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "Masters",
-            "work": "Media and Internet",
+            "education": "PHD",
+            "work": "Unemployed",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "CompuTech"
+                "CompuTech",
+                "Potluck Fridays Society"
             ],
             "friends": [
                 "John Luu",
-                "Kelly Markaity",
-                "Wesley Trescott",
                 "Gagandeep Singh"
             ]
         },
@@ -528,11 +515,11 @@
             "gender": "Male",
             "age": "32",
             "birthday": "11/21/1982",
-            "political_view": "Center Left",
+            "political_view": "Center Right",
             "location": "Saginaw",
             "phone": "19685647844",
-            "education": "Masters",
-            "work": "Media and Internet",
+            "education": "GED",
+            "work": "Unemployed",
             "interests": [
                 "Music",
                 "Sports",
@@ -546,8 +533,6 @@
                 "Math Learning Ipad App"
             ],
             "friends": [
-                "Kelly Markaity",
-                "Jonathan Nabors",
                 "Samuel Arseneault"
             ]
         },
@@ -556,20 +541,20 @@
             "gender": "Not Specified",
             "age": "25",
             "birthday": "2/14/1990",
-            "political_view": "Center Left",
+            "political_view": "Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "Masters",
-            "work": "Unemployed",
+            "education": "GED",
+            "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "Math Learning Ipad App"
+                "Math Learning Ipad App",
+                "Cool Kids",
+                "Ping Pong Society"
             ],
             "friends": [
-                "Jonathan Nabors",
-                "Zaid Nackasha",
                 "John Luu",
                 "Samuel Arseneault"
             ]
@@ -579,20 +564,22 @@
             "gender": "Male",
             "age": "35",
             "birthday": "2/14/1980",
-            "political_view": "Center Left",
+            "political_view": "Extreme Left",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "Masters",
-            "work": "Unemployed",
+            "education": "None",
+            "work": "Environment and Agriculture",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "Unity Game Development"
+                "Unity Game Development",
+                "Craft Beer Lover's Group",
+                "Cool Kids",
+                "PC Master Race",
+                "Chocolate Anonymonous "
             ],
             "friends": [
-                "Zaid Nachasha",
-                "Sravan Nerella",
                 "Anthony Jamora",
                 "Thomas Burke"
             ]
@@ -602,23 +589,21 @@
             "gender": "Male",
             "age": "27",
             "birthday": "5/14/1991",
-            "political_view": "Center Left",
+            "political_view": "Center",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "PHD",
-            "work": "Unemployed",
+            "education": "Masters",
+            "work": "Unemployed0",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "GM Big Data"
+                "GM Big Data",
+                "Reague of Regends Society"
             ],
             "friends": [
                 "Sravan Nerella",
                 "Van Nguyen",
-                "Joshua Davis",
-                "Mohammad Anwar",
-                "Alexander Czarnik",
                 "Maria Ferreria"
             ]
         },
@@ -641,15 +626,14 @@
                 "Art"
             ],
             "groups": [
-                "GM Big Data"
+                "GM Big Data",
+                "Asian Society of Asians",
+                "Ping Pong Society"
             ],
             "friends": [
                 "Van Nguyen",
                 "Dishank Patel",
                 "Joshua Davis",
-                "Mohammad Anwar",
-                "Zaid Nackasha",
-                "Alexander Czarnik",
                 "Maria Ferreria"
             ]
         },
@@ -658,20 +642,22 @@
             "gender": "Not Specified",
             "age": "25",
             "birthday": "2/14/1991",
-            "political_view": "Left",
+            "political_view": "Extreme Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "PHD",
-            "work": "Unemployed",
+            "education": "Associates",
+            "work": "Leisure, Sport and Tourism",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "Privacy"
+                "Privacy",
+                "Craft Beer Lover's Group",
+                "Reague of Regends Society",
+                "Game of Game of Thrones Community",
+                "Cool Kids"
             ],
             "friends": [
-                "Dishank Patel",
-                "Alpeshkumar Patel",
                 "Zachary Rzotkiewicz"
             ]
         },
@@ -680,11 +666,11 @@
             "gender": "Male",
             "age": "22",
             "birthday": "1/2/1993",
-            "political_view": "Left",
+            "political_view": "Center Right",
             "location": "Novi",
             "phone": "12482523698",
-            "education": "PHD",
-            "work": "Unemployed",
+            "education": "None",
+            "work": "Leisure, Sport and Tourism",
             "interests": [
                 "Soccer",
                 "Sports",
@@ -694,12 +680,12 @@
                 "Art"
             ],
             "groups": [
-                "Privacy"
+                "Privacy",
+                "NPR Fan Club",
+                "Gluten-Free Free Club"
             ],
             "friends": [
                 "Alpeshkumar Patel",
-                "Mohini Patel",
-                "Van Nguyen",
                 "Zachary Rzotkiewicz"
             ]
         },
@@ -708,22 +694,22 @@
             "gender": "Male",
             "age": "22",
             "birthday": "5/24/1992",
-            "political_view": "Left",
+            "political_view": "Right",
             "phone": "17581236587",
             "location": "Novi",
-            "education": "PHD",
-            "work": "Law",
+            "education": "Masters",
+            "work": "Media and Internet",
             "interests": [
                 "Music",
                 "Sports"
             ],
             "groups": [
-                "Urban Science Project"
+                "Urban Science Project",
+                "PC Master Race",
+                "Game of Game of Thrones Community"
             ],
             "friends": [
                 "Mohini Patel",
-                "Idlir Peshkepia",
-                "Summer Sandhu",
                 "Odiljon Akhmedov"
             ]
         },
@@ -736,16 +722,18 @@
             "location": "Novi",
             "phone": "17581236587",
             "education": "PHD",
-            "work": "Law",
+            "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "WordPress Web Development"
+                "WordPress Web Development",
+                "NPR Fan Club",
+                "Bouldering Club",
+                "Chocolate Anonymonous "
             ],
             "friends": [
                 "Idlir Peshkepia",
-                "Takida Robinson",
                 "Jason Garrison"
             ]
         },
@@ -754,22 +742,21 @@
             "gender": "Male",
             "age": "30",
             "birthday": "1/30/1985",
-            "political_view": "Left",
+            "political_view": "Far Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "PHD",
-            "work": "Law",
+            "education": "GED",
+            "work": "Unemployed",
             "interests": [
                 "Scotch"
             ],
             "groups": [
-                "Urban Science Project"
+                "Urban Science Project",
+                "Death Metal Vegans"
             ],
             "friends": [
                 "Takida Robinson",
                 "Zachary Rzotkiewicz",
-                "Summer Sandhu",
-                "Alpeshkumar Patel",
                 "Odiljon Akhmedov"
             ]
         },
@@ -801,21 +788,22 @@
             "gender": "Male",
             "age": "35",
             "birthday": "2/14/1980",
-            "political_view": "Far Left",
+            "political_view": "Left",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "PHD",
-            "work": "Law",
+            "education": "None",
+            "work": "Media and Internet",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "Privacy"
+                "Privacy",
+                "Potluck Fridays Society",
+                "Gluten-Free Free Club",
+                "Cool Kids"
             ],
             "friends": [
                 "Summer Sandhu",
-                "Alaa Serhan",
-                "Van Nguyen",
                 "Dishank Patel"
             ]
         },
@@ -824,16 +812,18 @@
             "gender": "Female",
             "age": "24",
             "birthday": "8/22/1990",
-            "political_view": "Far Left",
+            "political_view": "Center Left",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "PHD",
-            "work": "Law",
+            "education": "Associates",
+            "work": "Unemployed",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "Urban Science Project"
+                "Urban Science Project",
+                "PC Master Race",
+                "Reague of Regends Society"
             ],
             "friends": [
                 "Alaa Serhan",
@@ -848,21 +838,21 @@
             "gender": "Female",
             "age": "25",
             "birthday": "12/14/1989",
-            "political_view": "Far Left",
+            "political_view": "Center",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "GED",
-            "work": "Engineering and Manufacturing",
+            "education": "PHD",
+            "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Music"
             ],
             "groups": [
-                "EMS"
+                "EMS",
+                "Craft Beer Lover's Group",
+                "Gluten-Free Free Club"
             ],
             "friends": [
                 "Adam Serruys",
-                "Michael Simons",
-                "Amney Iskandar",
                 "Andre Farah"
             ]
         },
@@ -871,22 +861,22 @@
             "gender": "Male",
             "age": "21",
             "birthday": "7/15/1993",
-            "political_view": "Far Left",
+            "political_view": "Right",
             "location": "Novi",
             "phone": "17581236587",
             "education": "GED",
-            "work": "Engineering and Manufacturing",
+            "work": "Unemployed",
             "interests": [
                 "Movies",
                 "Books"
             ],
             "groups": [
-                "3rd Grade - Iphone App"
+                "3rd Grade - Iphone App",
+                "Asian Society of Asians",
+                "NPR Fan Club"
             ],
             "friends": [
                 "Michael Simons",
-                "Gagandeep Singh",
-                "Alyssa Wilkins",
                 "Fadi Farah"
             ]
         },
@@ -895,11 +885,11 @@
             "gender": "Male",
             "age": "23",
             "birthday": "6/4/1991",
-            "political_view": "Far Left",
+            "political_view": "Far Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "GED",
-            "work": "Engineering and Manufacturing",
+            "education": "None",
+            "work": "Unemployed",
             "interests": [
                 "Movies",
                 "Music",
@@ -907,12 +897,12 @@
                 "Sports"
             ],
             "groups": [
-                "Virtual Reality"
+                "Virtual Reality",
+                "Ping Pong Society",
+                "Death Metal Vegans"
             ],
             "friends": [
                 "Gagandeep Singh",
-                "Alaa Tolba",
-                "Mahmoud Eraqi",
                 "Mary Desjarlais"
             ]
         },
@@ -921,22 +911,23 @@
             "gender": "Male",
             "age": "27",
             "birthday": "1/1/1988",
-            "political_view": "Far Left",
+            "political_view": "Extreme Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "GED",
-            "work": "Engineering and Manufacturing",
+            "education": "Associates",
+            "work": "Unemployed0",
             "interests": [
                 "Books",
                 "Movies",
                 "Politics"
             ],
             "groups": [
-                "CompuTech"
+                "CompuTech",
+                "Death Metal Vegans",
+                "Reague of Regends Society"
             ],
             "friends": [
                 "Alaa Tolba",
-                "Wesley Trescott",
                 "Simul Kadakia"
             ]
         },
@@ -945,11 +936,11 @@
             "gender": "Female",
             "age": "26",
             "birthday": "12/14/1989",
-            "political_view": "Extreme Left",
+            "political_view": "Right",
             "location": "Novi",
             "phone": "17581236587",
-            "education": "GED",
-            "work": "Creative Arts and Design",
+            "education": "4-Year Degree",
+            "work": "Energy and Utilities",
             "interests": [
                 "Books",
                 "Movies",
