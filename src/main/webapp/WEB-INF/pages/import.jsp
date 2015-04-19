@@ -90,7 +90,7 @@
                             </div>
                         </div>
                         <br>
-                        <input type="submit" name="import" value="import" class="btn btn-success"/>     <input type="submit" name="delete" value="delete" class="btn btn-danger"/> <input type="submit" name="meganalysis" value="meganalysis" class="btn btn-info"/>
+                        <input type="submit" name="import" value="import" class="btn btn-success"/>     <input type="submit" name="delete" value="delete" class="btn btn-danger"/> <input type="submit" name="megaanalysis" value="megaanalysis" class="btn btn-info"/>
                     </form>
                 </div>
             </div>
