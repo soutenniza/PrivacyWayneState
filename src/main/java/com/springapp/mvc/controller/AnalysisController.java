@@ -90,6 +90,9 @@ public class AnalysisController {
             if(m.contains("gave the attribute")){
                 contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
             }
+            if(m.contains("set as invisible")){
+                contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+            }
         }
 
         printDistances(redirectAttributes, distanceMsgs);
