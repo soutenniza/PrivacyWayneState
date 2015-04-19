@@ -9,15 +9,27 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.FieldSelector;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.*;
+import org.apache.lucene.wordnet.SynExpand;
+import org.apache.lucene.wordnet.SynonymMap;
 import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by Zachary on 4/4/2015.
@@ -209,6 +221,7 @@ public class ContentAnalysisService {
         //date : over a time frame (you are visiting in summer vs. you live here)
 
         p = service.getPerson(p.getNodeID());
+        String predictMsg = "";
 
         // we need to get a collection of attributes that have visibility set to 0
         ArrayList<Attribute> invisibleAtts = new ArrayList<Attribute>();
@@ -244,6 +257,15 @@ public class ContentAnalysisService {
                                     "\" directly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
                             messages.add(msg);
                         }
+                        predictMsg = predictContext(c.getText(), a.getLabel());
+                        if(!predictMsg.equals("")){
+                            messages.add(predictMsg);
+                        }
+                        predictMsg = predictContext(c.getText(), a.getValue());
+                        if(!predictMsg.equals("")){
+                            messages.add(predictMsg);
+                        }
+
                     }
 
                 }
@@ -350,6 +372,37 @@ public class ContentAnalysisService {
         msg = nomsg + msg + "</center>";
         Person p = service.getPerson(pid);
         service.setCommunicationCharts(p.getNodeID(), msg);
+    }
+
+    public String predictContext(String text, String word){
+        String msg = "";
+        word = word.toLowerCase();
+        try{
+            //ApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] {""});
+            //Resource resource = appContext.getResource("classpath:com/PrivacyWayneState/assets/wn_s.pl");
+
+            SynonymMap map = new SynonymMap(new FileInputStream("/wn_s.pl"));
+            String synonyms[] = map.getSynonyms(word);
+
+            int numSyns = synonyms.length;
+            int numFound = 0;
+
+//            for(String s : synonyms){
+//
+//            }
+
+            System.out.println("from predict context: " + Arrays.asList(synonyms).toString());
+
+
+
+
+        }catch(FileNotFoundException e){
+            System.out.println("PREDICTCONTEXT ERROR: " + e);
+        }catch(IOException e){
+            System.out.println("PREDICTCONTEXT ERROR: " + e);
+        }
+
+        return msg;
     }
 
 }
