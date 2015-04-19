@@ -143,6 +143,17 @@
                                 </div>
                             </c:if>
                     </div>
+                    <h4>Highschool Friends Privacy Outliers</h4>
+                    <div class="col-md-12">
+                        <c:if test="${hsfpo != null}">
+                            ${hsfpo}
+                        </c:if>
+                        <c:if test="${hsfpook != null}">
+                            <div id="message" class="alert alert-success">
+                                    ${hsfpook}
+                            </div>
+                        </c:if>
+                    </div>
                     <h4>Associations</h4>
                     <div class="col-md-12">
                         <c:if test="${asc != null}">
