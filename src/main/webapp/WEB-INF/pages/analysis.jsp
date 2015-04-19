@@ -78,7 +78,7 @@
                         </c:if>
                         <c:if test="${relationshipstrengthok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${relationshipstrengthok}</b>
+                                ${relationshipstrengthok}
                             </div>
                         </c:if>
                     </div>
@@ -89,7 +89,7 @@
                         </c:if>
                         <c:if test="${fpsok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${fpsok}</b>
+                                ${fpsok}
                             </div>
                         </c:if>
                     </div>
@@ -100,7 +100,7 @@
                         </c:if>
                         <c:if test="${interactionsok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${interactionsok}</b>
+                                ${interactionsok}
                             </div>
                         </c:if>
                     </div>
@@ -111,7 +111,7 @@
                         </c:if>
                         <c:if test="${relationshipsok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${relationshipsok}</b>
+                                ${relationshipsok}
                             </div>
                         </c:if>
                     </div>
@@ -122,7 +122,7 @@
                         </c:if>
                         <c:if test="${distancesok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${distancesok}</b>
+                                ${distancesok}
                             </div>
                         </c:if>
                     </div>
@@ -139,7 +139,7 @@
                             </c:if>
                             <c:if test="${gpsok != null}">
                                 <div id="message" class="alert alert-success">
-                                    <b>${gpsok}</b>
+                                    ${gpsok}
                                 </div>
                             </c:if>
                     </div>
@@ -150,7 +150,7 @@
                         </c:if>
                         <c:if test="${ascok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${ascok}</b>
+                                ${ascok}
                             </div>
                         </c:if>
                     </div>
@@ -168,20 +168,31 @@
                         </c:if>
                         <c:if test="${sentMsgsok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${sentMsgsok}</b>
+                                ${sentMsgsok}
                             </div>
                         </c:if>
                     </div>
                 </div>
                 <div class="row">
-                    <h4>Comment Content</h4>
+                    <h4>Your Comment Content</h4>
                     <div class="col-md-12">
                         <c:if test="${contentMsgs != null}">
                             ${contentMsgs}
                         </c:if>
                         <c:if test="${contentMsgsok != null}">
                             <div id="message" class="alert alert-success">
-                                <b>${contentMsgsok}</b>
+                                ${contentMsgsok}
+                            </div>
+                        </c:if>
+                    </div>
+                    <h4>Others Comment Content</h4>
+                    <div class="col-md-12">
+                        <c:if test="${othercontentMsgs != null}">
+                            ${othercontentMsgs}
+                        </c:if>
+                        <c:if test="${othercontentMsgsok != null}">
+                            <div id="message" class="alert alert-success">
+                                    ${othercontentMsgsok}
                             </div>
                         </c:if>
                     </div>
