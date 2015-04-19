@@ -1,6 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Attribute;
+import com.springapp.mvc.model.FriendRelationship;
 import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.AnalysisService;
@@ -78,6 +79,8 @@ public class ReportingController {
 
         // incoming vs outgoing communications
         redirectAttributes.addFlashAttribute("cfdata", genCFData(p1));
+
+        redirectAttributes.addFlashAttribute("fddata", genFriendDataLine(p1));
 
 
         return "redirect:/reporting";
@@ -221,6 +224,73 @@ public class ReportingController {
         msg = nomsg + msg + "</center>";
         return msg;
     }
+
+    public String genFriendDataLine(Long pid){
+        String fdData = "";
+        String msg = "<center>";
+        Person p = personService.getPerson(pid);
+        int count = 0;
+        String id;
+        Collection<FriendRelationship> friends = p.getFriendRelationships();
+        for(FriendRelationship f : friends){
+            Person person = personService.getPerson(f.getFriend().getNodeID());
+            id = "fdid" + Integer.toString(count);
+            count++;
+
+            fdData = genFDData(f);
+            msg = msg + "<h3>" + person.getName() + "</h3>\n";
+            msg = msg + "<div id=\"chart" + id + "\"></div>\n" +
+                    "<script language=\"JavaScript\">\n" +
+                    "var chart = c3.generate({\n" +
+                    "bindto: '#chart" + id + "',\n" +
+                    "data: {\n" +
+                    "   columns: [" + fdData + "]\n" +
+                    "}\n" +
+                    "});" +
+                    "</script>";
+
+        }
+
+
+        return msg + "</center>";
+    }
+
+    public String genFDData(FriendRelationship f){
+        String data = "";
+        FriendRelationship r = personService.getFriendRelationship(f.getNodeID());
+        ArrayList<Integer> mt = r.getMutualFriendRecord();
+        ArrayList<Integer> cg = r.getCommonGroupRecord();
+        ArrayList<Double> it = r.getInteractionsRecord();
+        ArrayList<Double> rs = r.getRelationshipStrengthRecord();
+        ArrayList<Double> sd = r.getSocialDistanceRecord();
+        data = "['Mutual Friends', ";
+        for(int i = 0; i < mt.size(); i++){
+            data = data + String.format("%d", mt.get(i)) + ", ";
+        }
+        data = data + "], ";
+        data = data + "['Common Groups', ";
+        for(int i = 0; i < cg.size(); i++){
+            data = data + String.format("%d", cg.get(i)) + ", ";
+        }
+        data = data + "], ";
+        data = data + "['Interactions', ";
+        for(int i = 0; i < it.size(); i++){
+            data = data + String.format("%.2f", it.get(i)) + ", ";
+        }
+        data = data + "], ";
+        data = data + "['Relationship Strength', ";
+        for(int i = 0; i < rs.size(); i++){
+            data = data + String.format("%.2f", rs.get(i)) + ", ";
+        }
+        data = data + "], ";
+        data = data + "['Social Distance', ";
+        for(int i = 0; i < sd.size(); i++){
+            data = data + String.format("%.2f", sd.get(i)) + ", ";
+        }
+        data = data + "] ";
+        return data;
+    }
+
 
     public String genChangeStr(ArrayList<Double> vals){
         String msg = "";
