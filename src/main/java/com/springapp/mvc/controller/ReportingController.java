@@ -281,14 +281,14 @@ public class ReportingController {
             data = data + String.format("%.2f", it.get(i)) + ", ";
         }
         data = data + "], ";
-        data = data + "['Relationship Strength', ";
-        for(int i = 0; i < rs.size(); i++){
-            data = data + String.format("%.2f", rs.get(i)) + ", ";
-        }
-        data = data + "], ";
         data = data + "['Social Distance', ";
         for(int i = 0; i < sd.size(); i++){
             data = data + String.format("%.2f", sd.get(i)) + ", ";
+        }
+        data = data + "], ";
+        data = data + "['Relationship Strength', ";
+        for(int i = 0; i < rs.size(); i++){
+            data = data + String.format("%.2f", rs.get(i)) + ", ";
         }
         data = data + "] ";
         return data;

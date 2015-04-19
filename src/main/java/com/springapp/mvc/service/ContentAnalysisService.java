@@ -378,10 +378,8 @@ public class ContentAnalysisService {
         String msg = "";
         word = word.toLowerCase();
         try{
-            //ApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] {""});
-            //Resource resource = appContext.getResource("classpath:com/PrivacyWayneState/assets/wn_s.pl");
-
-            SynonymMap map = new SynonymMap(new FileInputStream("/wn_s.pl"));
+            Resource resource = new ClassPathResource("wn_s.pl");
+            SynonymMap map = new SynonymMap(resource.getInputStream());
             String synonyms[] = map.getSynonyms(word);
 
             int numSyns = synonyms.length;

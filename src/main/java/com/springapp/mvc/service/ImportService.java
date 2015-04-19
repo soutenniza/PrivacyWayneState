@@ -13,8 +13,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -38,7 +44,7 @@ public class ImportService {
     @Autowired
     GroupRepository groupRepository;
 
-    private static final String JSON_PATH = "http://zackrzot.com/data.json";
+    private static final String JSON_PATH = "data.json.txt";
 
     public boolean importFromJSON(int stop) {
 
@@ -63,7 +69,8 @@ public class ImportService {
         String friend;
 
         try{
-            InputStreamReader reader = new InputStreamReader(new URL(JSON_PATH).openStream(), "UTF-8");
+            Resource resource = new ClassPathResource(JSON_PATH);
+            InputStreamReader reader = new InputStreamReader(resource.getInputStream(), "UTF-8");
             System.out.println("Import: File loaded.");
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
