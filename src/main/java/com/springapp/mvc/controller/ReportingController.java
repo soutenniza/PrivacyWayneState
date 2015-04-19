@@ -227,6 +227,7 @@ public class ReportingController {
 
     public String genFriendDataLine(Long pid){
         String fdData = "";
+        String fdPieData = "";
         String msg = "<center>";
         Person p = personService.getPerson(pid);
         int count = 0;
@@ -238,6 +239,7 @@ public class ReportingController {
             count++;
 
             fdData = genFDData(f);
+            fdPieData = genFDPieData(f);
             msg = msg + "<h3>" + person.getName() + "</h3>\n";
             msg = msg + "<div id=\"chart" + id + "\"></div>\n" +
                     "<script language=\"JavaScript\">\n" +
@@ -247,12 +249,46 @@ public class ReportingController {
                     "   columns: [" + fdData + "]\n" +
                     "}\n" +
                     "});" +
-                    "</script>";
-
+                    "</script><br>";
+            msg = msg + "<h5>How your relationship strength is calculated with " + person.getName() + "</h5>";
+            msg = msg + "<div id=\"charts" + id + "\"></div>\n" +
+                    "<script language=\"JavaScript\">\n" +
+                    "var chart = c3.generate({\n" +
+                    "bindto: '#charts" + id + "',\n" +
+                    "data: {\n" +
+                    "   columns: [" + fdPieData + "],\n" +
+                    "   type: 'pie',\n" +
+                    "}\n" +
+                    "});" +
+                    "</script><br>";
         }
 
 
         return msg + "</center>";
+    }
+
+    public String genFDPieData(FriendRelationship f){
+        String data = "";
+        FriendRelationship r = personService.getFriendRelationship(f.getNodeID());
+        ArrayList<Integer> mt = r.getMutualFriendRecord();
+        ArrayList<Integer> cg = r.getCommonGroupRecord();
+        ArrayList<Double> it = r.getInteractionsRecord();
+        ArrayList<Double> rs = r.getRelationshipStrengthRecord();
+        ArrayList<Double> sd = r.getSocialDistanceRecord();
+        Person person = personService.getPersonFromFriendRelationship(personService.getFriendRelationship(f.getNodeID()));
+        person = personService.getPerson(person.getNodeID());
+        int countFriends = person.getFriends().size();
+        double mtRatio = mt.get(mt.size() - 1) / (double) countFriends;
+
+        int countGroups = person.getGroups().size();
+        double cgRatio = cg.get(cg.size() - 1) / (double) countGroups;
+
+        data = "['Mutual Friends', " + String.format("%.2f", mtRatio) + "], ";
+        data = data + "['Common Groups', " + String.format("%.2f", cgRatio) + "], ";
+        data = data + "['Interactions', " + String.format("%.2f", it.get(it.size() - 1)/10.0) + "], ";
+        double sdRatio = (5.0 - sd.get(sd.size() - 1)) / 5.0;
+        data = data + "['Social Distance', " + String.format("%.2f", sdRatio) + "], ";
+        return data;
     }
 
     public String genFDData(FriendRelationship f){

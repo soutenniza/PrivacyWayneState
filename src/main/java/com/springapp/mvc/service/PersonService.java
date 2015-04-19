@@ -376,6 +376,10 @@ public class PersonService {
         return groups;
     }
 
+    public Person getPersonFromFriendRelationship(FriendRelationship f){
+        return getFriendRelationship(f.getNodeID()).getPerson();
+    }
+
     public ArrayList<Comment> getAllComments(){
         ArrayList<Comment> comments = new ArrayList<Comment>();
         comments.addAll(commentRepository.findAll().as(ArrayList.class));
