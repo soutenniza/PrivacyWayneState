@@ -128,6 +128,9 @@
                 <h5>Communication Flow: </h5><i><h6> Incoming verses outgoing interactions between people on this network:</h6></i><br>
                 ${cfdata}
                 <br>
+                <h5>Relationships over time: </h5><i><h6>This is how your relationship changed over time:</h6></i><br>
+                    ${fddata}
+                <br>
 
 
 

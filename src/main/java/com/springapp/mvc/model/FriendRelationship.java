@@ -99,4 +99,9 @@ public class FriendRelationship {
     public long getNodeID(){
         return id;
     }
+
+    public Person getPerson(){
+        return user;
+    }
+
 }
