@@ -56,6 +56,7 @@ public class AnalysisController {
         String contentMsgs = "";
         String othercontentMsgs = "";
         String distanceMsgs = "";
+        String predictMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
 
@@ -88,11 +89,14 @@ public class AnalysisController {
             if(m.contains("negative comments")){
                 sentMsgs = sentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
-            if(m.contains("gave the attribute")){
+            if(m.contains("score, but")){
                 contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("set as invisible")){
                 othercontentMsgs = othercontentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
+            }
+            if(m.contains("Flagged words")){
+                predictMsgs = predictMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
         }
 
@@ -106,6 +110,7 @@ public class AnalysisController {
         printSent(redirectAttributes, sentMsgs);
         printContent(redirectAttributes, contentMsgs);
         printotherContent(redirectAttributes, othercontentMsgs);
+        printpredictMsgs(redirectAttributes, predictMsgs);
 
 
         return "redirect:/analysis";
@@ -220,4 +225,13 @@ public class AnalysisController {
         }
     }
 
+    public void printpredictMsgs(RedirectAttributes r, String sentMsgs){
+        if(sentMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("predictMsgsok", msg);
+        }
+        else {
+            r.addFlashAttribute("predictMsgs", sentMsgs);
+        }
+    }
 }

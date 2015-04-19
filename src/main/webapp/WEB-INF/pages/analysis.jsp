@@ -196,6 +196,17 @@
                             </div>
                         </c:if>
                     </div>
+                    <h4>Possible Content Concerns</h4>
+                    <div class="col-md-12">
+                        <c:if test="${predictMsgs != null}">
+                            ${predictMsgs}
+                        </c:if>
+                        <c:if test="${predictMsgsok != null}">
+                            <div id="message" class="alert alert-success">
+                                    ${predictMsgsok}
+                            </div>
+                        </c:if>
+                    </div>
                 </div>
             </div>
         </div>
