@@ -92,6 +92,23 @@
                     </script>
                 </c:if>
                 <br>
+                <h6>${user2}</h6>
+                <c:if test="${pspdata != null}">
+                    <div id="chartpsp"></div>
+
+                    <script language="JavaScript">
+                        var chartps = c3.generate({
+                            bindto: '#chartpsp',
+                            data: {
+                                columns: [
+                                    ${pspdata}
+                                ],
+                                type: 'pie'
+                            }
+                        });
+                    </script>
+                </c:if>
+                <br>
                 <table class="table table-hover">
                     <thead>
                         <tr>
