@@ -42,7 +42,23 @@ public class ContentAnalysisService {
     @Autowired
     PersonService service;
 
+    SynonymMap map;
+
+    public void initMap(){
+        try{
+            Resource resource = new ClassPathResource("wn_s.pl");
+            map = new SynonymMap(resource.getInputStream());
+        }catch(FileNotFoundException e){
+            System.out.println("PREDICTCONTEXT ERROR: " + e);
+        }catch(IOException e){
+            System.out.println("PREDICTCONTEXT ERROR: " + e);
+        }
+    }
+
     public ArrayList calculateAll(Person root){
+
+        initMap();
+
         ArrayList<String> messaages = new ArrayList<String>();
         // get and add sentiment analysis messages
         ArrayList<String> sentMsgs = runSentimentAnalysisForPerson(root);
@@ -114,53 +130,87 @@ public class ContentAnalysisService {
             add("head");
         }};
 
-        // get the root persons comments and attributes
-        Collection<Attribute> attributes = service.getPerson(root.getNodeID()).getAttributes();
-        Collection<Comment> comments = service.getPerson(root.getNodeID()).getComments();
+        root = service.getPerson(root.getNodeID());
 
-        // iterate through all of the persons comments
-        for(Comment c : comments){
-            String text = service.getComment(c.getNodeID()).getText();
-            // for each comment, iterate through each attribute
-            for(Attribute a : attributes){
-                a = service.getAttributeWithId(a.getNodeID());
-                // if the comment text contains the attribute label or value
-                if((text.contains(a.getLabel()))||((text.contains(a.getValue())))){
-                    Person person = service.getPerson(root.getNodeID());
-                    // get the persons has relationships to check for sensitive information
-                    Collection<HasRelationship> relationships = person.getAttributeRelationships();
-                    // iterate through each has relationship
-                    for(HasRelationship r : relationships){
-                        r = service.getHasRelationship(r.getId());
-                        Attribute aa = service.getAttributeWithId(r.getEnd().getNodeID());
-                        // skip the label interest
-                        if(!aa.getLabel().contains("interest")){
-                            // identify if the attribute was marked as sensitive
-                            if((aa.getLabel().contains(a.getLabel()))){
-                                if(r.getPv()>2){
-                                    messages.add("You gave the attribute " + aa.getLabel() + " a high privacy score, but you talk about it in the comment: \"" + text + "\"<br>Privacy Value: " + r.getPv());
-                                }
-                                if(r.getVv()<2){
-                                    messages.add("You gave the attribute " + aa.getLabel() + " a low visibility score, but you talk about it in the comment: \"" + text + "\"<br>Visibility Value: " + r.getVv());
-                                }
-                                if(r.getSv()>2){
-                                    messages.add("You gave the attribute " + aa.getLabel() + " a high sensitivity score, but you talk about it in the comment: \"" + text + "\"<br>Sensitivity Value: " + r.getSv());
-                                }
-                            }
-                        }
-                        // do the same for values
-                        if((aa.getValue().contains(a.getValue()))){
-                            if(r.getPv()>2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a high privacy score, but you mentioned it in the comment: \"" + text + "\"<br>Privacy Value: " + r.getPv());
-                            }
-                            if(r.getVv()<2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a low visibility score, but you mentioned it in the comment: \"" + text + "\"<br>Visibility Value: " + r.getVv());
-                            }
-                            if(r.getSv()>2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a high sensitivity score, but you mentioned it in the comment: \"" + text + "\"<br>Sensitivity Value: " + r.getSv());
-                            }
-                        }
+        // Get comments and replies made by user
+        ArrayList<Comment> usersComments = new ArrayList<Comment>();
+        Collection<Comment> allComments = service.getAllComments();
+        for (Comment c : allComments) {
+            c = service.getComment(c.getNodeID());
+            if (c.getOwnerID().equals(root.getNodeID())) {
+                usersComments.add(c);
+            }
+        }
+
+        // Get users has relationships
+        Collection<HasRelationship> hasRels = root.getAttributeRelationships();
+
+        // iterate though all relationships and see if any attributes are mentioned in any comments
+        for (HasRelationship h : hasRels) {
+            h = service.getHasRelationship(h.getId());
+            Attribute a = service.getAttributeWithId(h.getEnd().getNodeID());
+            String label = a.getLabel().toLowerCase();
+            String value = a.getValue().toLowerCase();
+            for (Comment c : usersComments) {
+                String commentText = service.getComment(c.getNodeID()).getText();
+                String normalized = commentText.replaceAll("[!?,{}()_+-=]", "");
+                normalized = normalized.toLowerCase();
+                String[] words = normalized.split("\\s+");
+                boolean lfound = false;
+                boolean vfound = false;
+                for(String w : words){
+                    if (w.equals(label)) {
+                        lfound = true;
                     }
+                    if (w.equals(value)) {
+                        vfound = true;
+                    }
+                    //System.out.println(label + " " + value + " " + vfound + " " + lfound);
+                }
+                if((lfound) && (!label.equals("interest"))){
+                    if(h.getVv() < 2){
+                        messages.add("You gave the attribute " + label +
+                                " a low visibility score, but you talk about it in the comment: \"" +
+                                commentText + "\"<br>Visibility Value: " + h.getVv());
+                    }
+                    if(h.getSv() > 2){
+                        messages.add("You gave the attribute " + label +
+                                " a high sensitivity score, but you talk about it in the comment: \"" +
+                                commentText + "\"<br>Sensitivity Value: " + h.getSv());
+                    }
+                    if(h.getPv() > 2){
+                        messages.add("You gave the attribute " + label +
+                                " a high privacy score, but you talk about it in the comment: \"" +
+                                commentText + "\"<br>Privacy Value: " + h.getPv());
+                    }
+                }
+                if(vfound){
+                    String type = "";
+                    if(label.equals("interest")) {
+                        type = "interest";
+                    } else{
+                        type = "attribute";
+                    }
+                    if(h.getVv() < 2){
+                        messages.add("You gave the " + type + " " + value +
+                                " a low visibility score, but you talk about it in the comment: \"" +
+                                commentText + "\"<br>Visibility Value: " + h.getVv());
+                    }
+                    if(h.getSv() > 2){
+                        messages.add("You gave the " + type + " " + value +
+                                " a high sensitivity score, but you talk about it in the comment: \"" +
+                                commentText + "\"<br>Sensitivity Value: " + h.getSv());
+                    }
+                    if(h.getPv() > 2){
+                        messages.add("You gave the " + type + " " + value +
+                                " a high privacy score, but you talk about it in the comment: \"" +
+                                commentText + "\"<br>Privacy Value: " + h.getPv());
+                    }
+                }
+                // make predictions on your own comment
+                if(h.getVv()==0){
+                    messages.add(predictOwnContext(commentText, label));
+                    messages.add(predictOwnContext(commentText, value));
                 }
             }
         }
@@ -247,21 +297,45 @@ public class ContentAnalysisService {
                 if((!c.getOwnerID().equals(p.getNodeID()))&&(!c.isRoot())){
                     // iterate through invisible attributes
                     for(Attribute a : invisibleAtts){
-                        if(c.getText().contains(" "+a.getLabel()+" ")){
+                        a = service.getAttributeWithId(a.getNodeID());
+                        String label = a.getLabel().toLowerCase();
+                        String value = a.getValue().toLowerCase();
+                        String commentText = c.getText();
+                        String normalized = commentText.replaceAll("[!?,{}()_+-=]", "");
+                        normalized = normalized.toLowerCase();
+                        String[] words = normalized.split("\\s+");
+                        boolean lfound= false;
+                        boolean vfound= false;
+                        for(String w : words){
+                            if(w.equals(label)){
+                                lfound = true;
+                            }
+                            if(w.equals(value)){
+                                vfound = true;
+                            }
+                        }
+                        System.out.println(vfound + " " + lfound);
+                        if(lfound){
                             msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
                                     "\" indirectly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
                             messages.add(msg);
                         }
-                        if(c.getText().contains(" "+a.getValue()+" ")){
+                        if(vfound){
+                            String type = "";
+                            if (label.equals("interest")) {
+                                type = "interest";
+                            } else {
+                                type = "attribute";
+                            }
                             msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
-                                    "\" directly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
+                                    "\" directly mentions the "+type+" \"" + a.getLabel() + "\" that you set as invisible to others.";
                             messages.add(msg);
                         }
-                        predictMsg = predictContext(c.getText(), a.getLabel());
+                        predictMsg = predictContext(c.getText(), a.getLabel(), service.getPerson(c.getOwnerID()).getName());
                         if(!predictMsg.equals("")){
                             messages.add(predictMsg);
                         }
-                        predictMsg = predictContext(c.getText(), a.getValue());
+                        predictMsg = predictContext(c.getText(), a.getValue(), service.getPerson(c.getOwnerID()).getName());
                         if(!predictMsg.equals("")){
                             messages.add(predictMsg);
                         }
@@ -374,30 +448,125 @@ public class ContentAnalysisService {
         service.setCommunicationCharts(p.getNodeID(), msg);
     }
 
-    public String predictContext(String text, String word){
+    public String predictContext(String text, String word, String owner){
+        String original = text;
         String msg = "";
         word = word.toLowerCase();
-        try{
-            Resource resource = new ClassPathResource("wn_s.pl");
-            SynonymMap map = new SynonymMap(resource.getInputStream());
-            String synonyms[] = map.getSynonyms(word);
+        text = text.toLowerCase();
 
-            int numSyns = synonyms.length;
-            int numFound = 0;
+        String synonyms[] = map.getSynonyms(word);
 
-//            for(String s : synonyms){
-//
-//            }
+        System.out.println("analyzing context for: " + word);
+        //System.out.println(Arrays.asList(synonyms).toString());
 
-            System.out.println("from predict context: " + Arrays.asList(synonyms).toString());
+        ArrayList<String> synsFound = new ArrayList<String>();
 
+        for(int i=0; i < synonyms.length; i++){
+            if(text.contains(synonyms[i])){
+                synsFound.add(synonyms[i].toString());
+            }
+        }
 
+        double conf = 0;
 
+        //System.out.println(synsFound);
 
-        }catch(FileNotFoundException e){
-            System.out.println("PREDICTCONTEXT ERROR: " + e);
-        }catch(IOException e){
-            System.out.println("PREDICTCONTEXT ERROR: " + e);
+        ArrayList<String> pronouns = new ArrayList<String>();
+        pronouns.add("you");
+        pronouns.add("your");
+        pronouns.add("yourself");
+        pronouns.add("our");
+        pronouns.add("ours");
+        pronouns.add("yours");
+
+        ArrayList<String> pronounsFound = new ArrayList<String>();
+
+        for(String s : pronouns){
+            if(text.contains(s)){
+                pronounsFound.add(s);
+            }
+        }
+
+        if(synsFound.isEmpty()){
+            msg="";
+        }
+        else{
+            conf = conf + (20*synsFound.size());
+            if(!pronounsFound.isEmpty()){
+                conf = conf + (30*pronounsFound.size());
+                for(String s : pronounsFound){
+                    synsFound.add(s);
+                }
+            }
+            String flaggedWords = "";
+            for(String s : synsFound){
+                flaggedWords = flaggedWords + "[ " + s + " ] ";
+            }
+
+            msg = "The reply made by " + owner + " to one of your posts: \"" + original + "\" seems to be referring to your attribute \"" + word +
+                    "\" that you have set invisible to others. Flagged words: " + flaggedWords + "Confidence: " + Double.toString(conf) + "%";
+        }
+
+        return msg;
+    }
+
+    public String predictOwnContext(String text, String word){
+        String original = text;
+        String msg = "";
+
+        String synonyms[] = map.getSynonyms(word);
+
+        System.out.println("analyzing context for: " + word);
+        //System.out.println(Arrays.asList(synonyms).toString());
+
+        ArrayList<String> synsFound = new ArrayList<String>();
+
+        for(int i=0; i < synonyms.length; i++){
+            if(text.contains(synonyms[i])){
+                synsFound.add(synonyms[i].toString());
+            }
+        }
+
+        double conf = 0;
+
+        //System.out.println(synsFound);
+
+        ArrayList<String> pronouns = new ArrayList<String>();
+        pronouns.add("me");
+        pronouns.add("i");
+        pronouns.add("im");
+        pronouns.add("my");
+        pronouns.add("myself");
+        pronouns.add("our");
+        pronouns.add("ours");
+        pronouns.add("mine");
+
+        ArrayList<String> pronounsFound = new ArrayList<String>();
+
+        for(String s : pronouns){
+            if(text.contains(s)){
+                pronounsFound.add(s);
+            }
+        }
+
+        if(synsFound.isEmpty()){
+            msg="";
+        }
+        else{
+            conf = conf + (20*synsFound.size());
+            if(!pronounsFound.isEmpty()){
+                conf = conf + (30*pronounsFound.size());
+                for(String s : pronounsFound){
+                    synsFound.add(s);
+                }
+            }
+            String flaggedWords = "";
+            for(String s : synsFound){
+                flaggedWords = flaggedWords + "[ " + s + " ] ";
+            }
+
+            msg = "Your own comment : \"" + original + "\" seems to be referring to your attribute \"" + word +
+                    "\" that you have set invisible to others. Flagged words: " + flaggedWords + "Confidence: " + Double.toString(conf) + "%";
         }
 
         return msg;
