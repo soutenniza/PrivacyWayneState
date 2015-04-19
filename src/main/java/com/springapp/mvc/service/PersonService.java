@@ -31,6 +31,8 @@ public class PersonService {
     private HasRepository hasRepository;
     @Autowired
     ContentAnalysisService contentAnalysisService;
+    @Autowired
+    private FriendRepository friendRepository;
 
     public void addFriend(Person friend, Person user){
         user.friends(friend);
@@ -170,6 +172,67 @@ public class PersonService {
             return getPerson(pid).getPrivacyScoreRecord().get(getPerson(pid).getPrivacyScoreRecord().size()-1);
         }
     }
+
+    public void addToMutualFriendsRecord(FriendRelationship r, int val){
+        FriendRelationship f = getFriendRelationship(r.getNodeID());
+        f.addToMutualFriendsRecord(val);
+        friendRepository.save(f);
+    }
+
+    public void addToCommonGroupRecord(FriendRelationship r, int val){
+        FriendRelationship f = getFriendRelationship(r.getNodeID());
+        f.addToCommonGroupsRecord(val);
+        friendRepository.save(f);
+    }
+
+    public void addToInteractionsRecord(FriendRelationship r, int val){
+        FriendRelationship f = getFriendRelationship(r.getNodeID());
+        f.addToInteractionsRecord(val);
+        friendRepository.save(f);
+    }
+
+    public void addToSocialDistanceRecord(FriendRelationship r, int val){
+        FriendRelationship f = getFriendRelationship(r.getNodeID());
+        f.addToSocialDistanceRecord(val);
+        friendRepository.save(f);
+    }
+
+    public void addToRelationshipStrengthRecord(FriendRelationship r, int val){
+        FriendRelationship f = getFriendRelationship(r.getNodeID());
+        f.addToRelationshipStrengthRecord(val);
+        friendRepository.save(f);
+    }
+
+    public void addToOutgoingCommunicationsRecord(FriendRelationship r, int val){
+        FriendRelationship f = getFriendRelationship(r.getNodeID());
+        f.addToOutgoingCommunicationsRecord(val);
+        friendRepository.save(f);
+    }
+
+    public ArrayList<Integer> getMutualFriendRecord(FriendRelationship r){
+        return getFriendRelationship(r.getNodeID()).getMutualFriendRecord();
+    }
+
+    public ArrayList<Integer> getCommonGroupsRecord(FriendRelationship r){
+        return getFriendRelationship(r.getNodeID()).getCommonGroupRecord();
+    }
+
+    public ArrayList<Double> getInteractionsRecord(FriendRelationship r){
+        return getFriendRelationship(r.getNodeID()).getInteractionsRecord();
+    }
+
+    public ArrayList<Double> getSocialDistanceRecord(FriendRelationship r){
+        return getFriendRelationship(r.getNodeID()).getSocialDistanceRecord();
+    }
+
+    public ArrayList<Double> getRelationshipStrengthRecord(FriendRelationship r){
+        return getFriendRelationship(r.getNodeID()).getRelationshipStrengthRecord();
+    }
+
+    public ArrayList<Double> getOutgoingCommunicationsRecord(FriendRelationship r){
+        return getFriendRelationship(r.getNodeID()).getOutgoingCommunicationsRecord();
+    }
+
     public void addToAttVisRec(HasRelationship h, double val){
         HasRelationship r = getHasRelationship(h.getId());
         r.addToAttVisRecord(val);
@@ -302,6 +365,10 @@ public class PersonService {
     public Comment getComment(Long id) { return commentRepository.findOne(id); }
 
     public Attribute getAttributeWithId(Long id) { return attributeRepository.findOne(id); }
+
+    public FriendRelationship getFriendRelationship(Long id){
+        return friendRepository.findOne(id);
+    }
 
     public ArrayList<Group> getAllGroups(){
         ArrayList<Group> groups = new ArrayList<Group>();
