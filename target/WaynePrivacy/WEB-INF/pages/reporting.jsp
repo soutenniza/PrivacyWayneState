@@ -12,7 +12,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>PrivacyWayne</title>
     <link  rel="shortcut icon" href="/resources/images/favicon.ico" type="image/x-icon" />
@@ -31,9 +30,8 @@
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 
     <!-- Load d3.js and c3.js -->
-    <script src="${pageContext.request.contextPath}/resources/c3/d3.v3.min.js" charset="utf-8"></script>
     <script src="${pageContext.request.contextPath}/resources/c3/c3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/d3/d3.v3.min.js" charset="utf-8"></script>
+    <script src="${pageContext.request.contextPath}/resources/d3/d3.js" charset="utf-8"></script>
     <script src="${pageContext.request.contextPath}/resources/d3/d3.min.js"></script>
 
 </head>
@@ -78,13 +76,12 @@
             <div class="jumbotron">
                 <h5>${user}</h5><br>
                 <h5>${pscore}</h5><br>
-
                 <c:if test="${psdata != null}">
-                    <div id="chart"></div>
+                    <div id="chartps"></div>
 
                     <script language="JavaScript">
-                        var chart = c3.generate({
-                            bindto: '#chart',
+                        var chartps = c3.generate({
+                            bindto: '#chartps',
                             data: {
                                 columns: [
                                     ${psdata}
@@ -93,6 +90,45 @@
                         });
                     </script>
                 </c:if>
+                <br>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Privacy Value</th>
+                            <th>Visibility Value</th>
+                            <th>Sensitivity Value</th>
+                            <th>Attribute Exposure: Actual</th>
+                            <th>Attribute Exposure: Target</th>
+                            <th>Attribute Exposure: Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${netvis}
+                    </tbody>
+                </table>
+                <br>
+                <h5>Attribute Visibility Over Time</h5><br>
+                <c:if test="${asdata != null}">
+                    <div id="chart2"></div>
+
+                    <script language="JavaScript">
+                        var chart = c3.generate({
+                            bindto: '#chart2',
+                            data: {
+                                columns: [
+                                    ${asdata}
+                                ]
+                            }
+                        });
+                    </script>
+                </c:if>
+                <br>
+                <h5>Communication Flow: </h5><i><h6> Incoming verses outgoing interactions between people on this network:</h6></i><br>
+                ${cfdata}
+                <br>
+
+
 
             </div>
         </div>

@@ -185,25 +185,25 @@ public class PersonService {
         friendRepository.save(f);
     }
 
-    public void addToInteractionsRecord(FriendRelationship r, int val){
+    public void addToInteractionsRecord(FriendRelationship r, double val){
         FriendRelationship f = getFriendRelationship(r.getNodeID());
         f.addToInteractionsRecord(val);
         friendRepository.save(f);
     }
 
-    public void addToSocialDistanceRecord(FriendRelationship r, int val){
+    public void addToSocialDistanceRecord(FriendRelationship r, double val){
         FriendRelationship f = getFriendRelationship(r.getNodeID());
         f.addToSocialDistanceRecord(val);
         friendRepository.save(f);
     }
 
-    public void addToRelationshipStrengthRecord(FriendRelationship r, int val){
+    public void addToRelationshipStrengthRecord(FriendRelationship r, double val){
         FriendRelationship f = getFriendRelationship(r.getNodeID());
         f.addToRelationshipStrengthRecord(val);
         friendRepository.save(f);
     }
 
-    public void addToOutgoingCommunicationsRecord(FriendRelationship r, int val){
+    public void addToOutgoingCommunicationsRecord(FriendRelationship r, double val){
         FriendRelationship f = getFriendRelationship(r.getNodeID());
         f.addToOutgoingCommunicationsRecord(val);
         friendRepository.save(f);

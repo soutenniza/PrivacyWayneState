@@ -189,6 +189,13 @@ public class RelationshipAnalysisService {
             interactions.add(it);
             privacyScoresID.add(pID);
             socialDistances.add(sd);
+            //Record Keeping
+            service.addToMutualFriendsRecord(service.getFriendRelationship(f.getNodeID()), mt);
+            service.addToCommonGroupRecord(service.getFriendRelationship(f.getNodeID()), mg);
+            service.addToInteractionsRecord(service.getFriendRelationship(f.getNodeID()), it);
+            service.addToSocialDistanceRecord(service.getFriendRelationship(f.getNodeID()), sd);
+            service.addToRelationshipStrengthRecord(service.getFriendRelationship(f.getNodeID()), rs);
+            //
         }
 
         double thresholdPS = 0;

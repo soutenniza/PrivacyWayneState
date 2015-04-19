@@ -1,6 +1,8 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Group;
+import com.springapp.mvc.model.Person;
+import com.springapp.mvc.service.AnalysisService;
 import com.springapp.mvc.service.ImportService;
 import com.springapp.mvc.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 public class ImportController {
+    @Autowired
+    AnalysisService analysisService;
 
     @Autowired
     PersonService service;
@@ -30,7 +34,7 @@ public class ImportController {
         return "/import";
     }
 
-    @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"delete", "!import"})
+    @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"delete", "!import", "!"})
     @Transactional
     public String deleteData(@RequestParam(value = "pass") String s, @RequestParam(value = "inputNum") String n, final RedirectAttributes redirectAttributes){
 
@@ -45,7 +49,7 @@ public class ImportController {
         return "redirect:/import";
     }
 
-    @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"!delete", "import"})
+    @RequestMapping(value = "/submitimport", method = RequestMethod.POST, params={"!delete", "import", "!meganaalysis"})
     @Transactional
     public String importData(@RequestParam(value = "pass") String s, @RequestParam(value = "inputNum") String n, final RedirectAttributes redirectAttributes){
 
@@ -65,6 +69,24 @@ public class ImportController {
         {
             redirectAttributes.addFlashAttribute("wrong", "Get out of here, you don't even know the passcode.");
         }
+        return "redirect:/import";
+    }
+
+    @RequestMapping(value = "/submitimport", method = RequestMethod.POST,  params={"!delete", "!import", "megaanalysis"})
+    @Transactional
+    public String allAnalysis(@RequestParam(value = "pass") String s, @RequestParam(value = "inputNum") String n, final RedirectAttributes redirectAttributes){
+        if(s.equals("Erfan")){
+            redirectAttributes.addFlashAttribute("pass", "Analysis for everyone done!");
+            for(Person p : service.getAllPersons()){
+                analysisService.setRoot(service.getPerson(p.getNodeID()));
+                analysisService.fullAnalysis();
+            }
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("wrong", "Get out of here, you don't even know the passcode.");
+        }
+
         return "redirect:/import";
     }
 }

@@ -149,7 +149,8 @@ public class ReportingController {
             // SV
             html = html + "<td>" + personService.getHasRelationship(a.getId()).getSv() + "</td>";
             // NETWORK VISIBILITY
-            double percent = profileAnalysisService.getAttributeExposure(personService.getPerson(pid), personService.getHasRelationship(a.getId()), totalsize) * 100.0;
+            ArrayList<Double> data = a.getAttVisibilityRecord();
+            double percent = data.get(data.size() - 1) * 100.0;
             String vis = String.format("%.2f%%", percent );
 
             html = html + "<td>" + vis + "</td>";
