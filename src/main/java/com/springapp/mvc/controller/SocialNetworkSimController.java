@@ -298,7 +298,8 @@ public class SocialNetworkSimController {
         String numLikes = genNumLikes(cid);
 
         String tabs = StringUtils.repeat(tab, depth);
-        html = html + "<div class= \"list-group-item\">" + tabs + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ": " + service.getComment(cid).getText() + numLikes + replyStr + likeStr + "</div>";
+
+        html = html + "<div class= \"list-group-item\">" + tabs + "<b>" + service.getPerson(service.getComment(cid).getOwnerID()).getName() + ":</b> " + makeTextBlock(service.getComment(cid).getText(), tabs) + numLikes + replyStr + likeStr + "</div>";
 
         while(service.getComment(cid).hasChildren()){
             Collection<Comment> replies = service.getComment(cid).getReplies();
@@ -313,6 +314,20 @@ public class SocialNetworkSimController {
         return html;
     }
 
+    public String makeTextBlock(String text, String tabs){
+        String newText = "";
+        int lineLimit = 70;
+        int charCounter = 0;
+        for(int ch = 0; ch < text.length(); ch++){
+            newText = newText + text.substring(ch,ch+1);
+            if((charCounter>lineLimit)&&(text.substring(ch,ch+1).equals(" "))){
+                newText = newText + "<br>" + tabs;
+                charCounter = 0;
+            }
+            charCounter = charCounter + 1;
+        }
+        return newText;
+    }
 
     public String mgenGroupsList(Person p){
         String html = "";

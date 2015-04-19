@@ -9,6 +9,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
+import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,35 +97,48 @@ public class ContentAnalysisService {
         ArrayList<String> messages = new ArrayList<String>() {{
             add("head");
         }};
+
+        // get the root persons comments and attributes
         Collection<Attribute> attributes = service.getPerson(root.getNodeID()).getAttributes();
         Collection<Comment> comments = service.getPerson(root.getNodeID()).getComments();
+
+        // iterate through all of the persons comments
         for(Comment c : comments){
             String text = service.getComment(c.getNodeID()).getText();
+            // for each comment, iterate through each attribute
             for(Attribute a : attributes){
                 a = service.getAttributeWithId(a.getNodeID());
+                // if the comment text contains the attribute label or value
                 if((text.contains(a.getLabel()))||((text.contains(a.getValue())))){
                     Person person = service.getPerson(root.getNodeID());
+                    // get the persons has relationships to check for sensitive information
                     Collection<HasRelationship> relationships = person.getAttributeRelationships();
+                    // iterate through each has relationship
                     for(HasRelationship r : relationships){
                         r = service.getHasRelationship(r.getId());
                         Attribute aa = service.getAttributeWithId(r.getEnd().getNodeID());
-                        if((aa.getLabel().contains(a.getLabel()))){
-                            if(r.getPv()>2){
-                                messages.add("You gave the attribute " + aa.getLabel() + " a high privacy score, but you talk about it in a comment. PV: " + r.getPv());
-                            }
-                            if(r.getVv()>2){
-                                messages.add("You gave the attribute " + aa.getLabel() + " a high visibility score, but you talk about it in a comment. VV: " + r.getVv());
-                            }
-                            if(r.getSv()>2){
-                                messages.add("You gave the attribute " + aa.getLabel() + " a high sensitivity score, but you talk about it in a comment. SV: " + r.getSv());
+                        // skip the label interest
+                        if(!aa.getLabel().contains("interest")){
+                            // identify if the attribute was marked as sensitive
+                            if((aa.getLabel().contains(a.getLabel()))){
+                                if(r.getPv()>2){
+                                    messages.add("You gave the attribute " + aa.getLabel() + " a high privacy score, but you talk about it in a comment. PV: " + r.getPv());
+                                }
+                                if(r.getVv()<2){
+                                    messages.add("You gave the attribute " + aa.getLabel() + " a low visibility score, but you talk about it in a comment. VV: " + r.getVv());
+                                }
+                                if(r.getSv()>2){
+                                    messages.add("You gave the attribute " + aa.getLabel() + " a high sensitivity score, but you talk about it in a comment. SV: " + r.getSv());
+                                }
                             }
                         }
+                        // do the same for values
                         if((aa.getValue().contains(a.getValue()))){
                             if(r.getPv()>2){
                                 messages.add("You gave the attribute " + aa.getValue() + " a high privacy score, but you mentioned it in a comment. PV: " + r.getPv());
                             }
-                            if(r.getVv()>2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a high visibility score, but you mentioned it in a comment. VV: " + r.getVv());
+                            if(r.getVv()<2){
+                                messages.add("You gave the attribute " + aa.getValue() + " a low visibility score, but you mentioned it in a comment. VV: " + r.getVv());
                             }
                             if(r.getSv()>2){
                                 messages.add("You gave the attribute " + aa.getValue() + " a high sensitivity score, but you mentioned it in a comment. SV: " + r.getSv());
@@ -134,6 +148,9 @@ public class ContentAnalysisService {
                 }
             }
         }
+
+        // add the analysis of other peoples comments/replies mentioning the owners invisible attributes
+        messages.addAll(predictAttributeValueFromComment(root));
 
         return messages;
     }
@@ -165,12 +182,12 @@ public class ContentAnalysisService {
      * 1. the text in the comment (look for keywords correlated with pronouns)
      * 2. the person p2 who posted the comment
      * 3. other related attributes e.g. date of the post or the comment (relate that with birthday
-     * @param p
-     * @param m
      */
-    public void predictAttributeValueFromComment(Person p ,Comment m){
-        //TODO: Zack: implemet me
-
+    public ArrayList<String> predictAttributeValueFromComment(Person p){
+        ArrayList<String> messages = new ArrayList<String>() {{
+            add("head");
+        }};
+        String msg = "";
         //case1: dk = age visibility = 0
         //text in the comment: keyword = birthday, pronoun = your
         //date of post = april 13
@@ -187,6 +204,48 @@ public class ContentAnalysisService {
         //text in comment : keword= Detroit, pronoun you are in, day: today
         //date : over a time frame (you are visiting in summer vs. you live here)
 
+        p = service.getPerson(p.getNodeID());
+
+        // we need to get a collection of attributes that have visibility set to 0
+        ArrayList<Attribute> invisibleAtts = new ArrayList<Attribute>();
+        Collection<HasRelationship> hasRels = p.getAttributeRelationships();
+        for(HasRelationship h : hasRels){
+            h = service.getHasRelationship(h.getId());
+            if(h.getVv()==0){
+                invisibleAtts.add(service.getAttributeWithId(h.getEnd().getNodeID()));
+            }
+        }
+
+        // if the user has no invisible attributes, the next part can be skipped
+        if(!invisibleAtts.isEmpty()){
+
+            // the users own comments are already checked for sensitive information, so in this case
+            // we need to iterate through all comments and replies that are NOT the owners.
+            Collection<Comment> allComments = service.getAllComments();
+            Collection<Comment> ownersComments = p.getComments();
+            for(Comment c : allComments){
+                // skip the owners comments
+                if(!ownersComments.contains(c)){
+                    c = service.getComment(c.getNodeID());
+                    // iterate through invisible attributes
+                    for(Attribute a : invisibleAtts){
+                        if(c.getText().contains(" "+a.getLabel()+" ")){
+                            msg = service.getPerson(c.getOwnerID()).getName() + "'s comment: \"" + c.getText() +
+                                    "\" indirectly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
+                            messages.add(msg);
+                        }
+                        if(c.getText().contains(" "+a.getValue()+" ")){
+                            msg = service.getPerson(c.getOwnerID()).getName() + "'s comment: \"" + c.getText() +
+                                    "\" directly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
+                            messages.add(msg);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return messages;
     }
 
     public double getRootOutgoingVal(Long pid, Long fid){

@@ -185,7 +185,8 @@ public class ReportingController {
                     friendStr = "[NOT A FRIEND]";
                 }
                 if (Double.isNaN(outgoing)) {
-                    nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
+                    // nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
+                    // do nothing
                 } else {
                     msg = msg + "<div id=\"chart" + id + "\"></div>" +
                             "<script language=\"JavaScript\">" +
@@ -210,7 +211,7 @@ public class ReportingController {
             }
         }
 
-        msg = nomsg + msg + "</center>";
+        msg = msg + "</center>";
         return msg;
     }
 
