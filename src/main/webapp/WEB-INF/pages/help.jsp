@@ -131,7 +131,9 @@
             <div class="col-md-6">
                 <h1>Relationship Strength</h1>
                 <h3>How is it calculated?</h3>
-                <p>Relationship strength is calculated using magic.</p>
+                <p>Relationship strength is calculated based on how many mutual friends, common groups and interactions between
+                    two users. Additionally, social distance is a factor of the strength but, lower the distance, higher the
+                    relationship strength.</p>
             </div>
         </div>
         <hr>
