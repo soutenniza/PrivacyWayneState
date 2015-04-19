@@ -137,7 +137,6 @@ public class ReportingController {
         int totalsize = personService.getAllPersons().size();
 
         for(HasRelationship a : atts){
-            ArrayList<Double> attData = personService.getAttVisRecord(personService.getHasRelationship(a.getId()));
             html = html + "<tr>";
             // ATTRIBUTE NAME
             html = html + "<td>" + personService.getAttributeWithId(a.getEnd().getNodeID()).getLabel() +
@@ -150,14 +149,14 @@ public class ReportingController {
             // SV
             html = html + "<td>" + personService.getHasRelationship(a.getId()).getSv() + "</td>";
             // NETWORK VISIBILITY
-            double percent = attData.get(attData.size() - 1)* 100.0;
+            double percent = profileAnalysisService.getAttributeExposure(personService.getPerson(pid), personService.getHasRelationship(a.getId()), totalsize) * 100.0;
             String vis = String.format("%.2f%%", percent );
 
             html = html + "<td>" + vis + "</td>";
             // TARGET
             html = html + "<td>" + "<20%" + "</td>";
             // CHANGE
-            html = html + "<td>" + genChangeStr(attData) + "</td>";
+            html = html + "<td>" + genChangeStr(personService.getHasRelationship(a.getId()).getAttVisibilityRecord()) + "</td>";
 
             html = html + "</tr>";
         }
