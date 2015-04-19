@@ -54,6 +54,7 @@ public class AnalysisController {
         String ascMsgs = "";
         String sentMsgs = "";
         String contentMsgs = "";
+        String othercontentMsgs = "";
         String distanceMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
@@ -62,36 +63,36 @@ public class AnalysisController {
         for(String m : messages){
 
             if(m.contains("distance")){
-                distanceMsgs = distanceMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                distanceMsgs = distanceMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("interactions")){
-                interactionMsgs = interactionMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                interactionMsgs = interactionMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
 
             if(m.contains("relationship")){
-                relationshipStrengthMsgs = relationshipStrengthMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                relationshipStrengthMsgs = relationshipStrengthMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("mutual friends")){
-                relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
 
             if(m.contains("Privacy Score")){
-                psMsgs = psMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                psMsgs = psMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("mutual groups")){
-                mgpsMsgs = mgpsMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                mgpsMsgs = mgpsMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("association")){
-                ascMsgs = ascMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                ascMsgs = ascMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("negative comments")){
-                sentMsgs = sentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                sentMsgs = sentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("gave the attribute")){
-                contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("set as invisible")){
-                contentMsgs = contentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                othercontentMsgs = othercontentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
         }
 
@@ -104,6 +105,7 @@ public class AnalysisController {
         printAsc(redirectAttributes, ascMsgs);
         printSent(redirectAttributes, sentMsgs);
         printContent(redirectAttributes, contentMsgs);
+        printotherContent(redirectAttributes, othercontentMsgs);
 
 
         return "redirect:/analysis";
@@ -205,6 +207,16 @@ public class AnalysisController {
         }
         else {
             r.addFlashAttribute("contentMsgs", sentMsgs);
+        }
+    }
+
+    public void printotherContent(RedirectAttributes r, String sentMsgs){
+        if(sentMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("othercontentMsgsok", msg);
+        }
+        else {
+            r.addFlashAttribute("othercontentMsgs", sentMsgs);
         }
     }
 

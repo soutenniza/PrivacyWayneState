@@ -122,26 +122,26 @@ public class ContentAnalysisService {
                             // identify if the attribute was marked as sensitive
                             if((aa.getLabel().contains(a.getLabel()))){
                                 if(r.getPv()>2){
-                                    messages.add("You gave the attribute " + aa.getLabel() + " a high privacy score, but you talk about it in a comment. PV: " + r.getPv());
+                                    messages.add("You gave the attribute " + aa.getLabel() + " a high privacy score, but you talk about it in the comment: \"" + text + "\"<br>Privacy Value: " + r.getPv());
                                 }
                                 if(r.getVv()<2){
-                                    messages.add("You gave the attribute " + aa.getLabel() + " a low visibility score, but you talk about it in a comment. VV: " + r.getVv());
+                                    messages.add("You gave the attribute " + aa.getLabel() + " a low visibility score, but you talk about it in the comment: \"" + text + "\"<br>Visibility Value: " + r.getVv());
                                 }
                                 if(r.getSv()>2){
-                                    messages.add("You gave the attribute " + aa.getLabel() + " a high sensitivity score, but you talk about it in a comment. SV: " + r.getSv());
+                                    messages.add("You gave the attribute " + aa.getLabel() + " a high sensitivity score, but you talk about it in the comment: \"" + text + "\"<br>Sensitivity Value: " + r.getSv());
                                 }
                             }
                         }
                         // do the same for values
                         if((aa.getValue().contains(a.getValue()))){
                             if(r.getPv()>2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a high privacy score, but you mentioned it in a comment. PV: " + r.getPv());
+                                messages.add("You gave the attribute " + aa.getValue() + " a high privacy score, but you mentioned it in the comment: \"" + text + "\"<br>Privacy Value: " + r.getPv());
                             }
                             if(r.getVv()<2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a low visibility score, but you mentioned it in a comment. VV: " + r.getVv());
+                                messages.add("You gave the attribute " + aa.getValue() + " a low visibility score, but you mentioned it in the comment: \"" + text + "\"<br>Visibility Value: " + r.getVv());
                             }
                             if(r.getSv()>2){
-                                messages.add("You gave the attribute " + aa.getValue() + " a high sensitivity score, but you mentioned it in a comment. SV: " + r.getSv());
+                                messages.add("You gave the attribute " + aa.getValue() + " a high sensitivity score, but you mentioned it in the comment: \"" + text + "\"<br>Sensitivity Value: " + r.getSv());
                             }
                         }
                     }
@@ -222,20 +222,21 @@ public class ContentAnalysisService {
             // the users own comments are already checked for sensitive information, so in this case
             // we need to iterate through all comments and replies that are NOT the owners.
             Collection<Comment> allComments = service.getAllComments();
-            Collection<Comment> ownersComments = p.getComments();
+            //Collection<Comment> ownersComments = p.getComments();
+
             for(Comment c : allComments){
-                // skip the owners comments
-                if(!ownersComments.contains(c)){
-                    c = service.getComment(c.getNodeID());
+                // skip the owners comments and don't check root posts
+                c = service.getComment(c.getNodeID());
+                if((!c.getOwnerID().equals(p.getNodeID()))&&(!c.isRoot())){
                     // iterate through invisible attributes
                     for(Attribute a : invisibleAtts){
                         if(c.getText().contains(" "+a.getLabel()+" ")){
-                            msg = service.getPerson(c.getOwnerID()).getName() + "'s comment: \"" + c.getText() +
+                            msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
                                     "\" indirectly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
                             messages.add(msg);
                         }
                         if(c.getText().contains(" "+a.getValue()+" ")){
-                            msg = service.getPerson(c.getOwnerID()).getName() + "'s comment: \"" + c.getText() +
+                            msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
                                     "\" directly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
                             messages.add(msg);
                         }
