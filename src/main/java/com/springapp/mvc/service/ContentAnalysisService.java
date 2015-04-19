@@ -43,6 +43,10 @@ public class ContentAnalysisService {
         for(String s : contentMsgs){
             messaages.add(s);
         }
+
+        // gen ingoing/outgoing communication charts for user
+        genCommunicationChart(root.getNodeID());
+
         return messaages;
     }
 
@@ -288,6 +292,64 @@ public class ContentAnalysisService {
         }
         val = val / totalInterations;
         return val;
+    }
+
+    public void genCommunicationChart(Long pid){
+        String msg = "";
+        String nomsg = "<center>";
+        int counter = 0;
+        String id;
+        Collection<Person> persons = service.getAllPersons();
+        for(Person person : persons){
+            if(!(person.getNodeID().equals(pid))) {
+                person = service.getPerson(person.getNodeID());
+                double outgoing = getRootOutgoingVal(pid, person.getNodeID());
+                System.out.println("outval:" + outgoing);
+                id = "cfid" + Integer.toString(counter);
+                counter = counter + 1;
+                String friendStr = "";
+                if(service.areFriends(person, service.getPerson(pid))){
+                    friendStr = "[Friend]";
+                }
+                else{
+                    friendStr = "[Non-friend]";
+                }
+                if (Double.isNaN(outgoing)) {
+                    //nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
+                } else {
+                    msg = msg + "<div id=\"chart" + id + "\"></div>" +
+                            "<script language=\"JavaScript\">" +
+                            "var chart" + id + " = c3.generate({\n" +
+                            "bindto: '#chart" + id + "'," +
+                            "    data: {\n" +
+                            "        selection: {" +
+                            "           enabled: true" +
+                            "        }," +
+                            "        columns: [\n" +
+                            "            ['Outgoing', " + Double.toString(outgoing) + "],\n" +
+                            "            ['Incoming', " + Double.toString(1.0 - outgoing) + "],\n" +
+                            "        ],\n" +
+                            "        type : 'donut',\n" +
+                            "        onclick: function (d, i) { console.log(\"onclick\", d, i); },\n" +
+                            "        onmouseover: function (d, i) { console.log(\"onmouseover\", d, i); },\n" +
+                            "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
+                            "    },\n" +
+                            "    donut: {\n" +
+                            "        title: \"" + person.getName() + "\"\n" +
+                            "    }\n" +
+                            "});\n" +
+                            "var label = d3.select('#chart" + id + "').select('text.c3-chart-arcs-title');\n" +
+                            "label.html('');\n" +
+                            "label.insert('tspan').text('" + person.getName() + "').attr('dy',0).attr('x', 0).attr('class','big-font');\n" +
+                            "label.insert('tspan').text('" + friendStr + "').attr('dy',20).attr('x', 0).attr('class','small-font');\n" +
+                            "</script>";
+                }
+            }
+        }
+
+        msg = nomsg + msg + "</center>";
+        Person p = service.getPerson(pid);
+        service.setCommunicationCharts(p.getNodeID(), msg);
     }
 
 }
