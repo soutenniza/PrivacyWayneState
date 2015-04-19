@@ -43,7 +43,7 @@ public class HasRelationship {
         return this.attVisibilityRecord; }
 
     public void addToAttVisRecord(double val){
-        System.out.println("adding to attvisrec: "+ val);
+        //System.out.println("adding to attvisrec: "+ val);
         this.attVisibilityRecord.add(val); }
 
     public int getPv(){

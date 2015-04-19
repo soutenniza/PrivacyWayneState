@@ -180,13 +180,13 @@ public class ReportingController {
                 counter = counter + 1;
                 String friendStr = "";
                 if(personService.areFriends(person, personService.getPerson(pid))){
-                    friendStr = "[FRIEND]";
+                    friendStr = "[Friend]";
                 }
                 else{
-                    friendStr = "[NOT A FRIEND]";
+                    friendStr = "[Non-friend]";
                 }
                 if (Double.isNaN(outgoing)) {
-                    nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
+                    //nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
                 } else {
                     msg = msg + "<div id=\"chart" + id + "\"></div>" +
                             "<script language=\"JavaScript\">" +

@@ -165,7 +165,7 @@ public class RelationshipAnalysisService {
 
     }
     private ArrayList<String> calculateAll(){
-        Collection<Person> friends = root.getFriends();
+        Collection<FriendRelationship> friends = root.getFriendRelationships();
         ArrayList<Integer> privacyScores = new ArrayList<>();
         ArrayList<Integer> mutualfriends = new ArrayList<>();
         ArrayList<Integer> commonGroups = new ArrayList<>();
@@ -174,8 +174,8 @@ public class RelationshipAnalysisService {
         ArrayList<Double> socialDistances = new ArrayList<>();
         ArrayList<Long> privacyScoresID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
-        for(Person p : friends){
-            Long pID = p.getNodeID();
+        for(FriendRelationship f : friends){
+            Long pID = f.getFriend().getNodeID();
             int ps = profileservice.getPrivacyScore(service.getPerson(pID));
             int mt = mutualfriends(root, service.getPerson(pID));
             int mg = groupservice.mutualgroups(root, service.getPerson(pID));
