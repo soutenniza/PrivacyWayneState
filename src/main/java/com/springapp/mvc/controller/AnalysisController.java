@@ -101,7 +101,7 @@ public class AnalysisController {
             if(m.contains("association")){
                 ascMsgs = ascMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
-            if(m.contains("negative comments")){
+            if(m.contains("makes negitive")){
                 sentMsgs = sentMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
             if(m.contains("score, but")){

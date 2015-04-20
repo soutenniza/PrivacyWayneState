@@ -158,9 +158,28 @@
             <div class="col-md-6">
                 <h1>Content Analysis</h1>
                 <h3>How is it done?</h3>
-                <p>It is done by doing things.</p>
+                <p>Content analysis examines the comments, replies and likes that are exchanged between users. This is done in several ways.</p>
+                <p>Comment Sentiments: The sentiment of each comment is created upon its creation. This is then used for analysis purposes. The service
+                is able to examine an individual users overall sentiment by examining all of their comments. This can be useful for identifying friends in
+                your network that are constantly posting negative content. This analysis uses
+                <a href="http://nlp.stanford.edu/software/corenlp.shtml">Stanford CoreNLP (Natural Language Processing)</a>.</p>
+                <p>Your Comment Content: Posts on this network are considered public. Every other user on the social network is able to see what you and
+                others post. The analysis checks to make sure that you do not mention any attribute information that you have set as very sensitive, low visibility,
+                 or high privacy.</p>
+                <p>Others Comment Content: This analysis takes a look at the replies made to your posts. It checks to see if others have directly mentioned your attribute
+                information that you set as very sensitive, low visibility, or high privacy. Others do not know you privacy values, so it's valuable to be notified of these
+                occurrences.</p>
+                <p>Possible Content Concerns: Sometimes attribute information is not directly mentioned in your or other peoples comments. With this analysis, the system
+                tries to identify instances where a comment is eluding to the owner or recipients private data. This analysis is based off identifying synonyms and key pronouns
+                 that direct ownership of attribute information. This analysis uses
+                    <a href="http://lucene.apache.org/core/3_0_3/api/contrib-wordnet/org/apache/lucene/wordnet/package-summary.html">Lucene Wordnet</a>. This analysis is
+                prone to false positives so a confidence score is also reported.</p>
             </div>
         </div>
+        <hr>
+        <br>
+        <center><a href="">Still lost? Check out the complete USER MANUAL</a> </center>
+        <br>
     </div>
 </div>
 </body>
