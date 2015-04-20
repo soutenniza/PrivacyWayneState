@@ -72,7 +72,14 @@ public class Person {
     }
 
     public void removeFriend(Person p){
-        friends.remove(p);
+        ArrayList<Person> friend = new ArrayList<>();
+        friends.addAll(friends);
+        for(int i = 0; i < friend.size(); i++){
+            if(p.getNodeID() == friend.get(i).getNodeID()){
+                friend.remove(i);
+            }
+        }
+        friends.retainAll(friend);
     }
 
     // --------------------- record keeping ---------------------- //

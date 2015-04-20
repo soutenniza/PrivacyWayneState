@@ -71,6 +71,13 @@ public class RelationshipAnalysisService {
         maxIT /= persons.size();
         double interactionsRS = IT/maxIT;
 
+        if(Double.isNaN(mutualFriendsRS))
+            mutualFriendsRS =  0.0;
+        if(Double.isNaN(commonGroupsRS))
+            commonGroupsRS =  0.0;
+        if(Double.isNaN(interactionsRS))
+            interactionsRS =  0.0;
+
         double socialDistance = socialDistance(service.getPerson(r.getNodeID()), service.getPerson(p.getNodeID()));
         //Social distance is opposite of others, so it needs to be reversed
         RS = mutualFriendsRS + commonGroupsRS + interactionsRS + (5.0 - socialDistance)/5.0;
@@ -452,6 +459,8 @@ public class RelationshipAnalysisService {
         double occupationDistance = calculateOccuptionDistance(rWork, pWork);
         double ageParity = calculateAgeParity(rAge, pAge);
         socialdistance = ageParity + gender + educationLevelDistance + politicalAffiliationDistance + occupationDistance;
+        if(Double.isNaN(socialdistance))
+            return 0.0;
 
         return socialdistance;
 

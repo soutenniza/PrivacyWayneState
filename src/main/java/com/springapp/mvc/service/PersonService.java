@@ -462,12 +462,31 @@ public class PersonService {
     }
 
     public void removeFriendship(Person p1, Person p2){
-        p1.removeFriend(p2);
-        p2.removeFriend(p1);
-        template.deleteRelationshipBetween(p1, p2, "FriendRelationship");
-        template.deleteRelationshipBetween(p2, p1, "FriendRelationship");
-        template.save(p1);
-        template.save(p2);
+        Person one = getPerson(p1.getNodeID());
+        Person two = getPerson(p2.getNodeID());
+        one.removeFriend(two);
+        two.removeFriend(one);
+        Collection<FriendRelationship> oneRelationships = getPerson(p1.getNodeID()).getFriendRelationships();
+        Collection<FriendRelationship> twoRelationships = getPerson(p2.getNodeID()).getFriendRelationships();
+        boolean removed = false;
+        for(FriendRelationship r : oneRelationships){
+            long first = getPerson(getFriendRelationship(r.getNodeID()).getFriend().getNodeID()).getNodeID();
+            long second = getPerson(p2.getNodeID()).getNodeID();
+            if(first == second){
+                removed = true;
+                friendRepository.delete(getFriendRelationship(r.getNodeID()));
+            }
+        }
+
+        removed = false;
+        for(FriendRelationship r : twoRelationships){
+            long first = getPerson(getFriendRelationship(r.getNodeID()).getFriend().getNodeID()).getNodeID();
+            long second = getPerson(p1.getNodeID()).getNodeID();
+            if(first == second){
+                removed = true;
+                friendRepository.delete(r);
+            }
+        }
     }
 
     public Long getPersonByName(String name) {
