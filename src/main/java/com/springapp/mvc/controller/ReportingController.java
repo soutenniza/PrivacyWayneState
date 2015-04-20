@@ -324,21 +324,18 @@ public class ReportingController {
                 msg = "0%";
             }
             else {
+                if(val1 == 0){
+                    return "100%";
+                }
                 // positive growth
                 if (val1 > val2) {
-                    Double growth = val2 / val1;
-                    String valnum = Double.toString((growth*100));
-                    if(valnum.length()>6) {
-                        valnum = "+" + Double.toString((growth*100)).substring(0, 5) + "%";
-                    }
-                    msg = "+"+valnum+"%";
+                    Double growth = val1 - val2;
+                    growth = growth / val2;
+                    msg = "+"+ String.format("%.2f", growth * 100)+"%";
                 } else {
-                    Double growth = val1 / val2;
-                    String valnum = Double.toString((growth*100));
-                    if(valnum.length()>6){
-                        valnum = Double.toString((growth*100)).substring(0,5);
-                    }
-                    msg = "-"+valnum+"%";
+                    Double growth = val2 - val1;
+                    growth = growth / val2;
+                    msg = "-"+String.format("%.2f", growth * 100)+"%";
                 }
             }
         }
