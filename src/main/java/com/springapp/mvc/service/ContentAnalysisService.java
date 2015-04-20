@@ -85,13 +85,18 @@ public class ContentAnalysisService {
         ArrayList<String> messages = new ArrayList<String>() {{
             add("head");
         }};
+        root = service.getPerson(root.getNodeID());
         Collection<Person> friends = root.getFriends();
         for(Person f : friends){
+            f = service.getPerson(f.getNodeID());
             int score = 0;
-            Collection<Comment> comments = service.getPerson(f.getNodeID()).getComments();
+            Collection<Comment> comments = service.getAllComments();
             for(Comment c : comments){
-                score = score + c.getSentiment();
-                System.out.println("score: " + score);
+                c = service.getComment(c.getNodeID());
+                if(c.getOwnerID().equals(f.getNodeID())){
+                    score = score + c.getSentiment();
+                    //System.out.println("score: " + score);
+                }
             }
             String msg = "";
             if(score < -1){
@@ -103,6 +108,7 @@ public class ContentAnalysisService {
             else{
                 msg = "Your friend " + service.getPerson(f.getNodeID()).getName() + " generally makes neutral comments/posts. SCORE: " + score;
             }
+            System.out.println("Sentiment analysis result: "+ msg);
             messages.add(msg);
         }
         return messages;
@@ -501,6 +507,9 @@ public class ContentAnalysisService {
                     synsFound.add(s);
                 }
             }
+            if(conf > 90.0){
+                conf = 90.0;
+            }
             String flaggedWords = "";
             for(String s : synsFound){
                 flaggedWords = flaggedWords + "[ " + s + " ] ";
@@ -562,6 +571,9 @@ public class ContentAnalysisService {
                 for(String s : pronounsFound){
                     synsFound.add(s);
                 }
+            }
+            if(conf > 90.0){
+                conf = 90.0;
             }
             String flaggedWords = "";
             for(String s : synsFound){

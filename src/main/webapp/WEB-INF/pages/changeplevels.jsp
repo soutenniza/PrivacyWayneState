@@ -32,8 +32,8 @@
 <div class="section">
     <div class="container">
         <c:if test="${success != null}">
+            <br>
             <div id="message" class="alert alert-success">
-                <br>
                 <b>[SUCCESS] ${success}</b>
             </div>
         </c:if>
