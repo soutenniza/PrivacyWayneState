@@ -12,7 +12,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>PrivacyWayne</title>
     <link  rel="shortcut icon" href="/resources/images/favicon.ico" type="image/x-icon" />
@@ -27,6 +26,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/theme.css" rel="stylesheet" >
 </head>
+<body>
 <mytags:navbar/>
 <mytags:modifybar/>
 <div class="section">
