@@ -310,8 +310,6 @@ public class GroupAnalysisService {
         }
 
         System.out.println("detectHighSchoolFriendsPrivacyOutliers");
-        if (counter < counter2){
-            msg = service.getPerson(spid).getName() + " is an outlier.";
         if (total < total2){
             msg = String.format(service.getPerson(spid).getName() + "is an outlier.");
             System.out.println(service.getPerson(spid).getName() + " is an outlier.");
@@ -361,8 +359,6 @@ public class GroupAnalysisService {
             }
         }
 
-        if (counter < counter2){
-            msg = service.getPerson(spid).getName() + " is an outlier.";
         if (total < total2){
             msg = String.format(service.getPerson(spid).getName() + " is an outlier.");
             System.out.println(service.getPerson(spid).getName() + " is an outlier.");
