@@ -154,6 +154,17 @@
                             </div>
                         </c:if>
                     </div>
+                    <h4>College Friends Privacy Outliers</h4>
+                    <div class="col-md-12">
+                        <c:if test="${cfpo != null}">
+                            ${cfpo}
+                        </c:if>
+                        <c:if test="${cfpook != null}">
+                            <div id="message" class="alert alert-success">
+                                    ${cfpook}
+                            </div>
+                        </c:if>
+                    </div>
                     <h4>Associations</h4>
                     <div class="col-md-12">
                         <c:if test="${asc != null}">

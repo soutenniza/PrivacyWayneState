@@ -1,7 +1,7 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.*;
-import netkit.classifiers.relational.ClassDistribRelNeighbor;
+//import netkit.classifiers.relational.ClassDistribRelNeighbor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -664,7 +664,7 @@ public class RelationshipAnalysisService {
         //mew Attribute(java.lang.String name, Type type)
 
 
-        ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
+        //ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
         //Instances = new Instances ("")
         //dk=age -->class label
         //p=new node for which i want to predict a class label

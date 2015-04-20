@@ -145,7 +145,8 @@
             <div class="col-md-6">
                 <h1>Group Analysis</h1>
                 <h3>How is it done?</h3>
-                <p>It is done by doing things.</p>
+                <p>Group Analysis is done by using a What-if Scenario where a User is trying to join a group. The what-if Analysis will find the percentage of the members in that group are actually friends with the user. If that value is below a certain threshold, a warning notification appears. An analysis also notifies of outliers in the user's circles are openly showing sensitive information and that they could be a risk.</p>
+                <p>The full analysis shows how being in a group could allow someone to guess your attributes such as age. It finds the average age in the group and compares with the actual age to provide a percentage accuracy of guessing that value. </p>
             </div>
         </div>
         <hr>

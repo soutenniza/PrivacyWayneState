@@ -58,6 +58,7 @@ public class AnalysisController {
         String distanceMsgs = "";
         String predictMsgs = "";
         String hsfpoMsgs = "";
+        String cfpoMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
 
@@ -102,6 +103,9 @@ public class AnalysisController {
             if(m.contains("is an outlier")){
                 hsfpoMsgs = hsfpoMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
+            if(m.contains("is an outlier")){
+                cfpoMsgs = cfpoMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
+            }
         }
 
         printDistances(redirectAttributes, distanceMsgs);
@@ -116,6 +120,7 @@ public class AnalysisController {
         printotherContent(redirectAttributes, othercontentMsgs);
         printpredictMsgs(redirectAttributes, predictMsgs);
         printhsfpoMsgs(redirectAttributes, hsfpoMsgs);
+        printcfpoMsgs(redirectAttributes, cfpoMsgs);
 
 
         return "redirect:/analysis";
@@ -249,4 +254,15 @@ public class AnalysisController {
             r.addFlashAttribute("hsfpo", sentMsgs);
         }
     }
+
+    public void printcfpoMsgs(RedirectAttributes r, String sentMsgs){
+        if(sentMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("cfpook", msg);
+        }
+        else {
+            r.addFlashAttribute("cfpo", sentMsgs);
+        }
+    }
+
 }
