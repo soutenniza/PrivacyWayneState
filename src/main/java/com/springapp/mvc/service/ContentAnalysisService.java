@@ -612,20 +612,20 @@ public class ContentAnalysisService {
                         "        enabled: true" +
                         "        }, \n" +
                         "        columns: [\n" +
-                        "            ['Very Negative', " + Double.toString(svals.get(0)) + "],\n" +
+                        "            ['VeryNegative', " + Double.toString(svals.get(0)) + "],\n" +
                         "            ['Negative', " + Double.toString(svals.get(1)) + "],\n" +
                         "            ['Neutral', " + Double.toString(svals.get(2)) + "],\n" +
                         "            ['Positive', " + Double.toString(svals.get(3)) + "],\n" +
-                        "            ['Very Positive', " + Double.toString(svals.get(4)) + "],\n" +
+                        "            ['VeryPositive', " + Double.toString(svals.get(4)) + "],\n" +
                         "        ],\n" +
                         "        type : 'donut',\n" +
-//                        "        colors: { \n" +
-//                        "            Very Negative: '#700000', \n" +
-//                        "            Negative: '#FF0000', \n" +
-//                        "            Neutral: '#FFFF00' \n" +
-//                        "            Positive: '#00FF00' \n" +
-//                        "            Very Positive: '#006600' \n" +
-//                        "        }, \n" +
+                        "        colors: { \n" +
+                        "            VeryNegative: '#B71C1C', \n" +
+                        "            Negative: '#F44336', \n" +
+                        "            Neutral: '#FFC107', \n" +
+                        "            Positive: '#4CAF50', \n" +
+                        "            VeryPositive: '#1B5E20' \n" +
+                        "        }, \n" +
                         "        onclick: function (d, i) { console.log(\"onclick\", d, i); },\n" +
                         "        onmouseover: function (d, i) { console.log(\"onmouseover\", d, i); },\n" +
                         "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +

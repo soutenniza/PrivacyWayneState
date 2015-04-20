@@ -181,6 +181,8 @@ public class RelationshipAnalysisService {
         ArrayList<Double> socialDistances = new ArrayList<>();
         ArrayList<Long> privacyScoresID  = new ArrayList<>();
         ArrayList<String> messaages = new ArrayList<>();
+        int personalPS = profileservice.getPrivacyScore(service.getPerson(root.getNodeID()));
+        service.getPerson(root.getNodeID()).addPrivacyScoreRecord(personalPS);
         for(FriendRelationship f : friends){
             Long pID = f.getFriend().getNodeID();
             int ps = profileservice.getPrivacyScore(service.getPerson(pID));
