@@ -205,6 +205,17 @@ public class PersonService {
         template.save(p);
     }
 
+    public void setSentCharts(Long pid, String html){
+        Person p = getPerson(pid);
+        p.setSentCharts(html);
+        template.save(p);
+    }
+
+    public String getSentCharts(Long pid){
+        Person p = getPerson(pid);
+        return p.getSentCharts();
+    }
+
     public String getCommunicationCharts(Long pid){
         Person p = getPerson(pid);
         return p.getCommunicationCharts();

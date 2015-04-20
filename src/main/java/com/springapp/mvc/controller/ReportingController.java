@@ -82,6 +82,9 @@ public class ReportingController {
         // incoming vs outgoing communications
         redirectAttributes.addFlashAttribute("cfdata", genCFData(p1));
 
+        // comment sentiment data
+        redirectAttributes.addFlashAttribute("csdata", genCSData(p1));
+
         redirectAttributes.addFlashAttribute("fddata", genFriendDataLine(p1));
 
 
@@ -206,6 +209,14 @@ public class ReportingController {
 
     public String genCFData(Long pid){
         String msg = personService.getCommunicationCharts(personService.getPerson(pid).getNodeID());
+        if(msg.equals("")){
+            return "No data generated. Run analysis for this user and try again.";
+        }
+        return msg;
+    }
+
+    public String genCSData(Long pid){
+        String msg = personService.getSentCharts(personService.getPerson(pid).getNodeID());
         if(msg.equals("")){
             return "No data generated. Run analysis for this user and try again.";
         }

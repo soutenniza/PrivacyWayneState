@@ -45,6 +45,7 @@ public class Person {
     ArrayList<Integer> privacyScoreRecord;
     ArrayList<Double> networkVisibilityRecord;
     String communicationCharts;
+    String sentCharts;
 
     public Person() {}
 
@@ -53,6 +54,7 @@ public class Person {
         privacyScoreRecord = new ArrayList<>();
         privacyScoreRecord.add(0);
         communicationCharts = "";
+        sentCharts = "";
     }
 
     public void addAttribute(Attribute a){
@@ -97,6 +99,8 @@ public class Person {
     }
     public void setCommunicationCharts(String html){ communicationCharts = html; }
     public String getCommunicationCharts(){ return communicationCharts; }
+    public void setSentCharts(String html) { sentCharts = html; }
+    public String getSentCharts(){ return sentCharts; }
     // ---------------------------------------------------------- //
 
     public FriendRelationship friends(Person friend){

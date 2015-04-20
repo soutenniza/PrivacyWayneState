@@ -75,6 +75,9 @@ public class ContentAnalysisService {
         // gen ingoing/outgoing communication charts for user
         genCommunicationChart(root.getNodeID());
 
+        // gen sentiment charts for user and friends
+        genSentChart(root.getNodeID());
+
         return messaages;
     }
 
@@ -572,4 +575,115 @@ public class ContentAnalysisService {
         return msg;
     }
 
+    public void genSentChart(Long pid){
+        String msg = "";
+        String nomsg = "<center>";
+        int counter = 0;
+        String id;
+        Person p = service.getPerson(pid);
+        Collection<Person> friends = p.getFriends();
+        friends.add(p);
+        for(Person friend : friends){
+            friend = service.getPerson(friend.getNodeID());
+            ArrayList<Double> svals = getSentVals(friend.getNodeID());
+            id = "csid" + Integer.toString(counter);
+            counter = counter + 1;
+            String friendStr = "";
+            if(!friend.getNodeID().equals(p.getNodeID())){
+                friendStr = "[Friend]";
+            }
+            else{
+                friendStr = "[You]";
+            }
+            double sum = 0;
+            for(Double d : svals){
+                sum = sum + d;
+            }
+            System.out.println("================= sum: " + sum);
+            if (sum==0.0) {
+                //nomsg = nomsg + "No interactions have been made with the person " + person.getName() + " as of yet! "+friendStr+"<br>";
+            } else {
+                msg = msg + "<div id=\"chart" + id + "\"></div>" +
+                        "<script language=\"JavaScript\">" +
+                        "var chart" + id + " = c3.generate({\n" +
+                        "bindto: '#chart" + id + "'," +
+                        "    data: {\n" +
+                        "        selection: { \n" +
+                        "        enabled: true" +
+                        "        }, \n" +
+                        "        columns: [\n" +
+                        "            ['Very Negative', " + Double.toString(svals.get(0)) + "],\n" +
+                        "            ['Negative', " + Double.toString(svals.get(1)) + "],\n" +
+                        "            ['Neutral', " + Double.toString(svals.get(2)) + "],\n" +
+                        "            ['Positive', " + Double.toString(svals.get(3)) + "],\n" +
+                        "            ['Very Positive', " + Double.toString(svals.get(4)) + "],\n" +
+                        "        ],\n" +
+                        "        type : 'donut',\n" +
+//                        "        colors: { \n" +
+//                        "            Very Negative: '#700000', \n" +
+//                        "            Negative: '#FF0000', \n" +
+//                        "            Neutral: '#FFFF00' \n" +
+//                        "            Positive: '#00FF00' \n" +
+//                        "            Very Positive: '#006600' \n" +
+//                        "        }, \n" +
+                        "        onclick: function (d, i) { console.log(\"onclick\", d, i); },\n" +
+                        "        onmouseover: function (d, i) { console.log(\"onmouseover\", d, i); },\n" +
+                        "        onmouseout: function (d, i) { console.log(\"onmouseout\", d, i); }\n" +
+                        "    },\n" +
+                        "    donut: {\n" +
+                        "        title: \"" + friend.getName() + "\"\n" +
+                        "    }\n" +
+                        "});\n" +
+                        "var label = d3.select('#chart" + id + "').select('text.c3-chart-arcs-title');\n" +
+                        "label.html('');\n" +
+                        "label.insert('tspan').text('" + friend.getName() + "').attr('dy',0).attr('x', 0).attr('class','big-font');\n" +
+                        "label.insert('tspan').text('" + friendStr + "').attr('dy',20).attr('x', 0).attr('class','small-font');\n" +
+                        "</script>";
+            }
+        }
+
+        msg = nomsg + msg + "</center>";
+        service.setSentCharts(p.getNodeID(), msg);
+    }
+
+    public ArrayList<Double> getSentVals(Long pid){
+        ArrayList<Double> vals = new ArrayList<>();
+
+        double n2 = 0;
+        double n1 = 0;
+        double n = 0;
+        double p1 = 0;
+        double p2 = 0;
+
+        Person p = service.getPerson(pid);
+        Collection<Comment> allcomments = service.getAllComments();
+        for(Comment c : allcomments){
+            c = service.getComment(c.getNodeID());
+            if(c.getOwnerID().equals(p.getNodeID())){
+                if(c.getSentiment()==-2){
+                    n2 = n2 + 1;
+                }
+                if(c.getSentiment()==-1){
+                    n1 = n1 + 1;
+                }
+                if(c.getSentiment()==0){
+                    n = n + 1;
+                }
+                if(c.getSentiment()==1){
+                    p1 = p1 + 1;
+                }
+                if(c.getSentiment()==2){
+                    p2 = p2 + 1;
+                }
+            }
+        }
+
+        vals.add(n2);
+        vals.add(n1);
+        vals.add(n);
+        vals.add(p1);
+        vals.add(p2);
+
+        return vals;
+    }
 }
