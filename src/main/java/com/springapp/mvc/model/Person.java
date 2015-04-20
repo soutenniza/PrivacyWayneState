@@ -55,6 +55,10 @@ public class Person {
         communicationCharts = "";
     }
 
+    public void addAttribute(Attribute a){
+        attributes.add(a);
+    }
+
     public String getName(){
         return this.name;
     }

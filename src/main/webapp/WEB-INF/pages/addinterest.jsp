@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,19 +48,16 @@
 <br>
 <div class="section">
     <div class="container">
-     <%--   <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-dismissable alert-success">
-                    <b>[SUCCESS] &nbsp;Interest added!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] You must fill in all fields!</b>
-                </div>
-                <div class="alert alert-danger alert-dismissable">
-                    <b>[ERROR] User is already has entered interest!</b>
-                </div>
+        <c:if test="${message != null}">
+            <div id="message" class="alert alert-success">
+                <b>[SUCCESS] Added Interest!</b>
             </div>
-        </div>--%>
+        </c:if>
+        <c:if test="${messagefail != null}">
+            <div id="message" class="alert alert-danger">
+                <b>[FAIL] Person already had this interest!</b>
+            </div>
+        </c:if>
     </div>
 </div>
 <br>
@@ -66,65 +66,142 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal" role="form">
+                    <form  method="POST" action="/submitnewinterest" class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <label class="control-label">User:
-                                    <br>
-                                </label>
+                                <label class="control-label">User:</label>
                             </div>
                             <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>George James</option>
-                                    <option>2</option>
-                                </select>
+                                <form:select name="inputPerson" path="inputPerson" class="form-control">
+                                    <form:options items="${peopleList}"/>
+                                </form:select>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <label class="control-label">Interest:</label>
+                                <label class="control-label">Interest: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Sports">
+                                <input class="form-control" name="inputInterest" placeholder="Music" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="control-label">Privacy Value:</label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="control-label">Visibility Value:</label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="control-label">Sensitivity Value:</label>
-                            </div>
-                            <div class="col-sm-10">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                </select>
-                            </div>
-                        </div>
+                        <table>
+                            <tr>
+                             <td><div class="form-group">
+                                    <div class="col-sm-10">
+                                        <label class="col-lg-2 control-label">Privacy</label>
+                                        <div class="col-lg-10">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputP" id="optionRadioAP0" value="0" checked="">
+                                                    0
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputP" id="optionRadioAP1" value="1">
+                                                    1
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputP" id="optionRadioAP2" value="2">
+                                                    2
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputP" id="optionRadioAP3" value="3">
+                                                    3
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputP" id="optionRadioAP4" value="4">
+                                                    4
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></td>
+                                <td><div class="form-group">
+                                    <div class="col-sm-10">
+                                        <label class="col-lg-2 control-label">Visibility</label>
+                                        <div class="col-lg-10">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputV" id="optionRadioV0" value="0" checked="">
+                                                    0
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputV" id="optionRadioV1" value="1">
+                                                    1
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputV" id="optionRadioV2" value="2">
+                                                    2
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputV" id="optionRadioV3" value="3">
+                                                    3
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputV" id="optionRadioV4" value="4">
+                                                    4
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><td/>
+                                <td><div class="form-group">
+                                    <div class="col-sm-10">
+                                        <label class="col-lg-2 control-label">Sensitivity</label>
+                                        <div class="col-lg-10">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputS" id="optionRadioS0" value="0" checked="">
+                                                    0
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputS" id="optionRadioS1" value="1">
+                                                    1
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputS" id="optionRadioS2" value="2">
+                                                    2
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputS" id="optionRadioS3" value="3">
+                                                    3
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="inputS" id="optionRadioS4" value="4">
+                                                    4
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></td>
+                            </tr>
+                        </table>
+                        <input type="submit" value="add interest" class="btn btn-success"/>
                     </form>
-                    <div class="col-md-6">
-                        <a class="btn btn-success">Add Interest</a>
-                    </div>
                 </div>
             </div>
         </div>

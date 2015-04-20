@@ -97,10 +97,27 @@ public class PersonService {
             }
         }
         if(found) {
+            thePerson.addAttribute(attribute);
             HasRelationship has = thePerson.has(attribute, p, v, s);
             hasRepository.save(has);
             template.save(thePerson);
         }
+    }
+
+    public boolean hasInterest(Long pid, Long aid){
+        aid = getAttributeWithId(aid).getNodeID();
+        boolean found = false;
+        Person p = getPerson(pid);
+        Collection<Attribute> atts = p.getAttributes();
+        for(Attribute a : atts){
+            a = getAttributeWithId(a.getNodeID());
+            System.out.println("checkingatt id: "+ a.getNodeID() + " " + aid);
+            if(a.getNodeID().equals(aid)){
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     public Person createPerson(String name){
@@ -113,6 +130,7 @@ public class PersonService {
         value = value.trim();
         if(attributeExists(label, value)){
             Attribute a = getAttribute(label, value);
+            System.out.println("exists");
             return a;
         }
         else{
@@ -137,7 +155,7 @@ public class PersonService {
         ArrayList<Attribute> attributes = getAllAttributes();
         boolean found = false;
         for (Attribute a : attributes) {
-            if ((a.getLabel().equals(label))&&(a.getValue().equals(value))) {
+            if ((a.getLabel().toLowerCase().equals(label.toLowerCase()))&&(a.getValue().toLowerCase().equals(value.toLowerCase()))) {
                 found = true;
                 break;
             }
