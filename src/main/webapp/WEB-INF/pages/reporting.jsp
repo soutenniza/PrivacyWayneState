@@ -145,6 +145,9 @@
                 <h5>Communication Flow: </h5><i><h6> Incoming verses outgoing interactions between people on this network:</h6></i><br>
                 ${cfdata}
                 <br>
+                <h5>Comment Sentiments: </h5><i><h6> The general sentiments of you and four friends comments:</h6></i><br>
+                    ${csdata}
+                <br>
                 <h5>Relationships over time: </h5><i><h6>This is how your relationship changed over time:</h6></i><br>
                     ${fddata}
                 <br>
