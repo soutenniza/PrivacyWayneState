@@ -2,7 +2,10 @@ package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.AnalysisService;
+import com.springapp.mvc.service.GroupAnalysisService;
 import com.springapp.mvc.service.PersonService;
+import com.springapp.mvc.model.Group;
+import org.neo4j.cypher.internal.compiler.v2_0.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,6 +31,9 @@ public class AnalysisController {
 
     @Autowired
     AnalysisService analysisService;
+
+    @Autowired
+    GroupAnalysisService groupAnalysisService;
 
     @RequestMapping(value = "/analysis", method = RequestMethod.GET)
     public String displayAnalysisPage(Model model){
@@ -43,7 +50,12 @@ public class AnalysisController {
 
         analysisService.setRoot(personService.getPerson(p1));
         ArrayList<String> messages = analysisService.fullAnalysis();
-
+        Collection<Group> group = personService.getPerson(p1).getGroups();
+        Long gID = null;
+        for (Group g : group){
+            gID = g.getNodeID();
+        }
+        ArrayList<String> groupAnalysisMessages = groupAnalysisService.calculateFriendInGroup(personService.getPerson(p1), personService.getGroup(gID));
         redirectAttributes.addFlashAttribute("ran", "loaded");
 
         String relationshipStrengthMsgs = "";
@@ -59,6 +71,7 @@ public class AnalysisController {
         String predictMsgs = "";
         String hsfpoMsgs = "";
         String cfpoMsgs = "";
+        String attrPredictMsgs = "";
 
         redirectAttributes.addFlashAttribute("user", "<i>Privacy analysis for the user "+personService.getPerson(p1).getName()+":</i>");
 
@@ -100,12 +113,19 @@ public class AnalysisController {
             if(m.contains("Flagged words")){
                 predictMsgs = predictMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
             }
-            if(m.contains("is an outlier")){
-                hsfpoMsgs = hsfpoMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
+        }
+
+        for (String gm : groupAnalysisMessages){
+            if(gm.contains("an outlier (HS)")){
+                hsfpoMsgs = hsfpoMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + gm +"</div>";
             }
-            if(m.contains("is an outlier")){
-                cfpoMsgs = cfpoMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + m +"</div>";
+            if(gm.contains("an outlier (College)")){
+                cfpoMsgs = cfpoMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + gm +"</div>";
             }
+            if(gm.contains("Your age can be guessed")){
+                attrPredictMsgs = attrPredictMsgs + "<div id=\"message\" class=\"alert alert-warning\"> [WARN]     " + gm +"</div>";
+            }
+
         }
 
         printDistances(redirectAttributes, distanceMsgs);
@@ -121,6 +141,7 @@ public class AnalysisController {
         printpredictMsgs(redirectAttributes, predictMsgs);
         printhsfpoMsgs(redirectAttributes, hsfpoMsgs);
         printcfpoMsgs(redirectAttributes, cfpoMsgs);
+        printattrPredictMsgs(redirectAttributes, attrPredictMsgs);
 
 
         return "redirect:/analysis";
@@ -255,13 +276,24 @@ public class AnalysisController {
         }
     }
 
-    public void printcfpoMsgs(RedirectAttributes r, String sentMsgs){
-        if(sentMsgs==""){
+    public void printcfpoMsgs(RedirectAttributes r, String cfpoMsgs){
+        if(cfpoMsgs==""){
             String msg = "No issues here!";
             r.addFlashAttribute("cfpook", msg);
         }
         else {
-            r.addFlashAttribute("cfpo", sentMsgs);
+            r.addFlashAttribute("cfpo", cfpoMsgs);
         }
     }
+
+    public void printattrPredictMsgs(RedirectAttributes r, String attrPredictMsgs){
+        if (attrPredictMsgs==""){
+            String msg = "No issues here!";
+            r.addFlashAttribute("apmok", msg);
+        }
+        else {
+            r.addFlashAttribute("apm", attrPredictMsgs);
+        }
+    }
+
 }

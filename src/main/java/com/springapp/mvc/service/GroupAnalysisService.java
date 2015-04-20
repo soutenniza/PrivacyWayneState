@@ -29,13 +29,13 @@ public class GroupAnalysisService {
         this.root = root;
     }
 
-    public ArrayList<String> calculateFriendInGroup(Group group){ /*took same approach as in AnalysisService*/
+    public ArrayList<String> calculateFriendInGroup(Person root, Group group){ /*took same approach as in AnalysisService*/
         String location = "";
         String education = "";
         ArrayList<String> allMessages = null;
         allMessages = FriendsInSingleGroup(root, group);
 
-        /*Collection<Attribute> atts = service.getPerson(root.getNodeID()).getAttributes();
+        Collection<Attribute> atts = service.getPerson(root.getNodeID()).getAttributes();
         for (Attribute att : atts) {
             Long aID = att.getNodeID();
 
@@ -58,10 +58,10 @@ public class GroupAnalysisService {
                     continue;
                 }
             }
-        }*/
+        }
 
         //System.out.println("All Messages: " + allMessages);
-        predictAttributeFromGroups(root);
+        allMessages.addAll(predictAttributeFromGroups(root));
 
         return allMessages;
     }
@@ -310,8 +310,8 @@ public class GroupAnalysisService {
         }
 
         if (total < total2){
-            msg = String.format(service.getPerson(spid).getName() + "is an outlier.");
-            System.out.println(service.getPerson(spid).getName() + " is an outlier.");
+            msg = String.format(service.getPerson(spid).getName() + "is an outlier (HS).");
+            System.out.println(service.getPerson(spid).getName() + " is an outlier (HS).");
         }
 
         return msg;
@@ -359,8 +359,8 @@ public class GroupAnalysisService {
         }
 
         if (total < total2){
-            msg = String.format(service.getPerson(spid).getName() + " is an outlier.");
-            System.out.println(service.getPerson(spid).getName() + " is an outlier.");
+            msg = String.format(service.getPerson(spid).getName() + " is an outlier (College).");
+            System.out.println(service.getPerson(spid).getName() + " is an outlier (College).");
         }
 
         return msg;
@@ -387,11 +387,12 @@ public class GroupAnalysisService {
      *    homogenious groups are more predictive
      *    dense groups are more predictive
      */
-    public int predictAttributeFromGroups(Person p){
+    public ArrayList<String> predictAttributeFromGroups(Person p){
         //consider dk as the class label
         //You may need to map a neo4j Attribute to the corresponding netkit.graph.Attribute
         //mew Attribute(java.lang.String name, Type type)
 
+        ArrayList<String> messages = new ArrayList<>();
         int groupMemberCounter;
         int friendInGroupCounter;
         double maxPercantage = 0.0;
@@ -461,7 +462,7 @@ public class GroupAnalysisService {
         double avgAge = total3/size;
         System.out.println("Average Age: " + avgAge);
 
-        calculateModelAccuracy(root, avgAge);
+        messages.add((calculateModelAccuracy(root, avgAge))+ "from your affiliation with the group: " + service.getGroup(RelevantGroupId).getName());
 
 
 
@@ -486,7 +487,7 @@ public class GroupAnalysisService {
         ///////////////////////////////////////Double dkkrelevant[] = new Double[relevantgroups.size()];
         //train a classifier on dkkrelevant
         // get the class label for p's dk based on the trained classifier
-        return 0;
+        return messages;
     }
 
     /**
@@ -494,8 +495,9 @@ public class GroupAnalysisService {
      * value of dk
      * @return
      */
-    double calculateModelAccuracy(Person p, double expectedValue){
+    public String calculateModelAccuracy(Person p, double expectedValue){
 
+        String msg = "";
         double actualValue = 0;
         Collection<Attribute> patts = service.getPerson(p.getNodeID()).getAttributes();
         for (Attribute ptt : patts) {
@@ -507,10 +509,13 @@ public class GroupAnalysisService {
         }
 
         double percentAccuracy = ((actualValue / expectedValue)*100);
-        System.out.println("Percentage Accuracy: " + percentAccuracy + "%");
+        percentAccuracy = Math.round(percentAccuracy * 100);
+        percentAccuracy = percentAccuracy/100;
+        System.out.println("Percentage Accuracy: " + percentAccuracy + "%%");
 
         if (percentAccuracy > 80){
-            System.out.println("Your age can be guesses accurately!");
+            msg = String.format("Your age can be guessed with " + percentAccuracy +"%% accuracy");
+            System.out.println("Your age can be guessed accurately!");
         }
 
 
@@ -518,7 +523,7 @@ public class GroupAnalysisService {
         //group an relatioship what if analyses
         //WARNING: your membership in this groups predicts your attribute dk with high accuracy
         //WARNING: your relationship network predicts your attribute dk with high accuracy base on a cutoff or threshold
-        return 0;
+        return msg;
     }
 
     /**

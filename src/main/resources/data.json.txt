@@ -15,13 +15,15 @@
             ],
             "groups": [
                 "Urban Science Project",
+                "PC Master Race",
                 "Potluck Fridays Society",
                 "Craft Beer Lover's Group"
             ],
             "friends": [
                 "Mohammad Anwar",
                 "Samuel Arseneault",
-                "Idlir Peshkepia"
+                "Idlir Peshkepia",
+                "Samuel Arseneault"
             ]
         },
         {
@@ -44,6 +46,7 @@
             ],
             "groups": [
                 "GM Big Data",
+                "PC Master Race",
                 "Asian Society of Asians",
                 "Chocolate Anonymonous"
             ],
@@ -51,7 +54,8 @@
                 "Joshua Davis",
                 "Sravan Nerella",
                 "Zaid Nackasha",
-                "Maria Ferreria"
+                "Maria Ferreria",
+                "Samuel Arseneault"
             ]
         },
         {
@@ -73,9 +77,13 @@
             "groups": [
                 "Math Learning Ipad App",
                 "NPR Fan Club",
-                "PC Master Race"
+                "PC Master Race",
+                "Asian Society of Asians",
+                "Chocolate Anonymonous"
             ],
             "friends": [
+                "Odiljon Akhmedov",
+                "Mohammad Anwar",
                 "Andrew Browning",
                 "Kelly Markaity"
             ]
@@ -98,12 +106,14 @@
             ],
             "groups": [
                 "3rd Grade - Iphone App",
-                "Bouldering Club"
+                "Bouldering Club",
+                "PC Master Race"
             ],
             "friends": [
                 "Alyssa Wilkins",
                 "Fadi Farah",
-                "Alaa Tolba"
+                "Alaa Tolba",
+                "Samuel Arseneault"
             ]
         },
         {

@@ -88,7 +88,7 @@ public class JoinGroupController {
         else
         {
             groupAnalysisService.setRoot(service.getPerson(p));
-            ArrayList<String> messages = groupAnalysisService.calculateFriendInGroup(service.getGroup(g));/* Look at GroupAnalysisService under service*/
+            ArrayList<String> messages = groupAnalysisService.calculateFriendInGroup(service.getPerson(p), service.getGroup(g));/* Look at GroupAnalysisService under service*/
 
             String relationshipMsgs = "";
             String msg;
@@ -102,6 +102,10 @@ public class JoinGroupController {
                 if(m.contains("low number of friend")){
                     relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
                 }
+                /*if(m.contains("an outlier")){
+                    relationshipMsgs = relationshipMsgs + "<div id=\"message\" class=\"alert alert-warning\"> <b>[WARN]     " + m +"</b></div>";
+                }*/
+
             }
 
             // add notifications

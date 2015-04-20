@@ -165,14 +165,14 @@
                             </div>
                         </c:if>
                     </div>
-                    <h4>Associations</h4>
+                    <h4>Attribute Prediction</h4>
                     <div class="col-md-12">
-                        <c:if test="${asc != null}">
-                            ${asc}
+                        <c:if test="${apm != null}">
+                            ${apm}
                         </c:if>
-                        <c:if test="${ascok != null}">
+                        <c:if test="${apmok != null}">
                             <div id="message" class="alert alert-success">
-                                ${ascok}
+                                ${apmok}
                             </div>
                         </c:if>
                     </div>
