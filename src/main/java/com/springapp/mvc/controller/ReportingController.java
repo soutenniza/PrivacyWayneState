@@ -154,8 +154,28 @@ public class ReportingController {
         // add the values to the following loop when they become available
 
         int totalsize = personService.getAllPersons().size();
+        int one = profileAnalysisService.getNumberOfPeople(personService.getPerson(pid), 1);
+        int two = profileAnalysisService.getNumberOfPeople(personService.getPerson(pid), 2);
+        int three = profileAnalysisService.getNumberOfPeople(personService.getPerson(pid), 3);
 
         for(HasRelationship a : atts){
+            double target = 0.0;
+            switch (a.getPv()){
+                case 0:
+                    target = 0.0;
+                    break;
+                case 1:
+                    target = (double) one / (double) totalsize;
+                    break;
+                case 2:
+                    target = (double) two / (double) totalsize;
+                    break;
+                case 3:
+                    target = (double) three / (double) totalsize;
+                    break;
+                default:
+                    target = 1.00;
+            }
             html = html + "<tr>";
             // ATTRIBUTE NAME
             html = html + "<td>" + personService.getAttributeWithId(a.getEnd().getNodeID()).getLabel() +
@@ -174,7 +194,7 @@ public class ReportingController {
 
             html = html + "<td>" + vis + "</td>";
             // TARGET
-            html = html + "<td>" + "<20%" + "</td>";
+            html = html + "<td>" + String.format("%.2f", target * 100) + "%</td>";
             // CHANGE
             html = html + "<td>" + genChangeStr(personService.getHasRelationship(a.getId()).getAttVisibilityRecord()) + "</td>";
 
