@@ -509,6 +509,10 @@ public class GroupAnalysisService {
             }
         }
 
+        if (actualValue > expectedValue){
+            actualValue = (expectedValue - (actualValue-expectedValue));
+        }
+        
         double percentAccuracy = ((actualValue / expectedValue)*100);
         percentAccuracy = Math.round(percentAccuracy * 100);
         percentAccuracy = percentAccuracy/100;
