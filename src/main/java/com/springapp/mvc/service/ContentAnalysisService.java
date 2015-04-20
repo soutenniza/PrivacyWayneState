@@ -132,12 +132,12 @@ public class ContentAnalysisService {
 
         root = service.getPerson(root.getNodeID());
 
-        // Get comments and replies made by user
+        // Get comments and NOT replies made by user
         ArrayList<Comment> usersComments = new ArrayList<Comment>();
         Collection<Comment> allComments = service.getAllComments();
         for (Comment c : allComments) {
             c = service.getComment(c.getNodeID());
-            if (c.getOwnerID().equals(root.getNodeID())) {
+            if ((c.getOwnerID().equals(root.getNodeID()))&&(c.isRoot())) {
                 usersComments.add(c);
             }
         }
