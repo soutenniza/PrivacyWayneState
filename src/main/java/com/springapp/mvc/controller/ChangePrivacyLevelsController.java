@@ -4,6 +4,7 @@ import com.springapp.mvc.model.Attribute;
 import com.springapp.mvc.model.HasRelationship;
 import com.springapp.mvc.model.Person;
 import com.springapp.mvc.service.PersonService;
+import org.neo4j.cypher.internal.compiler.v1_9.commands.Has;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,7 @@ public class ChangePrivacyLevelsController {
         return "changeplevels";
     }
 
-    @RequestMapping(value = "/submitsavechanges", method = RequestMethod.POST, params={"submit", "!savechanges"})
+    @RequestMapping(value = "/submitsavechanges", method = RequestMethod.POST, params={"submit", "!savechanges", "!dynamicv"})
     @Transactional
     public String attSelectTarget(@RequestParam(value = "inputPerson1") Long p1, final RedirectAttributes redirectAttributes){
 
@@ -67,7 +68,21 @@ public class ChangePrivacyLevelsController {
         return "redirect:/changeplevels";
     }
 
-    @RequestMapping(value = "/submitsavechanges", method = RequestMethod.POST, params={"!submit", "savechanges"})
+    @RequestMapping(value = "/submitsavechanges", method = RequestMethod.POST, params={"!submit", "!savechanges", "dynamicv"})
+    @Transactional
+    public String setDynamicV(@RequestParam(value = "inputAtt1") Long a1, final RedirectAttributes redirectAttributes){
+        attId = a1;
+
+        int vv = service.updateHasRelationshipDynamicVisibility(personId, attId);
+
+        String msg = service.getPerson(personId).getName() + "'s visibility values for the " +
+                service.getAttributeWithId(attId).getLabel() + " attribute have been updated dynamically";
+        redirectAttributes.addFlashAttribute("success", msg);
+
+        return "redirect:/changeplevels";
+    }
+
+    @RequestMapping(value = "/submitsavechanges", method = RequestMethod.POST, params={"!submit", "savechanges", "!dynamicv"})
     @Transactional
     public String attSelectFriend(@RequestParam(value = "inputAtt1") Long a1,
                                  @RequestParam(value = "inputP") String pv,

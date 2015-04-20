@@ -138,6 +138,28 @@ public class PersonService {
         }
     }
 
+    public int updateHasRelationshipDynamicVisibility(Long pid, Long attid){
+        Person p = getPerson(pid);
+        Collection<HasRelationship> hasRelationships = p.getAttributeRelationships();
+        int vv = 0;
+        for(HasRelationship h : hasRelationships){
+            h = getHasRelationship(h.getId());
+            Attribute ea = h.getEnd();
+            ea = getAttributeWithId(ea.getNodeID());
+            if(attid.equals(ea.getNodeID())){
+                int sv = h.getSv();
+                int pv = h.getPv();
+                vv = (sv + pv)/2;
+                h.setVv(vv);
+                h.setPv(pv);
+                h.setSv(sv);
+                hasRepository.save(h);
+                break;
+            }
+        }
+        return vv;
+    }
+
     public Person createPerson(String name){
         Person p = new Person(name);
         personRepository.save(p);

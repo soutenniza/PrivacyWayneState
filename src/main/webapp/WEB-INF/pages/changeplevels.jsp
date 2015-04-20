@@ -200,7 +200,7 @@
                                     </div></td>
                                 </tr>
                             </table>
-                            <input type="submit" name="savechanges" value="save changes" class="btn btn-danger"/>
+                            <input type="submit" name="savechanges" value="save changes" class="btn btn-danger"/> <input type="submit" name="dynamicv" value="Dynamic Visibility" class="btn btn-info"/>
                         </c:if>
                     </form>
                 </div>
