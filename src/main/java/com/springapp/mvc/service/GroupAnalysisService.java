@@ -31,25 +31,36 @@ public class GroupAnalysisService {
 
     public ArrayList<String> calculateFriendInGroup(Group group){ /*took same approach as in AnalysisService*/
         String location = "";
+        String education = "";
         ArrayList<String> allMessages;
         allMessages = FriendsInSingleGroup(root, group);
 
         Collection<Attribute> atts = service.getPerson(root.getNodeID()).getAttributes();
         for (Attribute att : atts) {
             Long aID = att.getNodeID();
+
             if (service.getAttributeWithId(aID).getLabel().contains("location")) {
                 location = (service.getAttributeWithId(aID).getValue());
+                continue;
             }
-
-
-            if (service.getAttributeWithId(aID).getValue().contains("GED")){
-                detectHighSchoolFriends(root, location);
-            }
-            if ((service.getAttributeWithId(aID).getValue().contains("4-year degree")) || (service.getAttributeWithId(aID).getValue().contains("PHD")) || (service.getAttributeWithId(aID).getValue().contains("Masters"))){
-                detectCollegeFriends(root, location);
-            }
-
         }
+        for (Attribute att : atts) {
+            Long aID = att.getNodeID();
+
+            if (service.getAttributeWithId(aID).getLabel().contains("education")){
+                education = (service.getAttributeWithId(aID).getValue());
+                if (education.equals("GED")){
+                    detectHighSchoolFriends(root, location);
+                    continue;
+                }
+                if ((education.equals("4-year degree")) || (education.equals("PHD")) || (education.equals("Masters")) || (education.equals("Associates"))){
+                    detectCollegeFriends(root, location);
+                    continue;
+                }
+            }
+        }
+
+        //predictAttributeFromGroups(root);
 
         return allMessages;
     }
@@ -137,14 +148,15 @@ public class GroupAnalysisService {
         ArrayList<String> messages = new ArrayList<>();
         ArrayList<Person> highschoolFriends = new ArrayList<>();
         String findCity = null;
+        String education = "";
 
         for(Person person : friends) {
             Collection<Attribute> atts = service.getPerson(person.getNodeID()).getAttributes();
             for (Attribute att : atts) {
                 Long aID = att.getNodeID();
                 if (service.getAttributeWithId(aID).getLabel().contains("education")) {
-                    String education = (service.getAttributeWithId(aID).getValue());
-                    if (service.getAttributeWithId(aID).getValue().contains("GED")){
+                    education = (service.getAttributeWithId(aID).getValue());
+                    if (education.equals("GED")){
                         findCity = "True";
                     } else {
                         findCity = "False";
@@ -171,7 +183,7 @@ public class GroupAnalysisService {
         }
 
         for (Person highschoolFriend : highschoolFriends){
-            detectHighSchoolFriendsPrivacyOutliers(root, highschoolFriend);
+            messages.add(detectHighSchoolFriendsPrivacyOutliers(root, highschoolFriend));
         }
 
         return messages;
@@ -200,15 +212,17 @@ public class GroupAnalysisService {
         ArrayList<Person> collegeFriends = new ArrayList<>();
         ArrayList<String> messages = new ArrayList<>();
         String findCity = null;
+        String education = "";
 
         for(Person person : friends) {
             Collection<Attribute> atts = service.getPerson(person.getNodeID()).getAttributes();
             for (Attribute att : atts) {
                 Long aID = att.getNodeID();
                 if (service.getAttributeWithId(aID).getLabel().contains("education")) {
-                    /*String education = (service.getAttributeWithId(aID).getValue());*/
-                    if ((service.getAttributeWithId(aID).getValue().contains("4-year degree")) || (service.getAttributeWithId(aID).getValue().contains("PHD")) || (service.getAttributeWithId(aID).getValue().contains("Masters"))){
+                    education = (service.getAttributeWithId(aID).getValue());
+                    if ((education.equals("4-year degree")) || (education.equals("PHD")) || (education.equals("Masters")) || (education.equals("Associates"))){
                         findCity = "True";
+
                     } else {
                         findCity = "False";
                         System.out.println(service.getPerson(person.getNodeID()).getName() + " did not attend the same College as " + service.getPerson(p.getNodeID()).getName());
@@ -235,7 +249,7 @@ public class GroupAnalysisService {
         }
 
         for (Person collegeFriend : collegeFriends){
-            detectCollegeFriendsPrivacyOutliers(root, collegeFriend);
+            messages.add(detectCollegeFriendsPrivacyOutliers(root, collegeFriend));
         }
 
 
@@ -267,7 +281,8 @@ public class GroupAnalysisService {
      * privacy level, sensitivity, and visibility
      * @return
      */
-    public int detectHighSchoolFriendsPrivacyOutliers(Person p, Person s){
+    public String detectHighSchoolFriendsPrivacyOutliers(Person p, Person s){
+        String msg = "";
         int threshold = 6;
         int counter = 0;
         int counter2 = 0;
@@ -280,9 +295,6 @@ public class GroupAnalysisService {
         for (HasRelationship a : pAtts) {
             int total = 0;
             a = service.getHasRelationship(a.getId());
-            /*System.out.println(service.getAttributeWithId(a.getEnd().getNodeID()).getLabel() + " " +
-                    service.getAttributeWithId(a.getEnd().getNodeID()).getValue());
-            System.out.println("pv" + a.getPv() + "sv" +a.getSv() + "vv" + a.getVv());*/
             total = ((a.getPv())  + (a.getSv()) + (a.getVv()));
             if (total >= 6){
                 counter = counter + 1;
@@ -292,10 +304,6 @@ public class GroupAnalysisService {
         for (HasRelationship b : sAtts) {
             int total2 = 0;
             b = service.getHasRelationship(b.getId());
-
-            /*System.out.println(service.getAttributeWithId(b.getEnd().getNodeID()).getLabel() + " " +
-                    service.getAttributeWithId(b.getEnd().getNodeID()).getValue());
-            System.out.println("pv" + b.getPv() + "sv" + b.getSv() + "vv" + b.getVv());*/
             total2 = ((b.getPv()) + (b.getSv()) + (b.getVv()));
             if (total2 >=6){
                 counter2 = counter2 + 1;
@@ -303,10 +311,11 @@ public class GroupAnalysisService {
         }
 
         if (counter < counter2){
+            msg = service.getPerson(spid).getName() + "is an outlier.";
             System.out.println(service.getPerson(spid).getName() + " is an outlier.");
         }
 
-        return 0;
+        return msg;
     }
 
     public int detectDepartmentFriendsPrivacyOutliers(Person p){
@@ -314,7 +323,8 @@ public class GroupAnalysisService {
         return 0;
     }
 
-    public int detectCollegeFriendsPrivacyOutliers(Person p, Person s){
+    public String detectCollegeFriendsPrivacyOutliers(Person p, Person s){
+        String msg = "";
         int threshold = 6;
         int counter = 0;
         int counter2 = 0;
@@ -350,10 +360,11 @@ public class GroupAnalysisService {
         }
 
         if (counter < counter2){
+            msg = service.getPerson(spid).getName() + " is an outlier.";
             System.out.println(service.getPerson(spid).getName() + " is an outlier.");
         }
 
-        return 0;
+        return msg;
     }
 
     public int detectSchoolFriendsPrivacyOutliers(Person p) {
@@ -377,14 +388,34 @@ public class GroupAnalysisService {
      *    homogenious groups are more predictive
      *    dense groups are more predictive
      */
-    HashMap<Attribute,Double> predictAttributeFromGroups(Person p,Group g, Attribute dk){
+    public int predictAttributeFromGroups(Person p){
         //consider dk as the class label
         //You may need to map a neo4j Attribute to the corresponding netkit.graph.Attribute
         //mew Attribute(java.lang.String name, Type type)
 
+        Long ppID = p.getNodeID();
 
-        //More than one group case
-        //1.get the set of relevent groups
+        int minSize = 100;
+        Long minGroupID = null;
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++");
+
+        Collection<Group> rootGroups = service.getPerson(ppID).getGroups();
+        for(Group group : rootGroups){
+            Long gpID = group.getNodeID();
+            System.out.println(service.getGroup(gpID).getName());
+            System.out.println(service.getGroup(gpID).getMembers().size());
+            if (minSize > service.getGroup(gpID).getMembers().size()){
+                minSize = service.getGroup(gpID).getMembers().size();
+                minGroupID = gpID;
+            }
+        }
+
+        System.out.println("==Blocker==");
+        System.out.println(service.getGroup(minGroupID).getName());
+
+
+
+
         ArrayList<Group> relevantgroups=null;
 
         //determine group homogenity (0 highest homogenity, 1 lowest homogenity)
@@ -392,7 +423,7 @@ public class GroupAnalysisService {
         // e.g. to predict dk=location, a group with 90% members from the same country
         //is your best predictor of the location class label
         double homogenity = 0;
-        Double dkk[]= new Double[g.getMembers().size()];
+        ///////////////////////////////Double dkk[]= new Double[g.getMembers().size()];
 
         //calculate entropy of the group g based on attribute dk
         // homogenity = JavaMI.Entropy.calculateEntropy(dkk);
@@ -403,10 +434,10 @@ public class GroupAnalysisService {
 
 
         //2. traverse the relevent groups and extract their values for dk
-        Double dkkrelevant[] = new Double[relevantgroups.size()];
+        ///////////////////////////////////////Double dkkrelevant[] = new Double[relevantgroups.size()];
         //train a classifier on dkkrelevant
         // get the class label for p's dk based on the trained classifier
-        return null;
+        return 0;
     }
 
     /**

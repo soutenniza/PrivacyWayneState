@@ -8,7 +8,7 @@ import com.springapp.mvc.model.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import netkit.classifiers.relational.*;
+//import netkit.classifiers.relational.*;
 
 /**
  * Created by narimanammar on 4/6/15.
@@ -151,7 +151,7 @@ public class OtherAnalyses {
         //mew Attribute(java.lang.String name, Type type)
 
 
-        ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
+        //ClassDistribRelNeighbor classifier = new ClassDistribRelNeighbor();
         //Instances = new Instances ("")
         //dk=age -->class label
         //p=new node for which i want to predict a class label

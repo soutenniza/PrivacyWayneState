@@ -8,7 +8,7 @@
             "political_view": "Center Left",
             "location": "Austin",
             "phone": "14424878544",
-            "education": "None",
+            "education": "4-year degree",
             "work": "Unemployed",
             "interests": [
                 "Cats"
@@ -32,7 +32,7 @@
             "political_view": "Right",
             "location": "Detroit",
             "phone": "12497589584",
-            "education": "GED",
+            "education": "4-year degree",
             "work": "Unemployed",
             "interests": [
                 "Soccer",
@@ -62,7 +62,7 @@
             "political_view": "Far Right",
             "location": "Detroit",
             "phone": "12494578563",
-            "education": "Associates",
+            "education": "4-year degree",
             "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Books",
@@ -86,7 +86,7 @@
             "age": "29",
             "birthday": "12/04/1986",
             "political_view": "Center Left",
-            "location": "Ann Arbor",
+            "location": "Detroit",
             "phone": "17455484512",
             "education": "4-Year Degree",
             "work": "Accountancy, Banking and Finance0",
@@ -114,7 +114,7 @@
             "political_view": "Center",
             "location": "Ann Arbor",
             "phone": "17454784754",
-            "education": "None",
+            "education": "4-year degree",
             "work": "Unemployed",
             "interests": [
                 "Books",
@@ -140,7 +140,7 @@
             "political_view": "Center Right",
             "location": "Ann Arbor",
             "phone": "17453245754",
-            "education": "Associates",
+            "education": "Masters",
             "work": "Charity and Voluntary",
             "interests": [
                 "Books",
@@ -196,7 +196,7 @@
             "political_view": "Far Right",
             "location": "Ferndale",
             "phone": "12474578542",
-            "education": "None",
+            "education": "GED",
             "work": "Accountancy, Banking and Finance",
             "interests": [
                 "Movies",
@@ -246,7 +246,7 @@
             "political_view": "Extreme Right",
             "location": "Lansing",
             "phone": "18985642532",
-            "education": "None",
+            "education": "4-year degree",
             "work": "Unemployed",
             "interests": [
                 "Scotch"
