@@ -120,6 +120,24 @@ public class PersonService {
         return found;
     }
 
+    public void updateHasRelationship(Long pid, Long attid, int pv, int vv, int sv){
+        Person p = getPerson(pid);
+        Attribute a = getAttributeWithId(attid);
+        Collection<HasRelationship> hasRelationships = p.getAttributeRelationships();
+        for(HasRelationship h : hasRelationships){
+            h = getHasRelationship(h.getId());
+            Attribute ea = h.getEnd();
+            ea = getAttributeWithId(ea.getNodeID());
+            if(attid.equals(ea.getNodeID())){
+                h.setPv(pv);
+                h.setVv(vv);
+                h.setSv(sv);
+                hasRepository.save(h);
+                break;
+            }
+        }
+    }
+
     public Person createPerson(String name){
         Person p = new Person(name);
         personRepository.save(p);

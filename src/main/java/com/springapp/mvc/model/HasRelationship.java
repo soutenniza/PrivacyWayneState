@@ -58,6 +58,12 @@ public class HasRelationship {
         return sv;
     }
 
+    public void setPv(int val) { pv = val; }
+
+    public void setVv(int val) { vv = val; }
+
+    public void setSv(int val) { sv = val; }
+
     public Attribute getEnd() { return attribute; }
 
     public Long getId() { return  id; }
