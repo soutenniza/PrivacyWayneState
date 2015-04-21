@@ -112,7 +112,6 @@
                         </div>
                     </div>
                     <input type="submit" name = "add" value="add comment" class="btn btn-success"/>
-                    <input type="submit" name = "whatif" value="Run What-If Analysis" class="btn btn-warning"/>
                 </form>
             </c:if>
         </div>
