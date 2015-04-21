@@ -86,7 +86,6 @@
                             </div>
                         </div>
                         <input type="submit" value="add comment" class="btn btn-success"/>
-                        <a class="btn btn-warning">Run "What-If" Analysis</a>
                     </form>
                 </div>
             </div>
