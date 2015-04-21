@@ -178,7 +178,7 @@
         </div>
         <hr>
         <br>
-        <center><a href="">Still lost? Check out the complete USER MANUAL</a> </center>
+        <center><a href="http://zackrzot.com/UserManual.pdf">Still lost? Check out the complete USER MANUAL</a> </center>
         <br>
     </div>
 </div>
