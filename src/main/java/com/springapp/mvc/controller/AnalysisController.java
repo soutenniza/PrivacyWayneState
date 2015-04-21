@@ -45,17 +45,24 @@ public class AnalysisController {
 
     @RequestMapping(value = "/submitanalysis", method = RequestMethod.POST)
     @Transactional
-    public String addFriend(@RequestParam(value = "inputPerson1") Long p1,
+    public String runAnalysis(@RequestParam(value = "inputPerson1") Long p1,
                             Model models, final RedirectAttributes redirectAttributes){
 
         analysisService.setRoot(personService.getPerson(p1));
         ArrayList<String> messages = analysisService.fullAnalysis();
         Collection<Group> group = personService.getPerson(p1).getGroups();
+        ArrayList<String> groupAnalysisMessages = new ArrayList<String>();
         Long gID = null;
+        boolean ingroup= false;
         for (Group g : group){
             gID = g.getNodeID();
+            ingroup = true;
+            break;
         }
-        ArrayList<String> groupAnalysisMessages = groupAnalysisService.calculateFriendInGroup(personService.getPerson(p1), personService.getGroup(gID));
+        if(ingroup){
+            groupAnalysisMessages.addAll(groupAnalysisService.calculateFriendInGroup(personService.getPerson(p1), personService.getGroup(gID)));
+        }
+
         redirectAttributes.addFlashAttribute("ran", "loaded");
 
         String relationshipStrengthMsgs = "";

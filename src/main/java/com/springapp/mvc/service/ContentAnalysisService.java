@@ -304,53 +304,56 @@ public class ContentAnalysisService {
                 // skip the owners comments and don't check root posts
                 c = service.getComment(c.getNodeID());
                 if((!c.getOwnerID().equals(p.getNodeID()))&&(!c.isRoot())){
-                    // iterate through invisible attributes
-                    for(Attribute a : invisibleAtts){
-                        a = service.getAttributeWithId(a.getNodeID());
-                        String label = a.getLabel().toLowerCase();
-                        String value = a.getValue().toLowerCase();
-                        String commentText = c.getText();
-                        String normalized = commentText.replaceAll("[!?,{}()_+-=]", "");
-                        normalized = normalized.toLowerCase();
-                        String[] words = normalized.split("\\s+");
-                        boolean lfound= false;
-                        boolean vfound= false;
-                        for(String w : words){
-                            if(w.equals(label)){
-                                lfound = true;
+                    //the comment's parent comment must have the owner of the root user
+                    Comment parentC = service.getComment(c.getParentID());
+                    if(parentC.getOwnerID().equals(p.getNodeID())){
+                        // iterate through invisible attributes
+                        for(Attribute a : invisibleAtts){
+                            a = service.getAttributeWithId(a.getNodeID());
+                            String label = a.getLabel().toLowerCase();
+                            String value = a.getValue().toLowerCase();
+                            String commentText = c.getText();
+                            String normalized = commentText.replaceAll("[!?,{}()_+-=]", "");
+                            normalized = normalized.toLowerCase();
+                            String[] words = normalized.split("\\s+");
+                            boolean lfound= false;
+                            boolean vfound= false;
+                            for(String w : words){
+                                if(w.equals(label)){
+                                    lfound = true;
+                                }
+                                if(w.equals(value)){
+                                    vfound = true;
+                                }
                             }
-                            if(w.equals(value)){
-                                vfound = true;
+                            System.out.println(vfound + " " + lfound);
+                            if(lfound){
+                                msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
+                                        "\" indirectly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
+                                messages.add(msg);
                             }
-                        }
-                        System.out.println(vfound + " " + lfound);
-                        if(lfound){
-                            msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
-                                    "\" indirectly mentions the attribute \"" + a.getLabel() + "\" that you set as invisible to others.";
-                            messages.add(msg);
-                        }
-                        if(vfound){
-                            String type = "";
-                            if (label.equals("interest")) {
-                                type = "interest";
-                            } else {
-                                type = "attribute";
+                            if(vfound){
+                                String type = "";
+                                if (label.equals("interest")) {
+                                    type = "interest";
+                                } else {
+                                    type = "attribute";
+                                }
+                                msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
+                                        "\" directly mentions the "+type+" \"" + a.getLabel() + "\" that you set as invisible to others.";
+                                messages.add(msg);
                             }
-                            msg = service.getPerson(c.getOwnerID()).getName() + "'s reply to one of your comments: \"" + c.getText() +
-                                    "\" directly mentions the "+type+" \"" + a.getLabel() + "\" that you set as invisible to others.";
-                            messages.add(msg);
-                        }
-                        predictMsg = predictContext(c.getText(), a.getLabel(), service.getPerson(c.getOwnerID()).getName());
-                        if(!predictMsg.equals("")){
-                            messages.add(predictMsg);
-                        }
-                        predictMsg = predictContext(c.getText(), a.getValue(), service.getPerson(c.getOwnerID()).getName());
-                        if(!predictMsg.equals("")){
-                            messages.add(predictMsg);
-                        }
+                            predictMsg = predictContext(c.getText(), a.getLabel(), service.getPerson(c.getOwnerID()).getName());
+                            if(!predictMsg.equals("")){
+                                messages.add(predictMsg);
+                            }
+                            predictMsg = predictContext(c.getText(), a.getValue(), service.getPerson(c.getOwnerID()).getName());
+                            if(!predictMsg.equals("")){
+                                messages.add(predictMsg);
+                            }
 
+                        }
                     }
-
                 }
             }
         }
