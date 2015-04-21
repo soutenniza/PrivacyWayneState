@@ -463,7 +463,7 @@ public class GroupAnalysisService {
         double avgAge = total3/size;
         System.out.println("Average Age: " + avgAge);
 
-        messages.add((calculateModelAccuracy(root, avgAge))+ "from your affiliation with the group: " + service.getGroup(RelevantGroupId).getName());
+        messages.add((calculateModelAccuracy(root, avgAge))+ " from your affiliation with the group: " + service.getGroup(RelevantGroupId).getName());
 
 
 
